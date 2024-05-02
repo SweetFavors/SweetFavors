@@ -1,35 +1,43 @@
 import 'package:flutter/material.dart';
 import 'package:sweet_favors/Utils/color_use.dart';
-
-
+import 'package:sweet_favors/pages/Wish/wish_details.dart';
 
 class CardWidget extends StatelessWidget {
   final String product;
   final String grantBy;
-  
-  const CardWidget(
-    {super.key,
-     required this.product,
-     required this.grantBy,
 
-     });
+  const CardWidget({super.key, required this.product, required this.grantBy});
 
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Card(
+      child: Container(
         margin: EdgeInsets.only(bottom: 25),
-        color: colorUse.secondaryColor,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            SizedBox(height: 10.0), // Space at the top
-            ListTile(
-              title: Text(product),
-              subtitle: Text('Granted by $grantBy'),
+        child: InkWell(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => WishDetails(),
+                // builder: (context) => WishDetails(product: product, grantBy: grantBy),
+              ),
+            );
+          },
+          child: Card(
+            // margin: EdgeInsets.only(bottom: 25),
+            color: colorUse.secondaryColor,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                SizedBox(height: 10.0),
+                ListTile(
+                  title: Text(product),
+                  subtitle: Text('Granted by $grantBy'),
+                ),
+                SizedBox(height: 10.0),
+              ],
             ),
-            SizedBox(height: 10.0), // Space at the bottom
-          ],
+          ),
         ),
       ),
     );
