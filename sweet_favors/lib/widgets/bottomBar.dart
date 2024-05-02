@@ -46,7 +46,7 @@ class _bottomBar extends State<bottomBar> with SingleTickerProviderStateMixin {
       body: BottomBar(
         fit: StackFit.expand,
         borderRadius: BorderRadius.circular(500),
-        duration: Duration(seconds: 1),
+        duration: const Duration(seconds: 1),
         curve: Curves.decelerate,
         showIcon: true,
         width: MediaQuery.of(context).size.width * 0.8,
@@ -66,7 +66,7 @@ class _bottomBar extends State<bottomBar> with SingleTickerProviderStateMixin {
           controller: tabController,
           dragStartBehavior: DragStartBehavior.down,
           physics: const BouncingScrollPhysics(),
-          children: [
+          children: const [
             FirstHomePage(),
             WishGrantPage(),
             NewWishAdd(),

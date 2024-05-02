@@ -8,9 +8,9 @@ class NewWishAdd extends StatelessWidget {
    Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Third Page"),
-        leading: IconButton(onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => Home()))  ,
-                                icon: new Icon(Icons.arrow_back, color: Colors.black)),
+        title: const Text("Third Page"),
+        leading: IconButton(onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const Home()))  ,
+                                icon: const Icon(Icons.arrow_back, color: Colors.black)),
       ),
       body: const Center(
         child: Text("This is the content of the Third Page"),

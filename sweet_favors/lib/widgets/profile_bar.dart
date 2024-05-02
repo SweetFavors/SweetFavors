@@ -55,7 +55,7 @@ class ProfileBar extends StatelessWidget {
                         ],
                       ),
                     ),
-                    SizedBox(height: 5.0), 
+                    const SizedBox(height: 5.0), 
                     Text(
                       email, 
                       style: const TextStyle(

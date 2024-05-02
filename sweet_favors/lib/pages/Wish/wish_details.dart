@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
 import 'package:sweet_favors/Utils/color_use.dart';
 import 'package:sweet_favors/Utils/text_use.dart';
 import 'package:sweet_favors/pages/home.dart';
@@ -12,9 +10,9 @@ class WishDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Heading('Waifu'),
-        leading: IconButton(onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => Home()))  ,
-                                icon: new Icon(Icons.arrow_back, color: Colors.black)),
+        title: const Heading('Waifu'),
+        leading: IconButton(onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const Home()))  ,
+                                icon: const Icon(Icons.arrow_back, color: Colors.black)),
       ),
       
       body: Container(
@@ -23,15 +21,15 @@ class WishDetails extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(height: 30,),
+              const SizedBox(height: 30,),
               Image.asset('testWishdetails.jpg',
               width: MediaQuery.of(context).size.width * 0.8,
               height: MediaQuery.of(context).size.height * 0.4,
               ),
-              SizedBox(height: 25,),
+              const SizedBox(height: 25,),
               Container(
                 width: double.infinity,
-                padding: EdgeInsets.symmetric(horizontal: 50),
+                padding: const EdgeInsets.symmetric(horizontal: 50),
                 child: const Column(
                   crossAxisAlignment: CrossAxisAlignment.start, 
                   children: [
@@ -73,15 +71,15 @@ class WishDetails extends StatelessWidget {
                 builder: (context, constraints) {
                   return ElevatedButton(
                     onPressed: () {},
-                    child: RegularTextButton('GRANT WISH'),
                     style: ElevatedButton.styleFrom(
                       fixedSize: Size(constraints.maxWidth * 0.8, 50), // Adjust height as needed
                       backgroundColor: colorUse.activeButton
                     ),
+                    child: const RegularTextButton('GRANT WISH'),
                   );
                 },
               ),        
-              SizedBox(height: 30,)
+              const SizedBox(height: 30,)
             ],
             
           ),

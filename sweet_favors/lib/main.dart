@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sweet_favors/pages/Wish/wish_details.dart';
 import 'package:sweet_favors/pages/home.dart';
 
 
@@ -14,7 +13,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
    return MaterialApp(
       theme: ThemeData(fontFamily: 'Inter'),
-      home: Home(),
+      home: const Home(),
       // home: WishDetails(),
 
   );

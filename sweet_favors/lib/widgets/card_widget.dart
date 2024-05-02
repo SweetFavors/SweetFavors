@@ -12,13 +12,13 @@ class CardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Container(
-        margin: EdgeInsets.only(bottom: 25),
+        margin: const EdgeInsets.only(bottom: 25),
         child: InkWell(
           onTap: () {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => WishDetails(),
+                builder: (context) => const WishDetails(),
                 // builder: (context) => WishDetails(product: product, grantBy: grantBy),
               ),
             );
@@ -29,12 +29,12 @@ class CardWidget extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                SizedBox(height: 10.0),
+                const SizedBox(height: 10.0),
                 ListTile(
                   title: Text(product),
                   subtitle: Text('Granted by $grantBy'),
                 ),
-                SizedBox(height: 10.0),
+                const SizedBox(height: 10.0),
               ],
             ),
           ),
