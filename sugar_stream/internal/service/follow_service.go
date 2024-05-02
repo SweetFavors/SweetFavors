@@ -14,8 +14,6 @@ func NewFollowService(followRepo repository.FollowRepository) followService {
 	return followService{followRepo: followRepo}
 }
 
-
-
 func (s followService) GetFollows() ([]entities.Follow, error) {
 	follows, err := s.followRepo.GetAllFollow()
 	if err != nil {
@@ -26,7 +24,7 @@ func (s followService) GetFollows() ([]entities.Follow, error) {
 	followResponses := []entities.Follow{}
 	for _, follow := range follows {
 		userResponse := entities.Follow{
-			UserID: follow.UserID,
+			UserID:      follow.UserID,
 			FollowingID: follow.FollowingID,
 		}
 		followResponses = append(followResponses, userResponse)
@@ -34,37 +32,38 @@ func (s followService) GetFollows() ([]entities.Follow, error) {
 	return followResponses, nil
 }
 
-
-
-func (s followService) GetFollowing(userid int) (*entities.Follow, error) {
-	follow, err := s.followRepo.GetUserIDFollowing(userid)
+func (s followService) GetFollowing(userid int) ([]entities.Follow, error) {
+	follows, err := s.followRepo.GetUserIDFollowing(userid)
 	if err != nil {
 		log.Println(err)
 		return nil, err
 	}
 
-	followResponse := entities.Follow{
-		UserID: follow.UserID,
-		FollowingID: follow.FollowingID,
+	followResponses := []entities.Follow{}
+	for _, follow := range follows {
+		userResponse := entities.Follow{
+			UserID:      follow.UserID,
+			FollowingID: follow.FollowingID,
+		}
+		followResponses = append(followResponses, userResponse)
 	}
-	return &followResponse, nil
+	return followResponses, nil
 }
 
-
-
-func (s followService) GetFollowers(userid int) (*entities.Follow, error) {
-	follow, err := s.followRepo.GetUserIDFollowers(userid)
+func (s followService) GetFollowers(userid int) ([]entities.Follow, error) {
+	follows, err := s.followRepo.GetUserIDFollowers(userid)
 	if err != nil {
 		log.Println(err)
 		return nil, err
 	}
 
-	followResponse := entities.Follow{
-		UserID: follow.UserID,
-		FollowingID: follow.FollowingID,
+	followResponses := []entities.Follow{}
+	for _, follow := range follows {
+		userResponse := entities.Follow{
+			UserID:      follow.UserID,
+			FollowingID: follow.FollowingID,
+		}
+		followResponses = append(followResponses, userResponse)
 	}
-	return &followResponse, nil
+	return followResponses, nil
 }
-
-
-
