@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:sweet_favors/Utils/color_use.dart';
 import 'package:sweet_favors/Utils/text_use.dart';
+import 'package:sweet_favors/pages/Payment/payment.dart';
 import 'package:sweet_favors/pages/home.dart';
+import 'package:sweet_favors/widgets/button_at_bottom.dart';
+import 'package:sweet_favors/widgets/title_bar.dart';
 
 class WishDetails extends StatelessWidget {
   const WishDetails({super.key});
@@ -9,12 +11,7 @@ class WishDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Heading('Waifu'),
-        leading: IconButton(onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const Home()))  ,
-                                icon: const Icon(Icons.arrow_back, color: Colors.black)),
-      ),
-      
+      appBar: const CustomAppBarNavigation(title: 'Waifu', backDestination: Home()),
       body: Container(
         child: Center(
           child: Column(
@@ -61,32 +58,16 @@ class WishDetails extends StatelessWidget {
                           padding: EdgeInsets.only(left: 12),
                           child: RegularText('test'),
                         ),
-
-
                   ],
                 ),
               ),
               const Spacer(),
-              LayoutBuilder(
-                builder: (context, constraints) {
-                  return ElevatedButton(
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(
-                      fixedSize: Size(constraints.maxWidth * 0.8, 50), // Adjust height as needed
-                      backgroundColor: colorUse.activeButton
-                    ),
-                    child: const RegularTextButton('GRANT WISH'),
-                  );
-                },
-              ),        
-              const SizedBox(height: 30,)
+              ButtonAtBottom(onPressed: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const Payment()));
+              }, text: 'GRANT WISH')
             ],
-            
           ),
-          
-            
-        ),
-        
+        ),      
       ),
     );
   }
