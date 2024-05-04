@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sweet_favors/pages/home.dart';
 
-
 void main() {
   runApp(const MainApp());
 }
@@ -11,11 +10,10 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-   return MaterialApp(
+    return MaterialApp(
       theme: ThemeData(fontFamily: 'Inter'),
       home: const Home(),
       // home: WishDetails(),
-
-  );
- }
- }
+    );
+  }
+}

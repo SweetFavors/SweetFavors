@@ -14,18 +14,21 @@ class WishGrant extends StatelessWidget {
           child: Column(
         children: [
           Container(
-            height: MediaQuery.of(context).size.height / 1.5,
+            height: MediaQuery.of(context).size.height / 1.7,
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  ClipRRect(
-                      borderRadius: BorderRadius.circular(8.0),
-                      child: Image.asset(
-                        'assets/myGirl.png',
-                        width: 200,
-                        height: 200,
-                        fit: BoxFit.cover,
-                      )),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ClipRRect(
+                        borderRadius: BorderRadius.circular(8.0),
+                        child: Image.asset(
+                          'assets/myGirl.png',
+                          width: 200,
+                          height: 200,
+                          fit: BoxFit.cover,
+                        )),
+                  ),
                   Text(
                     price,
                     style: const TextStyle(

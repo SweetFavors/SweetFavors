@@ -3,6 +3,7 @@ import 'package:sweet_favors/widgets/profile_bar.dart';
 import 'package:sweet_favors/widgets/wish_grant_widget.dart';
 import 'package:sweet_favors/widgets/button_at_bottom.dart';
 import 'package:sweet_favors/pages/Wish/wish_details.dart';
+import 'package:flutter_swiper_view/flutter_swiper_view.dart';
 
 class WishGrantPage extends StatelessWidget {
   const WishGrantPage({super.key});
@@ -24,7 +25,19 @@ class WishGrantPage extends StatelessWidget {
             ),
 
             SizedBox(height: 35.0),
-            WishGrant(price: "133"),
+            SizedBox(
+              height: MediaQuery.of(context).size.height /
+                  1.5, // Set the desired height
+              child: Swiper(
+                itemBuilder: (context, index) {
+                  return WishGrant(price: "133");
+                },
+                itemCount: 3,
+                itemHeight: 600,
+                itemWidth: 600,
+                layout: SwiperLayout.STACK,
+              ),
+            ),
             ButtonAtBottom(
                 onPressed: () {
                   Navigator.push(
