@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:sweet_favors/Utils/color_use.dart';
-import 'package:sweet_favors/pages/Wish/wish_details.dart';
 
 class WishGrant extends StatelessWidget {
   final String price;
@@ -12,66 +11,32 @@ class WishGrant extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Container(
-          margin: const EdgeInsets.only(bottom: 25),
           child: Column(
-            children: [
-              Container(
-                height: MediaQuery.of(context).size.height / 1.5,
-                // decoration: BoxDecoration(
-                //   border: Border.all(
-                //       color: const Color(0xFF000000),
-                //       width: 4.0,
-                //       style: BorderStyle.solid), //Border.all
-                //   /*** The BorderRadius widget  is here ***/
-                //   borderRadius: BorderRadius.all(
-                //     Radius.circular(10),
-                //   ),
-                //   color: Color.fromARGB(255, 255, 115, 232),
-                // ),
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      ClipRRect(
-                          borderRadius: BorderRadius.circular(8.0),
-                          child: Image.asset(
-                            'assets/myGirl.png',
-                            width: 200,
-                            height: 200,
-                            fit: BoxFit.cover,
-                          )),
-                      Text(
-                        price,
-                        style: const TextStyle(
-                          fontSize: 14.0,
-                          color: colorUse.textColorSecondary,
-                          shadows: [
-                            Shadow(
-                              blurRadius: 15.0,
-                              color: Color.fromARGB(255, 0, 0, 0),
-                              offset: Offset(8, 5),
-                            )
-                          ],
-                        ),
-                      ),
-                      ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const WishDetails(),
-                              // builder: (context) => WishDetails(product: product, grantBy: grantBy),
-                            ),
-                          );
-                        },
-                        child: Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: Text('View wish detail'),
-                        ),
-                      )
-                    ]),
-              )
-            ],
-          )),
+        children: [
+          Container(
+            height: MediaQuery.of(context).size.height / 1.5,
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  ClipRRect(
+                      borderRadius: BorderRadius.circular(8.0),
+                      child: Image.asset(
+                        'assets/myGirl.png',
+                        width: 200,
+                        height: 200,
+                        fit: BoxFit.cover,
+                      )),
+                  Text(
+                    price,
+                    style: const TextStyle(
+                      fontSize: 24.0,
+                      color: colorUse.textColorSecondary,
+                    ),
+                  ),
+                ]),
+          )
+        ],
+      )),
     );
   }
 }
@@ -111,8 +76,7 @@ class WishGrant extends StatelessWidget {
 //               border: Border.all(
 //                   color: const Color(0xFF000000),
 //                   width: 4.0,
-//                   style: BorderStyle.solid), //Border.all
-//               /*** The BorderRadius widget  is here ***/
+//                   style: BorderStyle.solid),
 //               borderRadius: BorderRadius.all(
 //                 Radius.circular(10),
 //               ),
