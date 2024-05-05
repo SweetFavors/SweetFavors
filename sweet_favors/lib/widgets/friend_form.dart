@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 
-class TextForm extends StatefulWidget {
+class FriendForm extends StatefulWidget {
   final String label;
-  const TextForm({super.key, required this.label});
+  const FriendForm({super.key, required this.label});
 
   @override
-  State<TextForm> createState() => _TextFormState();
+  State<FriendForm> createState() => _FriendFormState();
 }
 
-class _TextFormState extends State<TextForm> {
+class _FriendFormState extends State<FriendForm> {
+  final _formKey = GlobalKey<FormState>();
   final myConroter = TextEditingController();
 
   @override
@@ -22,12 +23,6 @@ class _TextFormState extends State<TextForm> {
               border: OutlineInputBorder(),
               hintText: widget.label,
             ),
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Please input the ${widget.label.toLowerCase()}';
-              }
-              return null;
-            },
             controller: myConroter,
           ),
         ),

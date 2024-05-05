@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:sweet_favors/widgets/card_widget.dart';
 import 'package:sweet_favors/widgets/profile_bar.dart';
+import 'package:sweet_favors/widgets/bottomBar.dart';
 
-class FirstHomePage extends StatelessWidget {
-  const FirstHomePage({super.key});
+class FriendWishlist extends StatelessWidget {
+  const FriendWishlist({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +30,7 @@ class FirstHomePage extends StatelessWidget {
           ],
         ),
       ),
+      // bottomNavigationBar: bottomBar(),
     );
   }
 }
