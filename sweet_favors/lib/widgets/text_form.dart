@@ -11,7 +11,6 @@ class TextForm extends StatefulWidget {
 }
 
 class _TextFormState extends State<TextForm> {
-  final _formKey = GlobalKey<FormState>();
   final myConroter = TextEditingController();
 
   @override
