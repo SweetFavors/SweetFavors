@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sweet_favors/Utils/color_use.dart';
+import 'package:sweet_favors/pages/Profile/profile.dart';
+// import 'package:sweet_favors/pages/home.dart';
 
 class ProfileBar extends StatelessWidget {
   final String images;
@@ -29,9 +31,17 @@ class ProfileBar extends StatelessWidget {
               )
             ],
           ),
-          child: CircleAvatar(
-            radius: 40.0,
-            backgroundImage: AssetImage(images),
+          child: InkWell(
+            onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const Profile()),
+                  );
+                },
+            child: CircleAvatar(
+              radius: 40.0,
+              backgroundImage: AssetImage(images),
+            ),
           ),
         ),
         const SizedBox(width: 20.0), // Space between picture and text

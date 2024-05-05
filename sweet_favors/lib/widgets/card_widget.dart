@@ -20,7 +20,6 @@ class CardWidget extends StatelessWidget {
               context,
               MaterialPageRoute(
                 builder: (context) => const WishDetails(),
-                // builder: (context) => WishDetails(product: product, grantBy: grantBy),
               ),
             );
           },

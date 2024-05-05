@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:sweet_favors/Utils/color_use.dart';
 import 'package:sweet_favors/Utils/text_use.dart';
+import 'package:sweet_favors/pages/Profile/edit_profile.dart';
+import 'package:sweet_favors/pages/Profile/eula.dart';
 import 'package:sweet_favors/widgets/bottomBar.dart';
 import 'package:sweet_favors/widgets/button_at_bottom.dart';
 import 'package:sweet_favors/widgets/card_widget.dart';
@@ -33,7 +35,8 @@ class _ProfileState extends State<Profile> {
               ]
 
     )
-    ,bottomNavigationBar: bottomBar(),);
+    // ,bottomNavigationBar: bottomBar(),
+    );
   }
 
 Widget logout () {
@@ -56,8 +59,8 @@ Widget buildContent () {
           SizedBox(height: 20,),
           RegularText('Email | phone num'),
           SizedBox(height: 40,),
-          ProfileCard(product: 'Edit profile information',icon: Icons.edit_square,),
-          ProfileCard(product: 'Privacy policy', icon: Icons.policy,),
+          ProfileCard(product: 'Edit profile information',icon: Icons.edit_square,destination: EditProfile(),),
+          ProfileCard(product: 'Privacy policy', icon: Icons.policy,destination: Eula(),),
         ],
       ),
     ),

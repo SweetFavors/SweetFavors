@@ -19,7 +19,7 @@ class WishDetails extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const SizedBox(height: 30,),
-              Image.asset('testWishdetails.jpg',
+              Image.asset('assets/testWishdetails.jpg',
               width: MediaQuery.of(context).size.width * 0.8,
               height: MediaQuery.of(context).size.height * 0.4,
               ),
