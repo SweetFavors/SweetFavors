@@ -26,7 +26,7 @@ class _bottomBar extends State<bottomBar> with SingleTickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    tabController = TabController(vsync: this, length: icons.length); 
+    tabController = TabController(vsync: this, length: icons.length);
     tabController.addListener(() {
       setState(() {
         currentPage = tabController.index;
@@ -75,26 +75,26 @@ class _bottomBar extends State<bottomBar> with SingleTickerProviderStateMixin {
         ),
         child: TabBar(
           controller: tabController,
-          tabs: List.generate(icons.length, (index) => Tab(
-                icon: Container( 
-                  width: 40,
-                  height: 40,
-                  decoration: BoxDecoration(
-                      color: currentPage == index ? colorUse.activeIconCircle : null, 
-                      shape: BoxShape.circle,
-                      
-                  ),
-                  child: Icon(
-                      icons[index], 
-                      color: currentPage == index ? colorUse.activeIcon : colorUse.inactiveIcon 
-                  ),
+          tabs: List.generate(
+            icons.length,
+            (index) => Tab(
+              icon: Container(
+                width: 40,
+                height: 40,
+                decoration: BoxDecoration(
+                  color:
+                      currentPage == index ? colorUse.activeIconCircle : null,
+                  shape: BoxShape.circle,
                 ),
+                child: Icon(icons[index],
+                    color: currentPage == index
+                        ? colorUse.activeIcon
+                        : colorUse.inactiveIcon),
               ),
+            ),
           ),
         ),
       ),
     );
   }
 }
-
-

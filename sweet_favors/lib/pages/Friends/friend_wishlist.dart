@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sweet_favors/widgets/card_widget.dart';
-import 'package:sweet_favors/widgets/profile_bar.dart';
+import 'package:sweet_favors/widgets/friend_profile_bar.dart';
 import 'package:sweet_favors/widgets/bottomBar.dart';
 
 class FriendWishlist extends StatelessWidget {
@@ -16,7 +16,7 @@ class FriendWishlist extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Profile Row
-            ProfileBar(
+            FriendProfileBar(
               images: 'assets/myGirl.png',
               name: "THE JUSTICE",
               email: "THEJUSTICE@MementoMori.com",
