@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:sweet_favors/Auth/login.dart';
+import 'package:sweet_favors/Auth/login_or_register.dart';
+import 'package:sweet_favors/Auth/sign_up.dart';
 import 'package:sweet_favors/pages/home.dart';
 
 void main() {
@@ -11,8 +14,9 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(fontFamily: 'Inter'),
-      home: const Home(),
+      home: const LoginOrRegister(),
       // home: WishDetails(),
     );
   }
