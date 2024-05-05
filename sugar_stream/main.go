@@ -40,7 +40,6 @@ func main() {
 		panic("Failed to AutoMigrate")
 	}
 
-
 	userRepositoryDB := repository.NewUserRepositoryDB(db)
 	wishlistRepositoryDB := repository.NewWishlistRepositoryDB(db)
 	followRepositoryDB := repository.NewFollowRepositoryDB(db)
@@ -57,6 +56,7 @@ func main() {
 
 	//Endpoint ###########################################################################
 
+	// Just endpoint of test (Don't use it. Use down there endpoint)
 	app.Get("/Users", userHandler.GetUsers)
 	app.Get("/User/:UserID", userHandler.GetUser)
 
@@ -67,7 +67,7 @@ func main() {
 	app.Get("/Wishlists", wishlistHandler.GetWishlists)
 	app.Get("/Wishlist/:WishlistID", wishlistHandler.GetWishlist)
 
-	app.Get("/WishlistOfUser/:UserID", wishlistHandler.GetWishlistOfUser)
+	app.Get("/WishlistOfUser/:UserID", wishlistHandler.GetWishlistsOfUser)
 
 	//------------------------------------------------------------------------------------
 
@@ -76,6 +76,19 @@ func main() {
 	app.Get("/Following/:UserID", followHandler.GetFollowing)
 	app.Get("/Followers/:UserID", followHandler.GetFollowers)
 
+	//////////////////////////////////////////////////////////////////////////////////////
+
+	// Use this endpoint for project
+
+	app.Get("/GetWishlistsOfCurrentUser/:UserID", wishlistHandler.GetWishlistsOfCurrentUser)
+	app.Get("/GetProfileOfCurrentUser/:UserID", userHandler.GetProfileOfCurrentUser)
+
+	app.Get("/GetFollowingOfCurrentUser/:UserID", followHandler.GetFollowingOfCurrentUser)
+	app.Get("/GetFollowersOfCurrentUser/:UserID", followHandler.GetFollowersOfCurrentUser)
+	app.Get("/GetSearchFriend/:UserID", userHandler.GetSearchFriend)
+	//app.Get("/GetFriendsWishlists/:UserID", user????.GetFriendsWishlists)
+	app.Get("/GetWishlistDetails/:WishlistID", wishlistHandler.GetWishlistDetails)
+	app.Get("/GetDonateInfo/:UserID", userHandler.GetDonateInfo)
 	//#####################################################################################
 
 	log.Printf("ToDoList run at port:  %v", viper.GetInt("app.port"))
