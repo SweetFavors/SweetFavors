@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sweet_favors/Utils/color_use.dart';
-import 'package:sweet_favors/pages/Navbar/friend_page.dart';
+import 'package:sweet_favors/pages/home.dart';
 
 class FriendProfileBar extends StatelessWidget {
   final String images;
@@ -19,8 +19,8 @@ class FriendProfileBar extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         IconButton(
-            onPressed: () => Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const Friendpage())),
+            onPressed: () => Navigator.push(
+                context, MaterialPageRoute(builder: (context) => const Home())),
             icon: const Icon(Icons.arrow_back, color: Colors.black)),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
