@@ -24,15 +24,15 @@ class FirstHomePage extends StatelessWidget {
               child: ProfileBar(
                 images: 'assets/myGirl.png',
                 name: "THE JUSTICE",
-                email: "THEJUSTICE@MementoMori.com",
+                email: "Thejustice@gmail.com",
               ),
             ),
 
             SizedBox(height: 35.0), // Spacing between profile and card
 
             // Card positioned below profile
-            CardWidget(product: 'XD', grantBy: 'XD123'),
-            CardWidget(product: 'momoXD', grantBy: 'XD12345'),
+            CardWidget(product: 'Waifu', grantBy: 'XD123'),
+            CardWidget(product: 'My Product Wish', grantBy: 'XD12345'),
           ],
         ),
       ),

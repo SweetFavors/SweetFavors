@@ -26,14 +26,29 @@ class CardWidget extends StatelessWidget {
           child: Card(
             // margin: EdgeInsets.only(bottom: 25),
             color: Color.fromARGB(255, 244, 221, 255),
-            elevation: 5,
+            elevation: 7,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 const SizedBox(height: 10.0),
                 ListTile(
-                  title: Text(product),
-                  subtitle: Text('Granted by $grantBy'),
+                  contentPadding: const EdgeInsets.symmetric(
+                      horizontal: 16.0, vertical: 8.0),
+                  title: Padding(
+                    padding: const EdgeInsets.only(bottom: 10.0),
+                    child: Text(
+                      product,
+                      style: TextStyles.cardTitleStyle(),
+                    ),
+                  ),
+                  subtitle: Text(
+                    'Granted by $grantBy',
+                    style: const TextStyle(
+                      color: Color.fromARGB(255, 93, 94, 101),
+                    ).merge(
+                      TextStyles.cardSubtitleStyle(),
+                    ),
+                  ),
                 ),
                 const SizedBox(height: 10.0),
               ],

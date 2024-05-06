@@ -61,7 +61,7 @@ class ProfileBar extends StatelessWidget {
                 color: colorUse.textColorPrimary,
                 shadows: [
                   Shadow(
-                    blurRadius: 10.0,
+                    blurRadius: 8.0,
                     color: colorUse.textShadow,
                     offset: Offset(3, 3),
                   )

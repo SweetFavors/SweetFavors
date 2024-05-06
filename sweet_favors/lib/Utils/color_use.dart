@@ -12,5 +12,5 @@ class colorUse {
   static const activeIcon = Color(0xffFFFFFF);
   static const inactiveIcon = Color(0xffA48AA5);
   static const activeIconCircle = Color(0xffDF8FD2);
-  static const textShadow = Color.fromARGB(255, 114, 114, 114);
+  static const textShadow = Color.fromARGB(255, 124, 124, 124);
 }
