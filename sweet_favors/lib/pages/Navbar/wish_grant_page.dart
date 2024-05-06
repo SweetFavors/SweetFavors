@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sweet_favors/Utils/color_use.dart';
 import 'package:sweet_favors/widgets/profile_bar.dart';
 import 'package:sweet_favors/widgets/wish_grant_widget.dart';
 import 'package:sweet_favors/widgets/button_at_bottom.dart';
@@ -12,31 +13,60 @@ class WishGrantPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: EdgeInsets.all(20.0),
+        padding: const EdgeInsets.all(20.0),
         child: Column(
           // Main column
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Profile Row
-            ProfileBar(
-              images: 'assets/myGirl.png',
-              name: "THE JUSTICE",
-              email: "THEJUSTICE@MementoMori.com",
+            const SizedBox(
+              height: 40,
             ),
-
-            SizedBox(height: 35.0),
-            SizedBox(
-              height: MediaQuery.of(context).size.height /
-                  1.5, // Set the desired height
-              child: Swiper(
-                itemBuilder: (context, index) {
-                  return WishGrant(price: "133");
-                },
-                itemCount: 3,
-                itemHeight: 600,
-                itemWidth: 600,
-                layout: SwiperLayout.STACK,
+            // Profile Row
+            const SizedBox(
+              height: 55,
+              width: 400,
+              child: ProfileBar(
+                images: 'assets/myGirl.png',
+                name: "THE JUSTICE",
+                email: "Thejustice@gmail.com",
               ),
+            ),
+            const SizedBox(
+              height: 60,
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height / 2.2,
+              child: Swiper(
+                layout: SwiperLayout.STACK,
+                itemCount: 3,
+                itemHeight: 300,
+                itemWidth: 800,
+                scrollDirection: Axis.horizontal,
+                viewportFraction: 0.1,
+                itemBuilder: (context, index) {
+                  return index == 0
+                      ? const WishGrant(
+                          price: "\$150") // Change the price accordingly
+                      : const SizedBox
+                          .shrink(); // Hide the WishGrant widget for other items
+                },
+              ),
+            ),
+            // Expanded(
+            //   // height: MediaQuery.of(context).size.height /
+            //   //     2, // Set the desired height
+            //   child: Swiper(
+            //     itemBuilder: (context, index) {
+            //       return const WishGrant(price: "\$150");
+            //     },
+            //     itemCount: 3,
+            //     itemHeight: 600,
+            //     itemWidth: 600,
+            //     layout: SwiperLayout.STACK,
+            //   ),
+            // ),
+            const SizedBox(
+              height: 50,
             ),
             ButtonAtBottom(
                 onPressed: () {

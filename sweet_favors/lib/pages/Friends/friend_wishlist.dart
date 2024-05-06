@@ -19,7 +19,7 @@ class FriendWishlist extends StatelessWidget {
             FriendProfileBar(
               images: 'assets/myGirl.png',
               name: "THE JUSTICE",
-              email: "THEJUSTICE@MementoMori.com",
+              email: "Thejustice@gmail.com",
             ),
 
             SizedBox(height: 35.0), // Spacing between profile and card

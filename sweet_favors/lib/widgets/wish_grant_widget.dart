@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:sweet_favors/Utils/color_use.dart';
 
 class WishGrant extends StatelessWidget {
@@ -10,36 +11,38 @@ class WishGrant extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Container(
-          child: Column(
+      child: Column(
         children: [
-          Container(
-            height: MediaQuery.of(context).size.height / 1.7,
+          SizedBox(
+            height: MediaQuery.of(context).size.height / 2.5,
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(5.0),
                     child: ClipRRect(
                         borderRadius: BorderRadius.circular(8.0),
                         child: Image.asset(
                           'assets/myGirl.png',
-                          width: 200,
+                          width: 350,
                           height: 200,
                           fit: BoxFit.cover,
                         )),
                   ),
+                  const SizedBox(
+                    height: 38,
+                  ),
                   Text(
                     price,
                     style: const TextStyle(
-                      fontSize: 24.0,
-                      color: colorUse.textColorSecondary,
-                    ),
+                        fontSize: 24.0,
+                        color: colorUse.textColorSecondary,
+                        fontWeight: FontWeight.bold),
                   ),
                 ]),
           )
         ],
-      )),
+      ),
     );
   }
 }

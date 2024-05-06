@@ -4,6 +4,7 @@ import 'package:sweet_favors/Auth/login_or_register.dart';
 import 'package:sweet_favors/Auth/sign_up.dart';
 import 'package:sweet_favors/pages/Navbar/first_home_page.dart';
 import 'package:sweet_favors/pages/Navbar/friend_page.dart';
+import 'package:sweet_favors/pages/Navbar/wish_grant_page.dart';
 import 'package:sweet_favors/pages/home.dart';
 
 void main() {
@@ -18,7 +19,7 @@ class MainApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(fontFamily: 'Inter'),
-      home: const Friendpage(),
+      home: const WishGrantPage(),
       // home: WishDetails(),
     );
   }
