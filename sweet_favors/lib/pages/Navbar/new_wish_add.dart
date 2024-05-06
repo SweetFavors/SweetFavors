@@ -9,33 +9,46 @@ class NewWishAdd extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isWeb = MediaQuery.of(context).platformBrightness == Brightness.dark;
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Item"),
+        title: const Text(
+          "Item",
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        centerTitle: true,
         leading: IconButton(
             onPressed: () => Navigator.push(
                 context, MaterialPageRoute(builder: (context) => const Home())),
             icon: const Icon(Icons.arrow_back, color: Colors.black)),
       ),
-      body: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-            height: MediaQuery.of(context).size.height / 1.25,
-            width: 600,
-            child: Column(children: [
-              TextForm(label: 'Item name'),
-              TextForm(label: 'Quantity'),
-              TextForm(label: 'Price'),
-              TextForm(label: 'Link URL'),
-              Padding(
-                padding: const EdgeInsets.only(top: 10.0),
-                child: AddImage(),
-              ),
-              ButtonAtBottom(onPressed: () {}, text: 'Submit'),
-            ]),
+      body: SingleChildScrollView(
+        child: Center(
+          child: Container(
+            width: isWeb ? 700 : 380,
+            padding: const EdgeInsets.symmetric(vertical: 20.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TextForm(label: 'Item name'),
+                TextForm(label: 'Quantity'),
+                TextForm(label: 'Price'),
+                TextForm(label: 'Link URL'),
+                Padding(
+                  padding: const EdgeInsets.only(top: 20.0),
+                  child: AddImage(),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 20.0),
+                  child: ButtonAtBottom(
+                    onPressed: () {},
+                    text: 'Submit',
+                  ),
+                ),
+              ],
+            ),
           ),
-        ],
+        ),
       ),
     );
   }

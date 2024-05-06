@@ -13,22 +13,25 @@ class _TextFormState extends State<TextForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Container(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10.0),
-          child: TextFormField(
-            decoration: InputDecoration(
-              border: OutlineInputBorder(),
-              hintText: widget.label,
+    return Padding(
+      padding: const EdgeInsets.all(2.0),
+      child: Center(
+        child: Container(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10.0),
+            child: TextFormField(
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                hintText: widget.label,
+              ),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please input the ${widget.label.toLowerCase()}';
+                }
+                return null;
+              },
+              controller: myConroter,
             ),
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Please input the ${widget.label.toLowerCase()}';
-              }
-              return null;
-            },
-            controller: myConroter,
           ),
         ),
       ),
