@@ -67,3 +67,41 @@ func (s followService) GetFollowers(userid int) ([]entities.Follow, error) {
 	}
 	return followResponses, nil
 }
+
+//////////////////////////////////////////////////////////////////////////////////////////
+
+func (s followService) GetFollowingOfCurrentUser(userid int) ([]entities.Follow, error) {
+	follows, err := s.followRepo.GetFollowingOfCurrentUserId(userid)
+	if err != nil {
+		log.Println(err)
+		return nil, err
+	}
+
+	followResponses := []entities.Follow{}
+	for _, follow := range follows {
+		userResponse := entities.Follow{
+			UserID:      follow.UserID,
+			FollowingID: follow.FollowingID,
+		}
+		followResponses = append(followResponses, userResponse)
+	}
+	return followResponses, nil
+}
+
+func (s followService) GetFollowersOfCurrentUser(userid int) ([]entities.Follow, error) {
+	follows, err := s.followRepo.GetFollowersOfCurrentUserId(userid)
+	if err != nil {
+		log.Println(err)
+		return nil, err
+	}
+
+	followResponses := []entities.Follow{}
+	for _, follow := range follows {
+		userResponse := entities.Follow{
+			UserID:      follow.UserID,
+			FollowingID: follow.FollowingID,
+		}
+		followResponses = append(followResponses, userResponse)
+	}
+	return followResponses, nil
+}

@@ -31,3 +31,32 @@ func (r userRepositoryDB) GetUserById(userid int) (*entities.User, error) {
 	}
 	return &users, nil
 }
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+
+func (r userRepositoryDB) GetProfileOfCurrentUserId(userid int) (*entities.User, error) {
+	users := entities.User{}
+	result := r.db.Where("user_id = ?", userid).Find(&users)
+	if result.Error != nil {
+		return nil, result.Error
+	}
+	return &users, nil
+}
+
+func (r userRepositoryDB) GetAllSearchFriend(excludeUserID int) ([]entities.User, error) {
+	users := []entities.User{}
+	result := r.db.Not("user_id = ?", excludeUserID).Find(&users)
+	if result.Error != nil {
+		return nil, result.Error
+	}
+	return users, nil
+}
+
+func (r userRepositoryDB) GetDonateInfoByUserId(userid int) (*entities.User, error) {
+	users := entities.User{}
+	result := r.db.Where("user_id = ?", userid).Find(&users)
+	if result.Error != nil {
+		return nil, result.Error
+	}
+	return &users, nil
+}

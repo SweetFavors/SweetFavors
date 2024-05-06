@@ -7,4 +7,7 @@ type FollowRepository interface {
 
 	GetUserIDFollowing(int) ([]entities.Follow, error)
 	GetUserIDFollowers(int) ([]entities.Follow, error)
+	////////////////////////////////////////////////////
+	GetFollowingOfCurrentUserId(int) ([]entities.Follow, error)
+	GetFollowersOfCurrentUserId(int) ([]entities.Follow, error)
 }
