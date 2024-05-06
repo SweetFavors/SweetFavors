@@ -40,3 +40,23 @@ func (r followRepositoryDB) GetUserIDFollowers(userid int) ([]entities.Follow, e
 	}
 	return follows, nil
 }
+
+//////////////////////////////////////////////////////////////////////////////////////////////////
+
+func (r followRepositoryDB) GetFollowingOfCurrentUserId(userid int) ([]entities.Follow, error) {
+	var follows []entities.Follow
+	result := r.db.Where("user_id = ?", userid).Find(&follows)
+	if result.Error != nil {
+		return nil, result.Error
+	}
+	return follows, nil
+}
+
+func (r followRepositoryDB) GetFollowersOfCurrentUserId(userid int) ([]entities.Follow, error) {
+	var follows []entities.Follow
+	result := r.db.Where("following_id = ?", userid).Find(&follows)
+	if result.Error != nil {
+		return nil, result.Error
+	}
+	return follows, nil
+}

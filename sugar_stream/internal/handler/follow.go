@@ -77,3 +77,51 @@ func (h *followHandler) GetFollowers(c *fiber.Ctx) error {
 	}
 	return c.JSON(followsResponse)
 }
+
+////////////////////////////////////////////////////////////////////////////////////////
+
+func (h *followHandler) GetFollowingOfCurrentUser(c *fiber.Ctx) error {
+	followsResponse := make([]dtos.FollowingOfCurrentUserResponse, 0)
+
+	// userIDExtract, err := 1, nil
+	// if err != nil {
+	//     return err
+	// }
+	userIDExtract := 1
+
+	follows, err := h.followSer.GetFollowingOfCurrentUser(userIDExtract)
+	if err != nil {
+		return err
+	}
+
+	for _, follow := range follows {
+		followsResponse = append(followsResponse, dtos.FollowingOfCurrentUserResponse{
+			UserID:      follow.UserID,
+			FollowingID: follow.FollowingID,
+		})
+	}
+	return c.JSON(followsResponse)
+}
+
+func (h *followHandler) GetFollowersOfCurrentUser(c *fiber.Ctx) error {
+	followsResponse := make([]dtos.FollowersOfCurrentUserResponse, 0)
+
+	// userIDExtract, err := 1, nil
+	// if err != nil {
+	//     return err
+	// }
+	userIDExtract := 1
+
+	follows, err := h.followSer.GetFollowersOfCurrentUser(userIDExtract)
+	if err != nil {
+		return err
+	}
+
+	for _, follow := range follows {
+		followsResponse = append(followsResponse, dtos.FollowersOfCurrentUserResponse{
+			UserID:      follow.UserID,
+			FollowingID: follow.FollowingID,
+		})
+	}
+	return c.JSON(followsResponse)
+}

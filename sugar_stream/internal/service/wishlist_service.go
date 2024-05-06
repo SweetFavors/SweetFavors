@@ -14,8 +14,6 @@ func NewWishlistService(wishlistRepo repository.WishlistRepository) wishlistServ
 	return wishlistService{wishlistRepo: wishlistRepo}
 }
 
-
-
 func (s wishlistService) GetWishlists() ([]entities.Wishlist, error) {
 	wishlists, err := s.wishlistRepo.GetAllWishlist()
 	if err != nil {
@@ -40,30 +38,29 @@ func (s wishlistService) GetWishlists() ([]entities.Wishlist, error) {
 	return wishlistResponses, nil
 }
 
-
-
-
-func (s wishlistService) GetWishlistOfUser(userid int) (*entities.Wishlist, error) {
-	wishlist, err := s.wishlistRepo.GetWishlistByUserId(userid)
+func (s wishlistService) GetWishlistsOfUser(userid int) ([]entities.Wishlist, error) {
+	wishlists, err := s.wishlistRepo.GetWishlistsByUserId(userid)
 	if err != nil {
 		log.Println(err)
 		return nil, err
 	}
 
-	wishlistResponse := entities.Wishlist{
-		WishlistID:    wishlist.WishlistID,
-		UserID:        wishlist.UserID,
-		Itemname:      wishlist.Itemname,
-		Quantity:      wishlist.Quantity,
-		Price:         wishlist.Price,
-		LinkURL:       wishlist.LinkURL,
-		ItemPic:       wishlist.ItemPic,
-		AlreadyBought: wishlist.AlreadyBought,
+	wishlistResponses := []entities.Wishlist{}
+	for _, wishlist := range wishlists {
+		wishlistResponse := entities.Wishlist{
+			WishlistID:    wishlist.WishlistID,
+			UserID:        wishlist.UserID,
+			Itemname:      wishlist.Itemname,
+			Quantity:      wishlist.Quantity,
+			Price:         wishlist.Price,
+			LinkURL:       wishlist.LinkURL,
+			ItemPic:       wishlist.ItemPic,
+			AlreadyBought: wishlist.AlreadyBought,
+		}
+		wishlistResponses = append(wishlistResponses, wishlistResponse)
 	}
-	return &wishlistResponse, nil
+	return wishlistResponses, nil
 }
-
-
 
 func (s wishlistService) GetWishlist(wishlistid int) (*entities.Wishlist, error) {
 	wishlist, err := s.wishlistRepo.GetWishlistByWishlistId(wishlistid)
@@ -85,5 +82,48 @@ func (s wishlistService) GetWishlist(wishlistid int) (*entities.Wishlist, error)
 	return &wishlistResponse, nil
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////
 
+func (s wishlistService) GetWishlistsOfCurrentUser(userid int) ([]entities.Wishlist, error) {
+	wishlists, err := s.wishlistRepo.GetAllWishlistsOfCurrentUserId(userid)
+	if err != nil {
+		log.Println(err)
+		return nil, err
+	}
 
+	wishlistResponses := []entities.Wishlist{}
+	for _, wishlist := range wishlists {
+		wishlistResponse := entities.Wishlist{
+			WishlistID:    wishlist.WishlistID,
+			UserID:        wishlist.UserID,
+			Itemname:      wishlist.Itemname,
+			Quantity:      wishlist.Quantity,
+			Price:         wishlist.Price,
+			LinkURL:       wishlist.LinkURL,
+			ItemPic:       wishlist.ItemPic,
+			AlreadyBought: wishlist.AlreadyBought,
+		}
+		wishlistResponses = append(wishlistResponses, wishlistResponse)
+	}
+	return wishlistResponses, nil
+}
+
+func (s wishlistService) GetWishlistDetails(wishlistid int) (*entities.Wishlist, error) {
+	wishlist, err := s.wishlistRepo.GetWishlistDetailsByWishlistId(wishlistid)
+	if err != nil {
+		log.Println(err)
+		return nil, err
+	}
+
+	wishlistResponse := entities.Wishlist{
+		WishlistID:    wishlist.WishlistID,
+		UserID:        wishlist.UserID,
+		Itemname:      wishlist.Itemname,
+		Quantity:      wishlist.Quantity,
+		Price:         wishlist.Price,
+		LinkURL:       wishlist.LinkURL,
+		ItemPic:       wishlist.ItemPic,
+		AlreadyBought: wishlist.AlreadyBought,
+	}
+	return &wishlistResponse, nil
+}

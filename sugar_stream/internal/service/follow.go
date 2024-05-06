@@ -7,4 +7,7 @@ type FollowService interface {
 
 	GetFollowing(int) ([]entities.Follow, error)
 	GetFollowers(int) ([]entities.Follow, error)
+	/////////////////////////////////////////////////
+	GetFollowingOfCurrentUser(int) ([]entities.Follow, error)
+	GetFollowersOfCurrentUser(int) ([]entities.Follow, error)
 }
