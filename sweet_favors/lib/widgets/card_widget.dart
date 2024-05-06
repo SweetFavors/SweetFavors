@@ -25,7 +25,8 @@ class CardWidget extends StatelessWidget {
           },
           child: Card(
             // margin: EdgeInsets.only(bottom: 25),
-            color: colorUse.secondaryColor,
+            color: Color.fromARGB(255, 244, 221, 255),
+            elevation: 5,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
@@ -44,12 +45,12 @@ class CardWidget extends StatelessWidget {
   }
 }
 
-
 class ProfileCard extends StatelessWidget {
   final String product;
   final Widget? destination;
   final IconData icon;
-  const ProfileCard({super.key, required this.product, this.destination, required this.icon});
+  const ProfileCard(
+      {super.key, required this.product, this.destination, required this.icon});
 
   @override
   Widget build(BuildContext context) {

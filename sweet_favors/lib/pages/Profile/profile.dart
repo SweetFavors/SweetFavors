@@ -21,91 +21,91 @@ class _ProfileState extends State<Profile> {
 
   @override
   Widget build(BuildContext context) {
-
-
     return Scaffold(
-      appBar: const CustomAppBarPopNoTitle(),
-      body: Column(
-              children: [
-              buildtop(),
-              buildContent(),
-              const Spacer(),
-              logout(),
-              
-              ]
+        appBar: const CustomAppBarPopNoTitle(),
+        body: Column(children: [
+          buildtop(),
+          buildContent(),
+          const Spacer(),
+          logout(),
+        ])
+        // ,bottomNavigationBar: bottomBar(),
+        );
+  }
 
-    )
-    // ,bottomNavigationBar: bottomBar(),
+  Widget logout() {
+    return ButtonAtBottom(onPressed: () {}, text: 'Logout');
+  }
+
+  Widget buildContent() {
+    return Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: Container(
+        child: Column(
+          children: [
+            RegularText('THE JUSTICE'),
+            SizedBox(
+              height: 20,
+            ),
+            RegularText('Email | phone num'),
+            SizedBox(
+              height: 40,
+            ),
+            ProfileCard(
+              product: 'Edit profile information',
+              icon: Icons.edit_square,
+              destination: EditProfile(),
+            ),
+            ProfileCard(
+              product: 'Privacy policy',
+              icon: Icons.policy,
+              destination: Eula(),
+            ),
+          ],
+        ),
+      ),
     );
   }
 
-Widget logout () {
+  Widget buildtop() {
+    final top = coverHeight - profileHeight / 2;
+    final bottom = profileHeight / 2;
 
-  return ButtonAtBottom(onPressed: () {
-
-
-
-  }, text: 'Logout');
-}
-
-Widget buildContent () {
-
-  return Padding(
-    padding: const EdgeInsets.all(20.0),
-    child: Container(
-      child: Column(
-        children: [
-          RegularText('THE JUSTICE'),
-          SizedBox(height: 20,),
-          RegularText('Email | phone num'),
-          SizedBox(height: 40,),
-          ProfileCard(product: 'Edit profile information',icon: Icons.edit_square,destination: EditProfile(),),
-          ProfileCard(product: 'Privacy policy', icon: Icons.policy,destination: Eula(),),
-        ],
-      ),
-    ),
-  );
-}
-
-Widget buildtop () {
-   final top = coverHeight - profileHeight/2;
-   final bottom = profileHeight/2;
-
-   return Stack(
-        clipBehavior: Clip.none,
-        alignment: Alignment.center,
-        children: [
-          Container(
+    return Stack(
+      clipBehavior: Clip.none,
+      alignment: Alignment.center,
+      children: [
+        Container(
             margin: EdgeInsets.only(bottom: bottom),
             child: backgroundColorSquare()),
-          Positioned(
-            top: top,
-            child: pictureOverlay(),
-            )
+        Positioned(
+          top: top,
+          child: pictureOverlay(),
+        )
+      ],
+    );
+  }
+
+  Widget backgroundColorSquare() => Container(
+          child: Column(
+        children: [
+          Center(
+            child: Container(
+              height: coverHeight,
+              width: double.infinity,
+              decoration: const BoxDecoration(
+                color: colorUse.primaryColor,
+                borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.elliptical(220, 60),
+                    bottomRight: Radius.elliptical(220, 60)),
+              ),
+            ),
+          ),
         ],
+      ));
+
+  Widget pictureOverlay() => CircleAvatar(
+        radius: profileHeight / 2,
+        backgroundImage: AssetImage('assets/myGirl.png'),
       );
-}
-
-Widget backgroundColorSquare () => Container(
-                  child: Column(
-                    children: [
-                      Center(
-                        child: Container(
-                          height: coverHeight,
-                          width: double.infinity,
-                          decoration: const BoxDecoration(
-                            color: colorUse.primaryColor,
-                            borderRadius: BorderRadius.only(bottomLeft: Radius.elliptical(220,60),
-                                                            bottomRight: Radius.elliptical(220, 60) ),
-                          ),
-                        ),
-                      ),
-                      
-                    ],
-                  ));
-
-Widget pictureOverlay () => CircleAvatar(
-  radius: profileHeight/2,
-  backgroundImage: AssetImage('assets/myGirl.png'),
-);
 }

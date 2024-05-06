@@ -14,11 +14,18 @@ class FirstHomePage extends StatelessWidget {
           // Main column
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            SizedBox(
+              height: 40.0,
+            ),
             // Profile Row
-            ProfileBar(
-              images: 'assets/myGirl.png',
-              name: "THE JUSTICE",
-              email: "THEJUSTICE@MementoMori.com",
+            SizedBox(
+              height: 55,
+              width: 400,
+              child: ProfileBar(
+                images: 'assets/myGirl.png',
+                name: "THE JUSTICE",
+                email: "THEJUSTICE@MementoMori.com",
+              ),
             ),
 
             SizedBox(height: 35.0), // Spacing between profile and card

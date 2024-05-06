@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sweet_favors/Auth/login.dart';
 import 'package:sweet_favors/Auth/login_or_register.dart';
 import 'package:sweet_favors/Auth/sign_up.dart';
+import 'package:sweet_favors/pages/Navbar/first_home_page.dart';
 import 'package:sweet_favors/pages/home.dart';
 
 void main() {
@@ -16,7 +17,7 @@ class MainApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(fontFamily: 'Inter'),
-      home: const LoginOrRegister(),
+      home: const FirstHomePage(),
       // home: WishDetails(),
     );
   }
