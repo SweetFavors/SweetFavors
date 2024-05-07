@@ -124,6 +124,36 @@ func (h *wishlistHandler) GetWishlistsOfCurrentUser(c *fiber.Ctx) error {
 	return c.JSON(wishlistsResponse)
 }
 
+//func (h *wishlistHandler) GetFriendsWishlists(c *fiber.Ctx) error {
+//
+//	// userIDExtract, err := 1, nil
+//	// if err != nil {
+//	//     return err
+//	// }
+//	userIDExtract := 1
+//
+//	friendsWishlistsResponse := make([]dtos.FriendsWishlistsResponse, 0)
+//	friendsWishlists, err := h.wishlistSer.GetFriendsWishlists(userIDExtract)
+//	if err != nil {
+//		return err
+//	}
+//
+//	for _, friendWishlist := range friendsWishlists {
+//		friendsWishlistsResponse = append(friendsWishlistsResponse, dtos.FriendsWishlistsResponse{
+//			WishlistID:    friendWishlist.WishlistID,
+//			UserID:        friendWishlist.UserID,
+//			Username:      friendWishlist.Username,
+//			Itemname:      friendWishlist.Itemname,
+//			Quantity:      friendWishlist.Quantity,
+//			Price:         friendWishlist.Price,
+//			LinkURL:       friendWishlist.LinkURL,
+//			ItemPic:       friendWishlist.ItemPic,
+//			AlreadyBought: friendWishlist.AlreadyBought,
+//		})
+//	}
+//	return c.JSON(friendsWishlistsResponse)
+//}
+
 func (h *wishlistHandler) GetWishlistDetails(c *fiber.Ctx) error {
 	// userIDExtract, err := 1, nil
 	// if err != nil {

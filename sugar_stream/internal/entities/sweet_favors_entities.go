@@ -12,24 +12,31 @@ type User struct {
 	PromptPayAcc *string
 	PromptPayQR  *string
 	Wishlist     []Wishlist `gorm:"foreignKey:UserID"`
+	GrantedBy    []Wishlist `gorm:"foreignKey:GrantedByUserId"`
 	Followers    []Follow   `gorm:"foreignKey:UserID"`
 	Following    []Follow   `gorm:"foreignKey:FollowingID"`
 }
 
 type Wishlist struct {
-	WishlistID    *uint `gorm:"primaryKey;autoIncrement"`
-	UserID        *uint `gorm:"not null"`
-	Itemname      *string
-	Quantity      *uint
-	Price         *uint
-	LinkURL       *string
-	ItemPic       *string
-	AlreadyBought *bool
+	WishlistID      *uint `gorm:"primaryKey;autoIncrement"`
+	UserID          *uint `gorm:"not null"`
+	User            User  `gorm:"foreignKey:UserID"`
+	Itemname        *string
+	Quantity        *uint
+	Price           *uint
+	LinkURL         *string
+	ItemPic         *string
+	AlreadyBought   *bool
+	GrantedByUserId *uint
 }
 
 type Follow struct {
-	UserID      *uint `gorm:"not null"`
-	User        User  `gorm:"foreignKey:UserID"`
-	FollowingID *uint `gorm:"not null"`
-	Following   User  `gorm:"foreignKey:FollowingID"`
+	UserID            *uint   `gorm:"not null"`
+	User              User    `gorm:"foreignKey:UserID"`
+	FollowingID       *uint   `gorm:"not null"`
+	Following         User    `gorm:"foreignKey:FollowingID"`
+	FollowingUsername *string `gorm:"->"`
+	FollowingUserPic  *string `gorm:"->"`
+	FollowerUsername  *string `gorm:"->"`
+	FollowerUserPic   *string `gorm:"->"`
 }

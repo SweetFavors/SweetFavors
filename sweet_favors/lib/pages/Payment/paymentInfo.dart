@@ -16,7 +16,7 @@ class PaymentInfo extends StatelessWidget {
         InfoItem(label: 'PromptPay account number', value: '1 2345 678901 23 4'),
         SizedBox(height: 30), 
         RegularTextBold('PromptPay QR'),
-        Center(child: Image.asset('assets/QR.png')),
+        // Center(child: Image.asset('assets/QR.png')),
       ],
     );
   }

@@ -25,8 +25,8 @@ class FriendWishlist extends StatelessWidget {
             SizedBox(height: 35.0), // Spacing between profile and card
 
             // Card positioned below profile
-            CardWidget(product: 'XD', grantBy: 'XD123'),
-            CardWidget(product: 'momoXD', grantBy: 'XD12345'),
+            // CardWidget(product: 'XD', grantBy: 'XD123'),
+            // CardWidget(product: 'momoXD', grantBy: 'XD12345'),
           ],
         ),
       ),

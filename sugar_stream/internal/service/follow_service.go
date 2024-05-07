@@ -80,8 +80,10 @@ func (s followService) GetFollowingOfCurrentUser(userid int) ([]entities.Follow,
 	followResponses := []entities.Follow{}
 	for _, follow := range follows {
 		userResponse := entities.Follow{
-			UserID:      follow.UserID,
-			FollowingID: follow.FollowingID,
+			UserID:            follow.UserID,
+			FollowingID:       follow.FollowingID,
+			FollowingUsername: follow.FollowingUsername,
+			FollowingUserPic:  follow.FollowingUserPic,
 		}
 		followResponses = append(followResponses, userResponse)
 	}
@@ -98,8 +100,10 @@ func (s followService) GetFollowersOfCurrentUser(userid int) ([]entities.Follow,
 	followResponses := []entities.Follow{}
 	for _, follow := range follows {
 		userResponse := entities.Follow{
-			UserID:      follow.UserID,
-			FollowingID: follow.FollowingID,
+			UserID:           follow.UserID,
+			FollowingID:      follow.FollowingID,
+			FollowerUsername: follow.FollowerUsername,
+			FollowerUserPic:  follow.FollowerUserPic,
 		}
 		followResponses = append(followResponses, userResponse)
 	}

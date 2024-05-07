@@ -6,8 +6,9 @@ import 'package:sweet_favors/pages/Wish/wish_details.dart';
 class CardWidget extends StatelessWidget {
   final String product;
   final String grantBy;
+  final int wishlistId;
 
-  const CardWidget({super.key, required this.product, required this.grantBy});
+  const CardWidget({super.key, required this.product, required this.grantBy, required this.wishlistId});
 
   @override
   Widget build(BuildContext context) {
@@ -16,12 +17,14 @@ class CardWidget extends StatelessWidget {
         margin: const EdgeInsets.only(bottom: 25),
         child: InkWell(
           onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const WishDetails(),
-              ),
-            );
+            if(wishlistId != null){
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) =>  WishDetails(wishlist_id: wishlistId,),
+                ),
+              );
+            }
           },
           child: Card(
             // margin: EdgeInsets.only(bottom: 25),
