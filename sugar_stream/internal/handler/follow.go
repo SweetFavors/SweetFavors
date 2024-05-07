@@ -96,8 +96,10 @@ func (h *followHandler) GetFollowingOfCurrentUser(c *fiber.Ctx) error {
 
 	for _, follow := range follows {
 		followsResponse = append(followsResponse, dtos.FollowingOfCurrentUserResponse{
-			UserID:      follow.UserID,
-			FollowingID: follow.FollowingID,
+			UserID:            follow.UserID,
+			FollowingID:       follow.FollowingID,
+			FollowingUsername: follow.FollowingUsername,
+			FollowingUserPic:  follow.FollowingUserPic,
 		})
 	}
 	return c.JSON(followsResponse)
@@ -119,8 +121,10 @@ func (h *followHandler) GetFollowersOfCurrentUser(c *fiber.Ctx) error {
 
 	for _, follow := range follows {
 		followsResponse = append(followsResponse, dtos.FollowersOfCurrentUserResponse{
-			UserID:      follow.UserID,
-			FollowingID: follow.FollowingID,
+			UserID:           follow.UserID,
+			FollowingID:      follow.FollowingID,
+			FollowerUsername: follow.FollowerUsername,
+			FollowerUserPic:  follow.FollowerUserPic,
 		})
 	}
 	return c.JSON(followsResponse)

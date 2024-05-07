@@ -8,6 +8,6 @@ type WishlistService interface {
 	GetWishlist(int) (*entities.Wishlist, error)
 	///////////////////////////////////////////////////////////
 	GetWishlistsOfCurrentUser(int) ([]entities.Wishlist, error)
-	//-
+	//GetFriendsWishlists(int) ([]entities.FriendsWishlists, error)
 	GetWishlistDetails(int) (*entities.Wishlist, error)
 }
