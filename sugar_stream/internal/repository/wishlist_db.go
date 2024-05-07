@@ -58,7 +58,9 @@ func (r wishlistRepositoryDB) GetAllFriendsWishlists(userid int) ([]entities.Wis
 	result := r.db.Table("wishlists").
 		Select("wishlists.wishlist_id, wishlists.user_id, wishlists.itemname, wishlists.quantity, wishlists.price, wishlists.link_url, wishlists.item_pic, wishlists.already_bought, wishlists.granted_by_user_id, users.username as username_of_wishlist").
 		Joins("LEFT JOIN users ON wishlists.user_id = users.user_id").
-		Not("wishlists.user_id = ?", userid).
+		Joins("LEFT JOIN follows AS f1 ON wishlists.user_id = f1.user_id AND f1.following_id = ? AND wishlists.user_id != ?", userid, userid).
+		Joins("LEFT JOIN follows AS f2 ON wishlists.user_id = f2.following_id AND f2.user_id = ? AND wishlists.user_id != ?", userid, userid).
+		Where("f1.user_id IS NOT NULL AND f2.user_id IS NOT NULL").
 		Scan(&wishlists)
 	if result.Error != nil {
 		return nil, result.Error
