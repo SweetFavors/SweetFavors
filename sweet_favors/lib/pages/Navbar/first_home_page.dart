@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:sweet_favors/endpoints.dart';
 import 'package:sweet_favors/widgets/card_widget.dart';
 import 'package:sweet_favors/widgets/profile_bar.dart';
 
@@ -38,7 +37,6 @@ class Wishlist {
     );
   }
 }
-
 
 // class FirstHomePage extends StatelessWidget {
 //   final dio = Dio();
@@ -97,29 +95,53 @@ class _FirstHomePageState extends State<FirstHomePage> {
   final Dio _dio = Dio();
   // final url = Endpoints.baseUrl;
   List<Wishlist> wishlists = [];
- 
+  String? username;
+  String? email;
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
     fetchWishlists();
+    fetchUserData();
   }
 
   Future<List<Wishlist>> fetchWishlists() async {
-  Dio dio = Dio(); // Create a Dio instance
-  final response = await dio.get('http://10.0.2.2:1432/getWishlistsOfCurrentUser/3');
+    Dio dio = Dio(); // Create a Dio instance
+    final response =
+        await dio.get('http://10.0.2.2:1432/getWishlistsOfCurrentUser/3');
 
-  if (response.statusCode == 200) {
-    final parsedJson = response.data as List; // Directly get the parsed data
-    print(response.data);
-    // parsedJson.map((json) => Wishlist.fromJson(json)).toList();
-    wishlists = parsedJson.map((json) => Wishlist.fromJson(json)).toList();
-    return wishlists;
-  } else {
-    throw Exception('Failed to load wishlists');
+    if (response.statusCode == 200) {
+      final parsedJson = response.data as List; // Directly get the parsed data
+      print(response.data);
+      // parsedJson.map((json) => Wishlist.fromJson(json)).toList();
+      wishlists = parsedJson.map((json) => Wishlist.fromJson(json)).toList();
+      return wishlists;
+    } else {
+      throw Exception('Failed to load wishlists');
+    }
   }
-}
 
+  Future<void> fetchUserData() async {
+    Dio dio = Dio();
+    final response =
+        await dio.get('http://10.0.2.2:1432/GetProfileOfCurrentUser/3');
+
+    if (response.statusCode == 200) {
+      final parsedJson = response.data; // Directly get the parsed data
+      print(response.data);
+
+      setState(() {
+        // Update the username and email variables with the parsed user data
+        username = parsedJson['username'];
+        email = parsedJson['email'];
+
+        print(username);
+        print(email);
+      });
+    } else {
+      throw Exception('Failed to load user data');
+    }
+  }
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -138,8 +160,8 @@ class _FirstHomePageState extends State<FirstHomePage> {
               width: 400,
               child: ProfileBar(
                 images: 'assets/myGirl.png',
-                name: "THE JUSTICE",
-                email: "Thejustice@gmail.com",
+                name: username ?? '',
+                email: email ?? '',
               ),
             ),
 
@@ -151,13 +173,12 @@ class _FirstHomePageState extends State<FirstHomePage> {
                 itemBuilder: (context, index) {
                   final wishlist = wishlists[index];
                   return CardWidget(
-                    product: wishlist.itemname, 
-                    grantBy: wishlist.price.toString(),  
+                    product: wishlist.itemname,
+                    grantBy: wishlist.price.toString(),
                   );
                 },
               ),
             ),
-            
           ],
         ),
       ),

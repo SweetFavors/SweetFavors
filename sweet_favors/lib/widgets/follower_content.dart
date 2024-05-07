@@ -41,7 +41,7 @@ class FollowerContent extends StatelessWidget {
                               Container(
                                 width: 290,
                                 height: 360,
-                                child: Center(
+                                child: const Center(
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [

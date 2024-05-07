@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:sweet_favors/Utils/color_use.dart';
 import 'package:sweet_favors/widgets/profile_bar.dart';
@@ -6,8 +7,44 @@ import 'package:sweet_favors/widgets/button_at_bottom.dart';
 import 'package:sweet_favors/pages/Wish/wish_details.dart';
 import 'package:flutter_swiper_view/flutter_swiper_view.dart';
 
-class WishGrantPage extends StatelessWidget {
+class WishGrantPage extends StatefulWidget {
   const WishGrantPage({super.key});
+
+  @override
+  State<WishGrantPage> createState() => _WishGrantPageState();
+}
+
+class _WishGrantPageState extends State<WishGrantPage> {
+  String? username;
+  String? email;
+
+  @override
+  void initState() {
+    super.initState();
+    fetchUserData();
+  }
+
+  Future<void> fetchUserData() async {
+    Dio dio = Dio();
+    final response =
+        await dio.get('http://10.0.2.2:1432/GetProfileOfCurrentUser/3');
+
+    if (response.statusCode == 200) {
+      final parsedJson = response.data; // Directly get the parsed data
+      print(response.data);
+
+      setState(() {
+        // Update the username and email variables with the parsed user data
+        username = parsedJson['username'];
+        email = parsedJson['email'];
+
+        print(username);
+        print(email);
+      });
+    } else {
+      throw Exception('Failed to load user data');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,13 +59,13 @@ class WishGrantPage extends StatelessWidget {
               height: 40,
             ),
             // Profile Row
-            const SizedBox(
+            SizedBox(
               height: 55,
               width: 400,
               child: ProfileBar(
                 images: 'assets/myGirl.png',
-                name: "THE JUSTICE",
-                email: "Thejustice@gmail.com",
+                name: username ?? '',
+                email: email ?? '',
               ),
             ),
             const SizedBox(

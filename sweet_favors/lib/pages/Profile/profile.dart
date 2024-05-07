@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:sweet_favors/Utils/color_use.dart';
 import 'package:sweet_favors/Utils/text_use.dart';
@@ -18,6 +19,27 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   final double coverHeight = 250;
   final double profileHeight = 150;
+  String? username;
+  String? email;
+  String? phoneNum;
+
+  @override
+  void initState() {
+    super.initState();
+    fetchUserData();
+  }
+
+  Future<Map<String, dynamic>> fetchUserData() async {
+    Dio dio = Dio();
+    final response =
+        await dio.get('http://10.0.2.2:1432/GetProfileOfCurrentUser/3');
+
+    if (response.statusCode == 200) {
+      return response.data;
+    } else {
+      throw Exception('Failed to load user data');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,23 +65,40 @@ class _ProfileState extends State<Profile> {
       child: Container(
         child: Column(
           children: [
-            RegularText('THE JUSTICE'),
-            SizedBox(
-              height: 20,
-            ),
-            RegularText('Email | phone num'),
-            SizedBox(
-              height: 40,
-            ),
-            ProfileCard(
-              product: 'Edit profile information',
-              icon: Icons.edit_square,
-              destination: EditProfile(),
-            ),
-            ProfileCard(
-              product: 'Privacy policy',
-              icon: Icons.policy,
-              destination: Eula(),
+            FutureBuilder<Map<String, dynamic>>(
+              future: fetchUserData(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return CircularProgressIndicator(); // Display a loading indicator while data is being fetched
+                } else if (snapshot.hasError) {
+                  return Text('Error: ${snapshot.error}');
+                } else {
+                  final userData = snapshot.data;
+                  return Column(
+                    children: [
+                      RegularText(userData?['username'] ?? ''),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      RegularText(
+                          '${userData?['email'] ?? "Thejustice@gmail.com"} | ${userData?['phone_num'] ?? "123-456-7890"}'),
+                      SizedBox(
+                        height: 40,
+                      ),
+                      ProfileCard(
+                        product: 'Edit profile information',
+                        icon: Icons.edit_square,
+                        destination: EditProfile(),
+                      ),
+                      ProfileCard(
+                        product: 'Privacy policy',
+                        icon: Icons.policy,
+                        destination: Eula(),
+                      ),
+                    ],
+                  );
+                }
+              },
             ),
           ],
         ),
