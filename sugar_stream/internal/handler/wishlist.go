@@ -99,30 +99,26 @@ func (h *wishlistHandler) GetWishlist(c *fiber.Ctx) error {
 //****************************************************************************
 
 func (h *wishlistHandler) GetWishlistsOfCurrentUser(c *fiber.Ctx) error {
+	userIDExtract := 1 // Assuming you'll get the userID from the request later
 
-	// userIDExtract, err := 1, nil
-	// if err != nil {
-	//     return err
-	// }
-	userIDExtract := 1
-
-	wishlistsResponse := make([]dtos.WishlistsOfCurrentUserResponse, 0)
-	wishlists, err := h.wishlistSer.GetWishlistsOfUser(userIDExtract)
+	wishlists, err := h.wishlistSer.GetWishlistsOfCurrentUser(userIDExtract)
 	if err != nil {
 		return err
 	}
 
+	wishlistsResponse := make([]dtos.WishlistsOfCurrentUserResponse, 0)
 	for _, wishlist := range wishlists {
 		wishlistsResponse = append(wishlistsResponse, dtos.WishlistsOfCurrentUserResponse{
-			WishlistID:      wishlist.WishlistID,
-			UserID:          wishlist.UserID,
-			Itemname:        wishlist.Itemname,
-			Quantity:        wishlist.Quantity,
-			Price:           wishlist.Price,
-			LinkURL:         wishlist.LinkURL,
-			ItemPic:         wishlist.ItemPic,
-			AlreadyBought:   wishlist.AlreadyBought,
-			GrantedByUserId: wishlist.GrantedByUserId,
+			WishlistID:        wishlist.WishlistID,
+			UserID:            wishlist.UserID,
+			Itemname:          wishlist.Itemname,
+			Quantity:          wishlist.Quantity,
+			Price:             wishlist.Price,
+			LinkURL:           wishlist.LinkURL,
+			ItemPic:           wishlist.ItemPic,
+			AlreadyBought:     wishlist.AlreadyBought,
+			GrantedByUserId:   wishlist.GrantedByUserId,
+			UsernameOfGranter: wishlist.UsernameOfGranter,
 		})
 	}
 	return c.JSON(wishlistsResponse)
@@ -154,6 +150,7 @@ func (h *wishlistHandler) GetFriendsWishlists(c *fiber.Ctx) error {
 			AlreadyBought:      wishlist.AlreadyBought,
 			GrantedByUserId:    wishlist.GrantedByUserId,
 			UsernameOfWishlist: wishlist.UsernameOfWishlist,
+			UserPicOfWishlist:  wishlist.UserPicOfWishlist,
 		})
 	}
 	return c.JSON(wishlistsResponse)
@@ -184,4 +181,36 @@ func (h *wishlistHandler) GetWishlistDetails(c *fiber.Ctx) error {
 	}
 
 	return c.JSON(wishlistResponse)
+}
+
+func (h *wishlistHandler) GetProfileFriendWishlists(c *fiber.Ctx) error {
+
+	// userIDExtract, err := 1, nil
+	// if err != nil {
+	//     return err
+	// }
+	userIDExtract := 2
+
+	wishlistsResponse := make([]dtos.FriendsWishlistsResponse, 0)
+	wishlists, err := h.wishlistSer.GetProfileFriendWishlists(userIDExtract)
+	if err != nil {
+		return err
+	}
+
+	for _, wishlist := range wishlists {
+		wishlistsResponse = append(wishlistsResponse, dtos.FriendsWishlistsResponse{
+			WishlistID:         wishlist.WishlistID,
+			UserID:             wishlist.UserID,
+			Itemname:           wishlist.Itemname,
+			Quantity:           wishlist.Quantity,
+			Price:              wishlist.Price,
+			LinkURL:            wishlist.LinkURL,
+			ItemPic:            wishlist.ItemPic,
+			AlreadyBought:      wishlist.AlreadyBought,
+			GrantedByUserId:    wishlist.GrantedByUserId,
+			UsernameOfWishlist: wishlist.UsernameOfWishlist,
+			UserPicOfWishlist:  wishlist.UserPicOfWishlist,
+		})
+	}
+	return c.JSON(wishlistsResponse)
 }
