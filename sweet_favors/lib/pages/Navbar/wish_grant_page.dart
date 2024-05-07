@@ -107,13 +107,13 @@ class _WishGrantPageState extends State<WishGrantPage> {
             ),
             ButtonAtBottom(
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const WishDetails(),
-                      // builder: (context) => WishDetails(product: product, grantBy: grantBy),
-                    ),
-                  );
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //     builder: (context) => const WishDetails(),
+                  //     // builder: (context) => WishDetails(product: product, grantBy: grantBy),
+                  //   ),
+                  // );
                 },
                 text: 'View wish detail'),
           ],
