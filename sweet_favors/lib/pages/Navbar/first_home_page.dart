@@ -97,6 +97,7 @@ class _FirstHomePageState extends State<FirstHomePage> {
   List<Wishlist> wishlists = [];
   String? username;
   String? email;
+  String? img;
 
   @override
   void initState() {
@@ -134,6 +135,7 @@ class _FirstHomePageState extends State<FirstHomePage> {
         // Update the username and email variables with the parsed user data
         username = parsedJson['username'];
         email = parsedJson['email'];
+        img = parsedJson['user_pic'];
 
         print(username);
         print(email);
@@ -159,7 +161,7 @@ class _FirstHomePageState extends State<FirstHomePage> {
               height: 55,
               width: 400,
               child: ProfileBar(
-                images: 'assets/myGirl.png',
+                images: img ?? 'assets/myGirl.png',
                 name: username ?? '',
                 email: email ?? '',
               ),
