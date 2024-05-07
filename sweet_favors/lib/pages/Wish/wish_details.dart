@@ -54,7 +54,7 @@ class _WishDetailsState extends State<WishDetails> {
           // final requestby = wishdata?[''];
           final linkurl = wishdata?['linkurl'] ?? 'Unknown link';
           final pics = wishdata?['item_pic'] ?? 'Unknown pics';
-
+          final userId = (wishdata?['user_Id'] ) ?? 'Unknown userId';
 
           return Scaffold(
             appBar: CustomAppBarNavigation(title: itemName, backDestination: const Home(),), // Dynamically set title based on itemName
@@ -115,7 +115,7 @@ class _WishDetailsState extends State<WishDetails> {
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => const Payment()),
+                          MaterialPageRoute(builder: (context) =>  Payment(userId: userId ,)),
                         );
                       },
                       text: 'GRANT WISH',

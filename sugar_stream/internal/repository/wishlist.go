@@ -8,6 +8,6 @@ type WishlistRepository interface {
 	GetWishlistByWishlistId(int) (*entities.Wishlist, error)
 	////////////////////////////////////////////////////////////////////
 	GetAllWishlistsOfCurrentUserId(int) ([]entities.Wishlist, error)
-	//GetAllFriendsWishlists(int) ([]entities.FriendsWishlists, error)
+	GetAllFriendsWishlists(int) ([]entities.Wishlist, error)
 	GetWishlistDetailsByWishlistId(int) (*entities.Wishlist, error)
 }
