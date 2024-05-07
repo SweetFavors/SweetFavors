@@ -52,21 +52,20 @@ func (r wishlistRepositoryDB) GetAllWishlistsOfCurrentUserId(userid int) ([]enti
 	return wishlists, nil
 }
 
-//func (r wishlistRepositoryDB) GetFriendsWishlists(userid int) ([]entities.FriendsWishlists, error) {
-//	friendsWishlists := []entities.FriendsWishlists{}
-//	result := r.db.
-//		Select("users.username, wishlists.*").
-//		Joins("JOIN follows ON follows.following_id = users.user_id").
-//		Joins("JOIN users ON users.user_id = follows.user_id").
-//		Joins("JOIN wishlists ON wishlists.user_id = follows.following_id").
-//		Where("follows.user_id = ?", userid).
-//		Where("follows.following_id IN (SELECT following_id FROM follows WHERE user_id = ?)", userid).
-//		Find(&friendsWishlists)
-//	if result.Error != nil {
-//		return nil, result.Error
-//	}
-//	return friendsWishlists, nil
-//}
+func (r wishlistRepositoryDB) GetAllFriendsWishlists(userid int) ([]entities.Wishlist, error) {
+	wishlists := []entities.Wishlist{}
+
+	result := r.db.Table("wishlists").
+		Select("wishlists.wishlist_id, wishlists.user_id, wishlists.itemname, wishlists.quantity, wishlists.price, wishlists.link_url, wishlists.item_pic, wishlists.already_bought, wishlists.granted_by_user_id, users.username as username_of_wishlist").
+		Joins("LEFT JOIN users ON wishlists.user_id = users.user_id").
+		Not("wishlists.user_id = ?", userid).
+		Scan(&wishlists)
+	if result.Error != nil {
+		return nil, result.Error
+	}
+
+	return wishlists, nil
+}
 
 func (r wishlistRepositoryDB) GetWishlistDetailsByWishlistId(wishlistid int) (*entities.Wishlist, error) {
 	wishlists := entities.Wishlist{}
