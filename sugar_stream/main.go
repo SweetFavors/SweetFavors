@@ -79,14 +79,14 @@ func main() {
 	//////////////////////////////////////////////////////////////////////////////////////
 
 	// Use this endpoint for project
-
+	//app.Post("/PostRegister", userHandler.PostRegister)
 	app.Get("/GetWishlistsOfCurrentUser/:UserID", wishlistHandler.GetWishlistsOfCurrentUser)
 	app.Get("/GetProfileOfCurrentUser/:UserID", userHandler.GetProfileOfCurrentUser)
 
 	app.Get("/GetFollowingOfCurrentUser/:UserID", followHandler.GetFollowingOfCurrentUser)
 	app.Get("/GetFollowersOfCurrentUser/:UserID", followHandler.GetFollowersOfCurrentUser)
 	app.Get("/GetSearchFriend/:UserID", userHandler.GetSearchFriend)
-	//app.Get("/GetFriendsWishlists/:UserID", user????.GetFriendsWishlists)
+	//app.Get("/GetFriendsWishlists/:UserID", wishlistHandler.GetFriendsWishlists)
 	app.Get("/GetWishlistDetails/:WishlistID", wishlistHandler.GetWishlistDetails)
 	app.Get("/GetDonateInfo/:UserID", userHandler.GetDonateInfo)
 	//#####################################################################################

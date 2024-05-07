@@ -24,7 +24,7 @@ func (r followRepositoryDB) GetAllFollow() ([]entities.Follow, error) {
 }
 
 func (r followRepositoryDB) GetUserIDFollowing(userid int) ([]entities.Follow, error) {
-	var follows []entities.Follow
+	follows := []entities.Follow{}
 	result := r.db.Where("user_id = ?", userid).Find(&follows)
 	if result.Error != nil {
 		return nil, result.Error
@@ -33,7 +33,7 @@ func (r followRepositoryDB) GetUserIDFollowing(userid int) ([]entities.Follow, e
 }
 
 func (r followRepositoryDB) GetUserIDFollowers(userid int) ([]entities.Follow, error) {
-	var follows []entities.Follow
+	follows := []entities.Follow{}
 	result := r.db.Where("following_id = ?", userid).Find(&follows)
 	if result.Error != nil {
 		return nil, result.Error
@@ -45,18 +45,30 @@ func (r followRepositoryDB) GetUserIDFollowers(userid int) ([]entities.Follow, e
 
 func (r followRepositoryDB) GetFollowingOfCurrentUserId(userid int) ([]entities.Follow, error) {
 	var follows []entities.Follow
-	result := r.db.Where("user_id = ?", userid).Find(&follows)
+	result := r.db.
+		Select("follows.*, users.username as FollowingUsername, users.user_pic as FollowingUserPic").
+		Joins("JOIN users ON follows.following_id = users.user_id").
+		Where("follows.user_id = ?", userid).
+		Find(&follows)
+
 	if result.Error != nil {
 		return nil, result.Error
 	}
+
 	return follows, nil
 }
 
 func (r followRepositoryDB) GetFollowersOfCurrentUserId(userid int) ([]entities.Follow, error) {
-	var follows []entities.Follow
-	result := r.db.Where("following_id = ?", userid).Find(&follows)
+	follows := []entities.Follow{}
+	result := r.db.
+		Select("follows.*, followers.username as FollowerUsername, followers.user_pic as FollowerUserPic").
+		Joins("JOIN users AS followers ON followers.user_id = follows.user_id").
+		Where("follows.following_id = ?", userid).
+		Find(&follows)
+
 	if result.Error != nil {
 		return nil, result.Error
 	}
+
 	return follows, nil
 }

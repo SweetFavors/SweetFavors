@@ -157,10 +157,12 @@ func (h *userHandler) GetDonateInfo(c *fiber.Ctx) error {
 	}
 
 	userResponse := dtos.DonateInfoResponse{
-		UserID:    user.UserID,
-		Username:  user.Username,
-		Firstname: user.Firstname,
-		Lastname:  user.Lastname,
+		UserID:       user.UserID,
+		Username:     user.Username,
+		Firstname:    user.Firstname,
+		Lastname:     user.Lastname,
+		PromptPayAcc: user.PromptPayAcc,
+		PromptPayQR:  user.PromptPayQR,
 	}
 
 	return c.JSON(userResponse)
