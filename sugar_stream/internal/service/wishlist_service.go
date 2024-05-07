@@ -97,15 +97,16 @@ func (s wishlistService) GetWishlistsOfCurrentUser(userid int) ([]entities.Wishl
 	wishlistResponses := []entities.Wishlist{}
 	for _, wishlist := range wishlists {
 		wishlistResponse := entities.Wishlist{
-			WishlistID:      wishlist.WishlistID,
-			UserID:          wishlist.UserID,
-			Itemname:        wishlist.Itemname,
-			Quantity:        wishlist.Quantity,
-			Price:           wishlist.Price,
-			LinkURL:         wishlist.LinkURL,
-			ItemPic:         wishlist.ItemPic,
-			AlreadyBought:   wishlist.AlreadyBought,
-			GrantedByUserId: wishlist.GrantedByUserId,
+			WishlistID:        wishlist.WishlistID,
+			UserID:            wishlist.UserID,
+			Itemname:          wishlist.Itemname,
+			Quantity:          wishlist.Quantity,
+			Price:             wishlist.Price,
+			LinkURL:           wishlist.LinkURL,
+			ItemPic:           wishlist.ItemPic,
+			AlreadyBought:     wishlist.AlreadyBought,
+			GrantedByUserId:   wishlist.GrantedByUserId,
+			UsernameOfGranter: wishlist.UsernameOfGranter,
 		}
 		wishlistResponses = append(wishlistResponses, wishlistResponse)
 	}
@@ -132,6 +133,7 @@ func (s wishlistService) GetFriendsWishlists(userid int) ([]entities.Wishlist, e
 			AlreadyBought:      wishlist.AlreadyBought,
 			GrantedByUserId:    wishlist.GrantedByUserId,
 			UsernameOfWishlist: wishlist.UsernameOfWishlist,
+			UserPicOfWishlist:  wishlist.UserPicOfWishlist,
 		}
 		wishlistResponses = append(wishlistResponses, wishlistResponse)
 	}
@@ -157,4 +159,31 @@ func (s wishlistService) GetWishlistDetails(wishlistid int) (*entities.Wishlist,
 		GrantedByUserId: wishlist.GrantedByUserId,
 	}
 	return &wishlistResponse, nil
+}
+
+func (s wishlistService) GetProfileFriendWishlists(userid int) ([]entities.Wishlist, error) {
+	wishlists, err := s.wishlistRepo.GetAllProfileFriendWishlists(userid)
+	if err != nil {
+		log.Println(err)
+		return nil, err
+	}
+
+	wishlistResponses := []entities.Wishlist{}
+	for _, wishlist := range wishlists {
+		wishlistResponse := entities.Wishlist{
+			WishlistID:         wishlist.WishlistID,
+			UserID:             wishlist.UserID,
+			Itemname:           wishlist.Itemname,
+			Quantity:           wishlist.Quantity,
+			Price:              wishlist.Price,
+			LinkURL:            wishlist.LinkURL,
+			ItemPic:            wishlist.ItemPic,
+			AlreadyBought:      wishlist.AlreadyBought,
+			GrantedByUserId:    wishlist.GrantedByUserId,
+			UsernameOfWishlist: wishlist.UsernameOfWishlist,
+			UserPicOfWishlist:  wishlist.UserPicOfWishlist,
+		}
+		wishlistResponses = append(wishlistResponses, wishlistResponse)
+	}
+	return wishlistResponses, nil
 }

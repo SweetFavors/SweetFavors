@@ -29,6 +29,8 @@ type Wishlist struct {
 	AlreadyBought      *bool
 	GrantedByUserId    *uint
 	UsernameOfWishlist *string `gorm:"->"`
+	UserPicOfWishlist  *string `gorm:"->"`
+	UsernameOfGranter  *string `gorm:"->"`
 }
 
 type Follow struct {
