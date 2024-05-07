@@ -86,7 +86,7 @@ func main() {
 	app.Get("/GetFollowingOfCurrentUser/:UserID", followHandler.GetFollowingOfCurrentUser)
 	app.Get("/GetFollowersOfCurrentUser/:UserID", followHandler.GetFollowersOfCurrentUser)
 	app.Get("/GetSearchFriend/:UserID", userHandler.GetSearchFriend)
-	//app.Get("/GetFriendsWishlists/:UserID", wishlistHandler.GetFriendsWishlists)
+	app.Get("/GetFriendsWishlists/:UserID", wishlistHandler.GetFriendsWishlists)
 	app.Get("/GetWishlistDetails/:WishlistID", wishlistHandler.GetWishlistDetails)
 	app.Get("/GetDonateInfo/:UserID", userHandler.GetDonateInfo)
 	//#####################################################################################

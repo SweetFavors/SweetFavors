@@ -18,16 +18,17 @@ type User struct {
 }
 
 type Wishlist struct {
-	WishlistID      *uint `gorm:"primaryKey;autoIncrement"`
-	UserID          *uint `gorm:"not null"`
-	User            User  `gorm:"foreignKey:UserID"`
-	Itemname        *string
-	Quantity        *uint
-	Price           *uint
-	LinkURL         *string
-	ItemPic         *string
-	AlreadyBought   *bool
-	GrantedByUserId *uint
+	WishlistID         *uint `gorm:"primaryKey;autoIncrement"`
+	UserID             *uint `gorm:"not null"`
+	User               User  `gorm:"foreignKey:UserID"`
+	Itemname           *string
+	Quantity           *uint
+	Price              *uint
+	LinkURL            *string
+	ItemPic            *string
+	AlreadyBought      *bool
+	GrantedByUserId    *uint
+	UsernameOfWishlist *string `gorm:"->"`
 }
 
 type Follow struct {
