@@ -46,7 +46,7 @@ class _ProfileBarState extends State<ProfileBar> {
             },
             child: CircleAvatar(
               radius: 40.0,
-              backgroundImage: CachedNetworkImageProvider(widget.images),
+              backgroundImage: NetworkImage(widget.images),
             ),
           ),
         ),
