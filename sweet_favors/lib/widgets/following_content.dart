@@ -42,7 +42,7 @@ class _FollowingContentState extends State<FollowingContent> {
                 return GridView.count(
                   crossAxisCount: 2,
                   shrinkWrap: true,
-                  physics: BouncingScrollPhysics(),
+                  physics: const BouncingScrollPhysics(),
                   childAspectRatio: 0.7, // Adjust this aspect ratio as needed
                   padding:
                       const EdgeInsets.all(8.0), // Add padding around each item

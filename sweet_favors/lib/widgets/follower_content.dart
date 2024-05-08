@@ -43,7 +43,9 @@ class _FollowerContentState extends State<FollowerContent> {
                 return GridView.count(
                   crossAxisCount: 2,
                   shrinkWrap: true,
-                  physics: BouncingScrollPhysics(),
+                  physics: const BouncingScrollPhysics(),
+                  padding: const EdgeInsets.all(8.0),
+                  childAspectRatio: 0.7,
                   children: snapshot.data!.map((follower) {
                     return Center(
                       child: InkWell(
@@ -57,37 +59,66 @@ class _FollowerContentState extends State<FollowerContent> {
                             ),
                           );
                         },
-                        child: Stack(
-                          children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(8.0),
-                              child: Image.network(
-                                follower.followerUserPic,
-                                width: 290,
-                                height: 360,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                            SizedBox(
-                              width: 290,
-                              height: 360,
-                              child: Center(
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    Text(
-                                      follower.followerUsername,
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold,
+                        child: Container(
+                          width: 200,
+                          height: 400,
+                          padding:
+                              const EdgeInsets.all(8.0), // Add padding here
+                          child: Stack(
+                            children: [
+                              // Border layer
+                              Positioned.fill(
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(22.5),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                        color: colorUse
+                                            .activeIconCircle, // Border color
+                                        width: 15, // Border width
                                       ),
                                     ),
-                                  ],
+                                  ),
                                 ),
                               ),
-                            ),
-                          ],
+                              // Image layer
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(15.0),
+                                  child: Image.network(
+                                    follower.followerUserPic,
+                                    width: 200,
+                                    height: 400,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                              // Text layer
+                              SizedBox(
+                                width: 200,
+                                height: 400,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Center(
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Text(
+                                          follower.followerUsername,
+                                          style: const TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     );
@@ -96,7 +127,7 @@ class _FollowerContentState extends State<FollowerContent> {
               } else if (snapshot.hasError) {
                 return Text('Error: ${snapshot.error}');
               } else {
-                return Center(child: CircularProgressIndicator());
+                return const Center(child: CircularProgressIndicator());
               }
             },
           ),
