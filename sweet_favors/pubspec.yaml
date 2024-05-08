@@ -39,6 +39,7 @@ dependencies:
   flutter_swiper_view: ^1.1.8
   flutter_floating_bottom_bar: ^1.2.0
   http: ^1.2.1
+  cached_network_image: ^3.3.1
 
 dev_dependencies:
   flutter_test:
