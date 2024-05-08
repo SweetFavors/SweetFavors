@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"strconv"
 	"sugar_stream/internal/dtos"
 	"sugar_stream/internal/service"
 
@@ -128,4 +129,29 @@ func (h *followHandler) GetFollowersOfCurrentUser(c *fiber.Ctx) error {
 		})
 	}
 	return c.JSON(followsResponse)
+}
+
+func (h *followHandler) GetCheckFollowingYet(c *fiber.Ctx) error {
+
+	currentUserID, err := strconv.Atoi(c.Params("CurrentUserID"))
+	if err != nil {
+		return err
+	}
+
+	friendUserID, err := strconv.Atoi(c.Params("FriendUserID"))
+	if err != nil {
+		return err
+	}
+
+	follow, err := h.followSer.GetCheckFollowingYet(currentUserID, friendUserID)
+	if err != nil {
+		return err
+	}
+
+	followResponse := dtos.CheckFollowingYetResponse{
+		UserID:      follow.UserID,
+		FollowingID: follow.FollowingID,
+	}
+
+	return c.JSON(followResponse)
 }

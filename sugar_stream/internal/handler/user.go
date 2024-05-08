@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"strconv"
 	"sugar_stream/internal/dtos"
 	"sugar_stream/internal/service"
 
@@ -96,13 +97,14 @@ func (h *userHandler) GetUserCurrent(c *fiber.Ctx) error {
 /////////////////////////////////////////////////////////////////////////
 
 func (h *userHandler) GetProfileOfCurrentUser(c *fiber.Ctx) error {
-	// userIDExtract, err := 1, nil
-	// if err != nil {
-	//     return err
-	// }
-	userIDExtract := 1
+	userID := c.Params("userID")
 
-	user, err := h.userSer.GetProfileOfCurrentUser(userIDExtract)
+	userIDReceive, err := strconv.Atoi(userID)
+	if err != nil {
+		return err
+	}
+
+	user, err := h.userSer.GetProfileOfCurrentUser(userIDReceive)
 	if err != nil {
 		return err
 	}
@@ -145,13 +147,14 @@ func (h *userHandler) GetSearchFriend(c *fiber.Ctx) error {
 }
 
 func (h *userHandler) GetDonateInfo(c *fiber.Ctx) error {
-	// userIDExtract, err := 1, nil
-	// if err != nil {
-	//     return err
-	// }
-	userIDExtract := 1
+	userID := c.Params("userID")
 
-	user, err := h.userSer.GetProfileOfCurrentUser(userIDExtract)
+	userIDReceive, err := strconv.Atoi(userID)
+	if err != nil {
+		return err
+	}
+
+	user, err := h.userSer.GetProfileOfCurrentUser(userIDReceive)
 	if err != nil {
 		return err
 	}

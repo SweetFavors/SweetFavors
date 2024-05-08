@@ -187,14 +187,18 @@ func (h *wishlistHandler) GetWishlistDetails(c *fiber.Ctx) error {
 
 func (h *wishlistHandler) GetProfileFriendWishlists(c *fiber.Ctx) error {
 
-	// userIDExtract, err := 1, nil
-	// if err != nil {
-	//     return err
-	// }
-	userIDExtract := 2
+	currentUserID, err := strconv.Atoi(c.Params("CurrentUserID"))
+	if err != nil {
+		return err
+	}
+
+	wishlistOwnerID, err := strconv.Atoi(c.Params("WishlistOwnerID"))
+	if err != nil {
+		return err
+	}
 
 	wishlistsResponse := make([]dtos.FriendsWishlistsResponse, 0)
-	wishlists, err := h.wishlistSer.GetProfileFriendWishlists(userIDExtract)
+	wishlists, err := h.wishlistSer.GetProfileFriendWishlists(currentUserID, wishlistOwnerID)
 	if err != nil {
 		return err
 	}
