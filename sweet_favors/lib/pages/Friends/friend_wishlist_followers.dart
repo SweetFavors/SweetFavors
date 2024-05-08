@@ -4,6 +4,7 @@ import 'package:sweet_favors/components/following_model.dart';
 import 'package:sweet_favors/widgets/card_widget.dart';
 import 'package:sweet_favors/widgets/friend_profile_bar.dart';
 import 'package:sweet_favors/widgets/bottomBar.dart';
+import 'package:sweet_favors/widgets/friends_msg_card.dart';
 
 class FriendWishlistFollowers extends StatefulWidget {
   final Follower follower;
@@ -37,18 +38,21 @@ class _FriendWishlistFollowersState extends State<FriendWishlistFollowers> {
             ),
 
             const SizedBox(height: 35.0), // Spacing between profile and card
+            FriendsMsgCard(
+                message:
+                    "You can view each other's wishlist once you both start following each other."),
 
             // Card positioned below profile
-            const CardWidget(
-              wishlistId: 1,
-              product: 'Labubu',
-              grantBy: 'Nong Ne',
-            ),
-            const CardWidget(
-              wishlistId: 2,
-              product: 'Valorant Skin',
-              grantBy: 'Nong Putu',
-            ),
+            // const CardWidget(
+            //   wishlistId: 1,
+            //   product: 'Labubu',
+            //   grantBy: 'Nong Ne',
+            // ),
+            // const CardWidget(
+            //   wishlistId: 2,
+            //   product: 'Valorant Skin',
+            //   grantBy: 'Nong Putu',
+            // ),
           ],
         ),
       ),
