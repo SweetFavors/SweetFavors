@@ -67,6 +67,7 @@ class WishItem {
   final bool? alreadyBought;
   final int? grantedByUserId;
   final String usernameOfWishlist;
+  final String? picOfWishlistUser;
 
   WishItem({
     required this.wishlistId,
@@ -79,6 +80,7 @@ class WishItem {
     this.alreadyBought,
     this.grantedByUserId,
     required this.usernameOfWishlist,
+    this.picOfWishlistUser
   });
 
   factory WishItem.fromJson(Map<String, dynamic> json) {
@@ -93,6 +95,7 @@ class WishItem {
       alreadyBought: json['already_bought'],
       grantedByUserId: json['granted_by_user_id'],
       usernameOfWishlist: json['username_of_wishlist'],
+      picOfWishlistUser: json['user_pic_of_wishlist'],
     );
   }
 }
