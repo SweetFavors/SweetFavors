@@ -89,11 +89,11 @@ func main() {
 	app.Get("/GetFriendsWishlists/:UserID", wishlistHandler.GetFriendsWishlists)
 	app.Get("/GetWishlistDetails/:WishlistID", wishlistHandler.GetWishlistDetails)
 	app.Get("/GetDonateInfo/:UserID", userHandler.GetDonateInfo)
-	app.Get("/GetProfileFriendWishlists/:UserID", wishlistHandler.GetProfileFriendWishlists)
-	app.Get("/Following/:UserID", followHandler.GetFollowing)
+	app.Get("/GetProfileFriendWishlists/:CurrentUserID/:WishlistOwnerID", wishlistHandler.GetProfileFriendWishlists)
+	app.Get("/GetCheckFollowingYet/:CurrentUserID/:FriendUserID", followHandler.GetCheckFollowingYet)
 	//#####################################################################################
 
-	log.Printf("ToDoList run at port:  %v", viper.GetInt("app.port"))
+	log.Printf("SweetFavors run at port:  %v", viper.GetInt("app.port"))
 	app.Listen(fmt.Sprintf(":%v", viper.GetInt("app.port")))
 
 }

@@ -161,8 +161,8 @@ func (s wishlistService) GetWishlistDetails(wishlistid int) (*entities.Wishlist,
 	return &wishlistResponse, nil
 }
 
-func (s wishlistService) GetProfileFriendWishlists(userid int) ([]entities.Wishlist, error) {
-	wishlists, err := s.wishlistRepo.GetAllProfileFriendWishlists(userid)
+func (s wishlistService) GetProfileFriendWishlists(currentUserID, wishlistOwnerID int) ([]entities.Wishlist, error) {
+	wishlists, err := s.wishlistRepo.GetAllProfileFriendWishlists(currentUserID, wishlistOwnerID)
 	if err != nil {
 		log.Println(err)
 		return nil, err
