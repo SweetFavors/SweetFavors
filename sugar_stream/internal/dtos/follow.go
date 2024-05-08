@@ -30,3 +30,8 @@ type FollowersOfCurrentUserResponse struct {
 	FollowerUsername *string `json:"follower_username" validate:"required"`
 	FollowerUserPic  *string `json:"follower_user_pic" validate:"required"`
 }
+
+type CheckFollowingYetResponse struct {
+	UserID      *uint `json:"user_id" validate:"required"`
+	FollowingID *uint `json:"following_id" validate:"required"`
+}

@@ -72,3 +72,14 @@ func (r followRepositoryDB) GetFollowersOfCurrentUserId(userid int) ([]entities.
 
 	return follows, nil
 }
+
+func (r followRepositoryDB) GetCheckFollowingYetByData(currentUserID, friendUserID int) (*entities.Follow, error) {
+	follows := entities.Follow{}
+	result := r.db.Where("user_id = ? AND following_id = ?", currentUserID, friendUserID).Find(&follows)
+
+	if result.Error != nil {
+		return nil, result.Error
+	}
+
+	return &follows, nil
+}

@@ -10,4 +10,5 @@ type FollowRepository interface {
 	////////////////////////////////////////////////////
 	GetFollowingOfCurrentUserId(int) ([]entities.Follow, error)
 	GetFollowersOfCurrentUserId(int) ([]entities.Follow, error)
+	GetCheckFollowingYetByData(int, int) (*entities.Follow, error)
 }
