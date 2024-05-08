@@ -30,19 +30,19 @@ class NewWishAdd extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                TextForm(label: 'Item name'),
-                TextForm(label: 'Quantity'),
-                TextForm(label: 'Price'),
-                TextForm(label: 'Link URL'),
-                Padding(
-                  padding: const EdgeInsets.only(top: 20.0),
+                const TextForm(label: 'Item name'),
+                const TextForm(label: 'Quantity'),
+                const TextForm(label: 'Price'),
+                const TextForm(label: 'Link URL'),
+                const Padding(
+                  padding: EdgeInsets.only(top: 20.0),
                   child: AddImage(),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 20.0, bottom: 20),
                   child: ButtonAtBottom(
                     onPressed: () {},
-                    text: 'Submit',
+                    text: 'SUBMIT',
                   ),
                 ),
               ],

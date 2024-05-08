@@ -73,7 +73,7 @@ class _FirstHomePageState extends State<FirstHomePage> {
           // Main column
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(
+            const SizedBox(
               height: 40.0,
             ),
             // Profile Row
@@ -87,7 +87,7 @@ class _FirstHomePageState extends State<FirstHomePage> {
               ),
             ),
 
-            SizedBox(height: 35.0), // Spacing between profile and card
+            const SizedBox(height: 35.0), // Spacing between profile and card
 
             Expanded(
               child: ListView.builder(

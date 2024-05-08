@@ -10,7 +10,11 @@ class Friendpage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-            title: const Text("Friends"),
+            title: const Text(
+              "Friends",
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            centerTitle: true,
             leading: IconButton(
                 onPressed: () => Navigator.push(context,
                     MaterialPageRoute(builder: (context) => const Home())),
@@ -20,7 +24,7 @@ class Friendpage extends StatelessWidget {
                 padding: const EdgeInsets.only(right: 18.0),
                 child: SizedBox(
                   child: IconButton(
-                    icon: const Icon(Icons.add),
+                    icon: const Icon(Icons.person_add),
                     tooltip: 'Add friend',
                     onPressed: () {
                       Navigator.push(

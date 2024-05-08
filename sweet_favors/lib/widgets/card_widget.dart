@@ -8,7 +8,11 @@ class CardWidget extends StatelessWidget {
   final String grantBy;
   final int wishlistId;
 
-  const CardWidget({super.key, required this.product, required this.grantBy, required this.wishlistId});
+  const CardWidget(
+      {super.key,
+      required this.product,
+      required this.grantBy,
+      required this.wishlistId});
 
   @override
   Widget build(BuildContext context) {
@@ -17,11 +21,13 @@ class CardWidget extends StatelessWidget {
         margin: const EdgeInsets.only(bottom: 25),
         child: InkWell(
           onTap: () {
-            if(wishlistId != null){
+            if (wishlistId != null) {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) =>  WishDetails(wishlist_id: wishlistId,),
+                  builder: (context) => WishDetails(
+                    wishlist_id: wishlistId,
+                  ),
                 ),
               );
             }
@@ -74,7 +80,7 @@ class ProfileCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Container(
-        margin: const EdgeInsets.only(bottom: 25),
+        margin: const EdgeInsets.only(bottom: 15),
         child: InkWell(
           onTap: () {
             Navigator.push(

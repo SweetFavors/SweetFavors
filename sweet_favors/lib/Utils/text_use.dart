@@ -23,7 +23,10 @@ class TextStyles {
   }
 
   static TextStyle regularTextStyleButton() {
-    return const TextStyle(fontSize: 16.0, color: colorUse.textColorButton);
+    return const TextStyle(
+        fontSize: 16.0,
+        color: colorUse.textColorButton,
+        fontWeight: FontWeight.bold);
   }
 
   static TextStyle cardTitleStyle() {

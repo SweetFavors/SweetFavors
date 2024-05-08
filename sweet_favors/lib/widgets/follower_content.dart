@@ -68,7 +68,7 @@ class _FollowerContentState extends State<FollowerContent> {
                                 fit: BoxFit.cover,
                               ),
                             ),
-                            Container(
+                            SizedBox(
                               width: 290,
                               height: 360,
                               child: Center(

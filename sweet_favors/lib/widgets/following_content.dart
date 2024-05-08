@@ -6,7 +6,7 @@ import 'package:sweet_favors/components/following_model.dart';
 import 'package:sweet_favors/services/following_service.dart';
 
 class FollowingContent extends StatefulWidget {
-  const FollowingContent({super.key});
+  const FollowingContent({Key? key});
 
   @override
   State<FollowingContent> createState() => _FollowingContentState();
@@ -43,6 +43,9 @@ class _FollowingContentState extends State<FollowingContent> {
                   crossAxisCount: 2,
                   shrinkWrap: true,
                   physics: BouncingScrollPhysics(),
+                  childAspectRatio: 0.7, // Adjust this aspect ratio as needed
+                  padding:
+                      const EdgeInsets.all(8.0), // Add padding around each item
                   children: snapshot.data!.map((following) {
                     return Center(
                       child: InkWell(
@@ -58,31 +61,37 @@ class _FollowingContentState extends State<FollowingContent> {
                         },
                         child: Stack(
                           children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(8.0),
-                              child: Image.network(
-                                following.followingUserPic,
-                                width: 290,
-                                height: 360,
-                                fit: BoxFit.cover,
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(15.0),
+                                child: Image.network(
+                                  following.followingUserPic,
+                                  width: 200,
+                                  height: 400,
+                                  fit: BoxFit.cover,
+                                ),
                               ),
                             ),
-                            Container(
-                              width: 290,
-                              height: 360,
-                              child: Center(
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    Text(
-                                      following.followingUsername,
-                                      style: const TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold,
+                            SizedBox(
+                              width: 200,
+                              height: 400,
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Center(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      Text(
+                                        following.followingUsername,
+                                        style: const TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold,
+                                        ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
