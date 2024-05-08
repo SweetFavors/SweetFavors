@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"strconv"
 	"sugar_stream/internal/dtos"
 	"sugar_stream/internal/service"
 
@@ -157,11 +158,12 @@ func (h *wishlistHandler) GetFriendsWishlists(c *fiber.Ctx) error {
 }
 
 func (h *wishlistHandler) GetWishlistDetails(c *fiber.Ctx) error {
-	// userIDExtract, err := 1, nil
-	// if err != nil {
-	//     return err
-	// }
-	wishlistIDReceive := 1
+	wishlistID := c.Params("wishlistID")
+
+	wishlistIDReceive, err := strconv.Atoi(wishlistID)
+	if err != nil {
+		return err
+	}
 
 	wishlist, err := h.wishlistSer.GetWishlistDetails(wishlistIDReceive)
 	if err != nil {
