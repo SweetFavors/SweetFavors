@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:sweet_favors/Utils/color_use.dart';
@@ -23,10 +24,12 @@ class _ProfileState extends State<Profile> {
   String? email;
   String? phoneNum;
 
+  Future<Map<String, dynamic>>? _userData;
+
   @override
   void initState() {
     super.initState();
-    fetchUserData();
+    _userData = fetchUserData();
   }
 
   Future<Map<String, dynamic>> fetchUserData() async {
@@ -44,69 +47,56 @@ class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: const CustomAppBarPopNoTitle(),
-        body: Column(children: [
-          buildtop(),
-          buildContent(),
-          const Spacer(),
-          logout(),
-        ])
-        // ,bottomNavigationBar: bottomBar(),
-        );
+      appBar: const CustomAppBarPopNoTitle(),
+      body: Column(children: [
+        FutureBuilder<Map<String, dynamic>>(
+          future: _userData,
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return CircularProgressIndicator(); // Display a loading indicator while data is being fetched
+            } else if (snapshot.hasError) {
+              return Text('Error: ${snapshot.error}');
+            } else {
+              final userData = snapshot.data;
+              return Column(
+                children: [
+                  buildtop(userData),
+                  RegularText(userData?['username'] ?? ''),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  RegularText(
+                      '${userData?['email'] ?? "Thejustice@gmail.com"} | ${userData?['phone_num'] ?? "123-456-7890"}'),
+                  SizedBox(
+                    height: 40,
+                  ),
+                  ProfileCard(
+                    product: 'Edit profile information',
+                    icon: Icons.edit_square,
+                    destination: EditProfile(),
+                  ),
+                  ProfileCard(
+                    product: 'Privacy policy',
+                    icon: Icons.policy,
+                    destination: Eula(),
+                  ),
+                ],
+              );
+            }
+          },
+        ),
+        const Spacer(),
+        logout(),
+      ]),
+      //,bottomNavigationBar: bottomBar(),
+    );
   }
 
   Widget logout() {
     return ButtonAtBottom(onPressed: () {}, text: 'Logout');
   }
 
-  Widget buildContent() {
-    return Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: Container(
-        child: Column(
-          children: [
-            FutureBuilder<Map<String, dynamic>>(
-              future: fetchUserData(),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return CircularProgressIndicator(); // Display a loading indicator while data is being fetched
-                } else if (snapshot.hasError) {
-                  return Text('Error: ${snapshot.error}');
-                } else {
-                  final userData = snapshot.data;
-                  return Column(
-                    children: [
-                      RegularText(userData?['username'] ?? ''),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      RegularText(
-                          '${userData?['email'] ?? "Thejustice@gmail.com"} | ${userData?['phone_num'] ?? "123-456-7890"}'),
-                      SizedBox(
-                        height: 40,
-                      ),
-                      ProfileCard(
-                        product: 'Edit profile information',
-                        icon: Icons.edit_square,
-                        destination: EditProfile(),
-                      ),
-                      ProfileCard(
-                        product: 'Privacy policy',
-                        icon: Icons.policy,
-                        destination: Eula(),
-                      ),
-                    ],
-                  );
-                }
-              },
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget buildtop() {
+  Widget buildtop(Map<String, dynamic>? userData) {
     final top = coverHeight - profileHeight / 2;
     final bottom = profileHeight / 2;
 
@@ -119,7 +109,7 @@ class _ProfileState extends State<Profile> {
             child: backgroundColorSquare()),
         Positioned(
           top: top,
-          child: pictureOverlay(),
+          child: pictureOverlay(userData),
         )
       ],
     );
@@ -143,8 +133,10 @@ class _ProfileState extends State<Profile> {
         ],
       ));
 
-  Widget pictureOverlay() => CircleAvatar(
+  Widget pictureOverlay(Map<String, dynamic>? userData) {
+    final profilePic = userData?['user_pic'] ?? '';
+    return CircleAvatar(
         radius: profileHeight / 2,
-        backgroundImage: AssetImage('assets/myGirl.png'),
-      );
+        backgroundImage: CachedNetworkImageProvider(profilePic));
+  }
 }

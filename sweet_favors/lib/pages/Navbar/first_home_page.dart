@@ -28,19 +28,19 @@ class _FirstHomePageState extends State<FirstHomePage> {
   Future<List<components.Wishlist>> fetchWishlists() async {
     Dio dio = Dio(); // Create a Dio instance
     final response =
-        await dio.get('http://10.0.2.2:1432/getWishlistsOfCurrentUser/3');
+        await dio.get('http://10.0.2.2:1432/getWishlistsOfCurrentUser/1');
 
     if (response.statusCode == 200) {
       final parsedJson = response.data as List; // Directly get the parsed data
       print(response.data);
       // parsedJson.map((json) => Wishlist.fromJson(json)).toList();
-      wishlists = parsedJson.map((json) => components.Wishlist.fromJson(json)).toList();
+      wishlists =
+          parsedJson.map((json) => components.Wishlist.fromJson(json)).toList();
       return wishlists;
     } else {
       throw Exception('Failed to load wishlists');
     }
   }
-
 
   Future<void> fetchUserData() async {
     Dio dio = Dio();
@@ -65,7 +65,6 @@ class _FirstHomePageState extends State<FirstHomePage> {
     }
   }
 
-
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
@@ -82,7 +81,7 @@ class _FirstHomePageState extends State<FirstHomePage> {
               height: 55,
               width: 400,
               child: ProfileBar(
-                images: img ?? 'assets/myGirl.png',
+                images: img ?? '',
                 name: username ?? '',
                 email: email ?? '',
               ),
@@ -96,8 +95,8 @@ class _FirstHomePageState extends State<FirstHomePage> {
                 itemBuilder: (context, index) {
                   final wishlist = wishlists[index];
                   return CardWidget(
-                    product: wishlist.itemname, 
-                    grantBy: wishlist.price.toString(),  
+                    product: wishlist.itemname,
+                    grantBy: wishlist.price.toString(),
                     wishlistId: wishlist.wishlistId,
                   );
                 },
