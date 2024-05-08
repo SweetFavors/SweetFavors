@@ -39,7 +39,7 @@ class NewWishAdd extends StatelessWidget {
                   child: AddImage(),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 20.0),
+                  padding: const EdgeInsets.only(top: 20.0, bottom: 20),
                   child: ButtonAtBottom(
                     onPressed: () {},
                     text: 'Submit',

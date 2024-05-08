@@ -9,21 +9,28 @@ class EditProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBarPop(title: 'Edit profile', centerTitle: true,),
-      body: Container(
-        margin: EdgeInsets.all(20),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          // crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            TextForm(label: 'First name'),
-            TextForm(label: 'Last name'),
-            TextForm(label: 'Username'),
-            TextForm(label: 'Phone number'),
-            SizedBox(height: 20,),
-            ButtonAtBottom(onPressed: () {}, text: 'SAVE PROFILE'),
-          ],
+      appBar: const CustomAppBarPop(
+        title: 'Edit profile',
+        centerTitle: true,
+      ),
+      body: SingleChildScrollView(
+        child: Container(
+          margin: const EdgeInsets.all(20),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            // crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const TextForm(label: 'First name'),
+              const TextForm(label: 'Last name'),
+              const TextForm(label: 'Username'),
+              const TextForm(label: 'Phone number'),
+              const SizedBox(
+                height: 20,
+              ),
+              ButtonAtBottom(onPressed: () {}, text: 'SAVE PROFILE'),
+            ],
+          ),
         ),
       ),
     );
