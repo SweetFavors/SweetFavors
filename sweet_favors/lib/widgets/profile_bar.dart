@@ -1,9 +1,10 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:sweet_favors/Utils/color_use.dart';
 import 'package:sweet_favors/pages/Profile/profile.dart';
 // import 'package:sweet_favors/pages/home.dart';
 
-class ProfileBar extends StatelessWidget {
+class ProfileBar extends StatefulWidget {
   final String images;
   final String name;
   final String email;
@@ -14,6 +15,11 @@ class ProfileBar extends StatelessWidget {
       required this.name,
       required this.email});
 
+  @override
+  State<ProfileBar> createState() => _ProfileBarState();
+}
+
+class _ProfileBarState extends State<ProfileBar> {
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -40,7 +46,7 @@ class ProfileBar extends StatelessWidget {
             },
             child: CircleAvatar(
               radius: 40.0,
-              backgroundImage: AssetImage(images),
+              backgroundImage: CachedNetworkImageProvider(widget.images),
             ),
           ),
         ),
@@ -54,7 +60,7 @@ class ProfileBar extends StatelessWidget {
               height: 10,
             ),
             Text(
-              name,
+              widget.name,
               style: const TextStyle(
                 fontSize: 15.0,
                 fontWeight: FontWeight.bold,
@@ -69,7 +75,7 @@ class ProfileBar extends StatelessWidget {
               ),
             ),
             Text(
-              email,
+              widget.email,
               style: const TextStyle(
                 fontSize: 13.0,
                 color: colorUse.textColorSecondary,

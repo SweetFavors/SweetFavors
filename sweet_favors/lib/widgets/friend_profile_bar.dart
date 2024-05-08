@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:sweet_favors/Utils/color_use.dart';
 import 'package:sweet_favors/pages/home.dart';
@@ -39,7 +40,7 @@ class FriendProfileBar extends StatelessWidget {
               ),
               child: CircleAvatar(
                 radius: 40.0,
-                backgroundImage: AssetImage(images),
+                backgroundImage: CachedNetworkImageProvider(images),
               ),
             ),
             const SizedBox(width: 20.0),

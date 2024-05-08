@@ -10,4 +10,5 @@ type WishlistService interface {
 	GetWishlistsOfCurrentUser(int) ([]entities.Wishlist, error)
 	GetFriendsWishlists(int) ([]entities.Wishlist, error)
 	GetWishlistDetails(int) (*entities.Wishlist, error)
+	GetProfileFriendWishlists(int) ([]entities.Wishlist, error)
 }
