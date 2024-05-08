@@ -23,7 +23,7 @@ class _FriendWishlistFollowersState extends State<FriendWishlistFollowers> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: EdgeInsets.all(20.0),
+        padding: const EdgeInsets.all(20.0),
         child: Column(
           // Main column
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -36,15 +36,23 @@ class _FriendWishlistFollowersState extends State<FriendWishlistFollowers> {
               email: "test",
             ),
 
-            SizedBox(height: 35.0), // Spacing between profile and card
+            const SizedBox(height: 35.0), // Spacing between profile and card
 
             // Card positioned below profile
-            // CardWidget(product: 'XD', grantBy: 'XD123'),
-            // CardWidget(product: 'momoXD', grantBy: 'XD12345'),
+            const CardWidget(
+              wishlistId: 1,
+              product: 'Labubu',
+              grantBy: 'Nong Ne',
+            ),
+            const CardWidget(
+              wishlistId: 2,
+              product: 'Valorant Skin',
+              grantBy: 'Nong Putu',
+            ),
           ],
         ),
       ),
-      // bottomNavigationBar: bottomBar(),
+      //bottomNavigationBar: const bottomBar(),
     );
   }
 }

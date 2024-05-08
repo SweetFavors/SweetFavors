@@ -68,7 +68,7 @@ class _FirstHomePageState extends State<FirstHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: EdgeInsets.all(20.0),
+        padding: const EdgeInsets.all(20.0),
         child: Column(
           // Main column
           crossAxisAlignment: CrossAxisAlignment.start,

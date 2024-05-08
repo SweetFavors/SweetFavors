@@ -34,7 +34,7 @@ class CardWidget extends StatelessWidget {
           },
           child: Card(
             // margin: EdgeInsets.only(bottom: 25),
-            color: Color.fromARGB(255, 244, 221, 255),
+            color: const Color.fromARGB(198, 242, 215, 255),
             elevation: 7,
             child: Column(
               mainAxisSize: MainAxisSize.min,

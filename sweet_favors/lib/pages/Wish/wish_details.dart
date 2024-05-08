@@ -46,7 +46,8 @@ class _WishDetailsState extends State<WishDetails> {
         if (snapshot.hasData) {
           final wishdata = snapshot.data;
           final itemName = wishdata?['itemname'] ?? 'Unknown Item';
-          final quantity = (wishdata?['quantity'] as num)!.toString() ?? 'Unknown quantity';
+          final quantity =
+              (wishdata?['quantity'] as num)!.toString() ?? 'Unknown quantity';
           final linkurl = wishdata?['link_url'] ?? 'Unknown link';
           final pics = wishdata?['item_pic'] ?? 'Unknown pics';
           final userId = (wishdata?['user_Id']) ?? 'Unknown userId';

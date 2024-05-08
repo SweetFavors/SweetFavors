@@ -59,9 +59,11 @@ class _WishGrantPageState extends State<WishGrantPage> {
               // width: 400,
               child: _wishItems.isNotEmpty
                   ? Container(
-                    child: ProfileBar(
-                        images: _wishItems[_currentIndex].picOfWishlistUser ?? '', // Placeholder image
-                        name: _wishItems[_currentIndex].usernameOfWishlist ?? '', 
+                      child: ProfileBar(
+                        images: _wishItems[_currentIndex].picOfWishlistUser ??
+                            '', // Placeholder image
+                        name:
+                            _wishItems[_currentIndex].usernameOfWishlist ?? '',
                         email: '', // Assuming you have email data in WishItem
                       ),
                     )
