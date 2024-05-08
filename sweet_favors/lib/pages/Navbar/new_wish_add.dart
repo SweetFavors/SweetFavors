@@ -17,10 +17,9 @@ class NewWishAdd extends StatelessWidget {
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
-        leading: IconButton(
-            onPressed: () => Navigator.push(
-                context, MaterialPageRoute(builder: (context) => const Home())),
-            icon: const Icon(Icons.arrow_back, color: Colors.black)),
+        // leading: IconButton(
+        //     onPressed: () => Navigator.pop(context),
+        //     icon: const Icon(Icons.arrow_back, color: Colors.black)),
       ),
       body: SingleChildScrollView(
         child: Center(

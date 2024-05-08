@@ -17,8 +17,7 @@ class AddFriend extends StatelessWidget {
         ),
         centerTitle: true,
         leading: IconButton(
-            onPressed: () => Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const Friendpage())),
+            onPressed: () => Navigator.pop(context),
             icon: const Icon(Icons.arrow_back, color: Colors.black)),
       ),
       body: SingleChildScrollView(

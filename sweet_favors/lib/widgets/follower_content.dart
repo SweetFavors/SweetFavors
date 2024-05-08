@@ -66,16 +66,16 @@ class _FollowerContentState extends State<FollowerContent> {
                               const EdgeInsets.all(8.0), // Add padding here
                           child: Stack(
                             children: [
-                              // Border layer
+                              // Outline for border ja
                               Positioned.fill(
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(22.5),
                                   child: Container(
                                     decoration: BoxDecoration(
                                       border: Border.all(
-                                        color: colorUse
-                                            .activeIconCircle, // Border color
-                                        width: 15, // Border width
+                                        color: colorUse.activeIconCircle,
+                                        width:
+                                            15, //don't change this to anything less than 15
                                       ),
                                     ),
                                   ),
