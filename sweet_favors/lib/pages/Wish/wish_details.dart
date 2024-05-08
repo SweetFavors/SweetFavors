@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:sweet_favors/Utils/text_use.dart';
-import 'package:sweet_favors/components/integrate_class.dart' as components;
+import 'package:sweet_favors/components/integrate_model.dart' as components;
 import 'package:sweet_favors/pages/Payment/payment.dart';
 import 'package:sweet_favors/pages/home.dart';
 import 'package:sweet_favors/widgets/button_at_bottom.dart';

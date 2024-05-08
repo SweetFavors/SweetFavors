@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:sweet_favors/widgets/card_widget.dart';
 import 'package:sweet_favors/widgets/profile_bar.dart';
-import 'package:sweet_favors/components/integrate_class.dart' as components;
+import 'package:sweet_favors/components/integrate_model.dart' as components;
 
 class FirstHomePage extends StatefulWidget {
   const FirstHomePage({super.key});
