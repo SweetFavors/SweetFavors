@@ -5,16 +5,17 @@ import 'package:sweet_favors/pages/Wish/wish_details.dart';
 
 class CardWidget extends StatelessWidget {
   final String product;
-  final String grantBy;
+  final String? grantBy;
   final int wishlistId;
   final String? username;
 
   const CardWidget(
       {super.key,
       required this.product,
-      required this.grantBy,
+      this.grantBy,
       required this.wishlistId,
-      this.username});
+      this.username
+      });
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +30,7 @@ class CardWidget extends StatelessWidget {
                 MaterialPageRoute(
                   builder: (context) => WishDetails(
                     wishlist_id: wishlistId,
-                    username: username ?? '',
+                    username: username ?? 'null',
                   ),
                 ),
               );
@@ -37,7 +38,9 @@ class CardWidget extends StatelessWidget {
           },
           child: Card(
             // margin: EdgeInsets.only(bottom: 25),
-            color: const Color.fromARGB(198, 242, 215, 255),
+            color: grantBy != null?
+              colorUse.grantedColor :
+              Color.fromARGB(198, 242, 215, 255),
             elevation: 7,
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -54,7 +57,10 @@ class CardWidget extends StatelessWidget {
                     ),
                   ),
                   subtitle: Text(
-                    'Granted by $grantBy',
+                    grantBy != null?
+                    'Granted by $grantBy' 
+                    :
+                    'Not granted yet',
                     style: const TextStyle(
                       color: Color.fromARGB(255, 93, 94, 101),
                     ).merge(

@@ -94,8 +94,9 @@ class _FirstHomePageState extends State<FirstHomePage> {
                   final wishlist = wishlists[index];
                   return CardWidget(
                     product: wishlist.itemname,
-                    grantBy: wishlist.userNameOfGranter ?? "",
+                    grantBy: wishlist.userNameOfGranter,
                     wishlistId: wishlist.wishlistId,
+                    username: username,
                   );
                 },
               ),
