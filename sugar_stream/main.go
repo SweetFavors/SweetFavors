@@ -89,12 +89,8 @@ func main() {
 	app.Get("/GetFriendsWishlists/:UserID", wishlistHandler.GetFriendsWishlists)
 	app.Get("/GetWishlistDetails/:WishlistID", wishlistHandler.GetWishlistDetails)
 	app.Get("/GetDonateInfo/:UserID", userHandler.GetDonateInfo)
-<<<<<<< HEAD
-	app.Get("	", wishlistHandler.GetProfileFriendWishlists)
-=======
 	app.Get("/GetProfileFriendWishlists/:CurrentUserID/:WishlistOwnerID", wishlistHandler.GetProfileFriendWishlists)
 	app.Get("/GetCheckFollowingYet/:CurrentUserID/:FriendUserID", followHandler.GetCheckFollowingYet)
->>>>>>> dfa70c4be0b99e7e3fed045b37d5f2e5de66816f
 	//#####################################################################################
 
 	log.Printf("SweetFavors run at port:  %v", viper.GetInt("app.port"))
