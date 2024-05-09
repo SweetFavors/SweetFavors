@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sweet_favors/Utils/color_use.dart';
 import 'package:sweet_favors/components/follower_model.dart';
 import 'package:sweet_favors/components/following_model.dart';
 import 'package:sweet_favors/widgets/card_widget.dart';

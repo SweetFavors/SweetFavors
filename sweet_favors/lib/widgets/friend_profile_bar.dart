@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:sweet_favors/Utils/color_use.dart';
+import 'package:sweet_favors/pages/Friends/add_friend.dart';
 import 'package:sweet_favors/pages/home.dart';
 
 class FriendProfileBar extends StatelessWidget {
@@ -80,6 +81,27 @@ class FriendProfileBar extends StatelessWidget {
                     ),
                   ),
                 ],
+              ),
+              //If they're not mutuals, there will be an option to add them
+              //If they're mutuals, the icon will change to another one
+              const SizedBox(
+                width: 120,
+              ),
+              IconButton(
+                icon: const Icon(
+                  Icons.person_add,
+                  size: 30,
+                ),
+                tooltip: 'Add friend',
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const AddFriend(),
+                      // this is not completed, it needs to check if the friend is mutual follow or not
+                    ),
+                  );
+                },
               ),
             ],
           ),
