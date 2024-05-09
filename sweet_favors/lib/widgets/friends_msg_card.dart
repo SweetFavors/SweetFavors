@@ -30,6 +30,7 @@ class FriendsMsgCard extends StatelessWidget {
                       fontSize: 16.0,
                       fontWeight: FontWeight.bold,
                     ),
+                    textAlign: TextAlign.center,
                   ),
                 )
               ],

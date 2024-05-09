@@ -34,13 +34,16 @@ class _FriendWishlistFollowersState extends State<FriendWishlistFollowers> {
               images: widget
                   .follower.followerUserPic, // Use the passed follower's image
               name: widget.follower.followerUsername,
-              email: "test",
+              email: "testing@gmail.com",
             ),
 
             const SizedBox(height: 35.0), // Spacing between profile and card
-            FriendsMsgCard(
-                message:
-                    "You can view each other's wishlist once you both start following each other."),
+            const SizedBox(
+              height: 400,
+              child: FriendsMsgCard(
+                  message:
+                      "You can view each other's wishlist once you both start following each other \u{1F929}"),
+            ),
 
             // Card positioned below profile
             // const CardWidget(

@@ -36,20 +36,20 @@ class _FriendWishlistFollowingState extends State<FriendWishlistFollowing> {
               ),
 
               const SizedBox(height: 35.0), // Spacing between profile and card
-              FriendsMsgCard(
-                  message:
-                      "You can view each other's wishlist once you both start following each other."),
+              // FriendsMsgCard(
+              //     message:
+              //         "You can view each other's wishlist once you both start following each other."),
 
-              // const CardWidget(
-              //   wishlistId: 1,
-              //   product: 'Labubu',
-              //   grantBy: 'Nong Ne',
-              // ),
-              // const CardWidget(
-              //   wishlistId: 2,
-              //   product: 'Valorant Skin',
-              //   grantBy: 'Nong Putu',
-              // ),
+              const CardWidget(
+                wishlistId: 1,
+                product: 'Labubu',
+                grantBy: 'Nong Ne',
+              ),
+              const CardWidget(
+                wishlistId: 2,
+                product: 'Valorant Skin',
+                grantBy: 'Nong Putu',
+              ),
             ]),
       ),
       //bottomNavigationBar: const bottomBar(),
