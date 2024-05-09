@@ -17,10 +17,9 @@ class NewWishAdd extends StatelessWidget {
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
-        leading: IconButton(
-            onPressed: () => Navigator.push(
-                context, MaterialPageRoute(builder: (context) => const Home())),
-            icon: const Icon(Icons.arrow_back, color: Colors.black)),
+        // leading: IconButton(
+        //     onPressed: () => Navigator.pop(context),
+        //     icon: const Icon(Icons.arrow_back, color: Colors.black)),
       ),
       body: SingleChildScrollView(
         child: Center(
@@ -30,19 +29,19 @@ class NewWishAdd extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                TextForm(label: 'Item name'),
-                TextForm(label: 'Quantity'),
-                TextForm(label: 'Price'),
-                TextForm(label: 'Link URL'),
-                Padding(
-                  padding: const EdgeInsets.only(top: 20.0),
+                const TextForm(label: 'Item name'),
+                const TextForm(label: 'Quantity'),
+                const TextForm(label: 'Price'),
+                const TextForm(label: 'Link URL'),
+                const Padding(
+                  padding: EdgeInsets.only(top: 20.0),
                   child: AddImage(),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 20.0),
+                  padding: const EdgeInsets.only(top: 20.0, bottom: 20),
                   child: ButtonAtBottom(
                     onPressed: () {},
-                    text: 'Submit',
+                    text: 'SUBMIT',
                   ),
                 ),
               ],

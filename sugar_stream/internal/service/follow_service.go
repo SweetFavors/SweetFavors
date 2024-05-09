@@ -109,3 +109,17 @@ func (s followService) GetFollowersOfCurrentUser(userid int) ([]entities.Follow,
 	}
 	return followResponses, nil
 }
+
+func (s followService) GetCheckFollowingYet(currentUserID, friendUserID int) (*entities.Follow, error) {
+	follow, err := s.followRepo.GetCheckFollowingYetByData(currentUserID, friendUserID)
+	if err != nil {
+		log.Println(err)
+		return nil, err
+	}
+
+	followResponse := entities.Follow{
+		UserID:      follow.UserID,
+		FollowingID: follow.FollowingID,
+	}
+	return &followResponse, nil
+}

@@ -15,7 +15,7 @@ class WishGrantPage extends StatefulWidget {
 
   @override
   State<WishGrantPage> createState() => _WishGrantPageState();
-} 
+}
 
 class _WishGrantPageState extends State<WishGrantPage> {
   List<WishItem> _wishItems = [];
@@ -29,17 +29,17 @@ class _WishGrantPageState extends State<WishGrantPage> {
 
   Future<List<dynamic>> _fetchData() async {
     Dio dio = Dio();
-    final response = await dio.get('http://10.0.2.2:1432/GetFriendsWishlists/3'); // Adjust the endpoint
+    final response = await dio.get(
+        'http://10.0.2.2:1432/GetFriendsWishlists/3'); // Adjust the endpoint
     if (response.statusCode == 200) {
-      final List<dynamic> wishData = response.data; 
-       _wishItems = wishData.map((json) => WishItem.fromJson(json)).toList();
-      print( _wishItems);
-      return  _wishItems;
+      final List<dynamic> wishData = response.data;
+      _wishItems = wishData.map((json) => WishItem.fromJson(json)).toList();
+      print(_wishItems);
+      return _wishItems;
     } else {
       throw Exception('Failed to load wishlists');
     }
- 
-}
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,14 +57,16 @@ class _WishGrantPageState extends State<WishGrantPage> {
               fit: FlexFit.tight,
               // height: 55,
               // width: 400,
-              child: _wishItems.isNotEmpty  
+              child: _wishItems.isNotEmpty
                   ? Container(
-                    child: ProfileBar(
-                        images: 'assets/myGirl.png', // Placeholder image
-                        name: _wishItems[_currentIndex].usernameOfWishlist ?? '', 
+                      child: ProfileBar(
+                        images: _wishItems[_currentIndex].picOfWishlistUser ??
+                            '', // Placeholder image
+                        name:
+                            _wishItems[_currentIndex].usernameOfWishlist ?? '',
                         email: '', // Assuming you have email data in WishItem
                       ),
-                  )
+                    )
                   : const Center(child: CircularProgressIndicator()),
             ),
 
@@ -75,14 +77,15 @@ class _WishGrantPageState extends State<WishGrantPage> {
               fit: FlexFit.tight,
               child: Swiper(
                 layout: SwiperLayout.CUSTOM,
-                customLayoutOption: CustomLayoutOption(startIndex: -1, stateCount: 3)
-                ..addRotate([-45.0 / 180, 0.0, 45.0 / 180])
-                ..addTranslate([
-                  const Offset(-370.0, -40.0),
-                  const Offset(0.0, 0.0),
-                  const Offset(370.0, -40.0)
-                ]),
-                itemCount: _wishItems.length, 
+                customLayoutOption:
+                    CustomLayoutOption(startIndex: -1, stateCount: 3)
+                      ..addRotate([-45.0 / 180, 0.0, 45.0 / 180])
+                      ..addTranslate([
+                        const Offset(-370.0, -40.0),
+                        const Offset(0.0, 0.0),
+                        const Offset(370.0, -40.0)
+                      ]),
+                itemCount: _wishItems.length,
                 itemHeight: 300,
                 itemWidth: 800,
                 scrollDirection: Axis.horizontal,
@@ -93,7 +96,10 @@ class _WishGrantPageState extends State<WishGrantPage> {
                   });
                 },
                 itemBuilder: (context, index) {
-                  return WishGrant(price: "\$${_wishItems[index].price}", pic: _wishItems[index].itemPic,);
+                  return WishGrant(
+                    price: "\$${_wishItems[index].price}",
+                    pic: _wishItems[index].itemPic,
+                  );
                 },
               ),
             ),
@@ -103,17 +109,20 @@ class _WishGrantPageState extends State<WishGrantPage> {
               fit: FlexFit.tight,
               child: ButtonAtBottom(
                   onPressed: () {
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //     builder: (context) => const WishDetails(),
-                    //     // builder: (context) => WishDetails(product: product, grantBy: grantBy),
-                    //   ),
-                    // );
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const WishDetails(
+                          wishlist_id:
+                              1, //put here choey choey to show the nav tmrw -nes
+                        ),
+                        // builder: (context) => WishDetails(product: product, grantBy: grantBy),
+                      ),
+                    );
                   },
-                  text: 'View wish detail'),
+                  text: 'VIEW WISH DETAILS'),
             ),
-                // SizedBox(height: 100,),
+            // SizedBox(height: 100,),
           ],
         ),
       ),

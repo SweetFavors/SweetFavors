@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:sweet_favors/Utils/color_use.dart';
 import 'package:sweet_favors/components/follower_model.dart';
 import 'package:sweet_favors/components/following_model.dart';
 import 'package:sweet_favors/widgets/card_widget.dart';
 import 'package:sweet_favors/widgets/friend_profile_bar.dart';
 import 'package:sweet_favors/widgets/bottomBar.dart';
+import 'package:sweet_favors/widgets/friends_msg_card.dart';
 
 class FriendWishlistFollowers extends StatefulWidget {
   final Follower follower;
@@ -23,7 +25,7 @@ class _FriendWishlistFollowersState extends State<FriendWishlistFollowers> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: EdgeInsets.all(20.0),
+        padding: const EdgeInsets.all(20.0),
         child: Column(
           // Main column
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -33,18 +35,32 @@ class _FriendWishlistFollowersState extends State<FriendWishlistFollowers> {
               images: widget
                   .follower.followerUserPic, // Use the passed follower's image
               name: widget.follower.followerUsername,
-              email: "test",
+              email: "testing@gmail.com",
             ),
 
-            SizedBox(height: 35.0), // Spacing between profile and card
+            const SizedBox(height: 35.0), // Spacing between profile and card
+            const SizedBox(
+              height: 400,
+              child: FriendsMsgCard(
+                  message:
+                      "You can view each other's wishlist once you both start following each other \u{1F929}"),
+            ),
 
             // Card positioned below profile
-            // CardWidget(product: 'XD', grantBy: 'XD123'),
-            // CardWidget(product: 'momoXD', grantBy: 'XD12345'),
+            // const CardWidget(
+            //   wishlistId: 1,
+            //   product: 'Labubu',
+            //   grantBy: 'Nong Ne',
+            // ),
+            // const CardWidget(
+            //   wishlistId: 2,
+            //   product: 'Valorant Skin',
+            //   grantBy: 'Nong Putu',
+            // ),
           ],
         ),
       ),
-      // bottomNavigationBar: bottomBar(),
+      //bottomNavigationBar: const bottomBar(),
     );
   }
 }

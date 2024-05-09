@@ -16,22 +16,20 @@ class _TextFormState extends State<TextForm> {
     return Padding(
       padding: const EdgeInsets.all(2.0),
       child: Center(
-        child: Container(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10.0),
-            child: TextFormField(
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: widget.label,
-              ),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please input the ${widget.label.toLowerCase()}';
-                }
-                return null;
-              },
-              controller: myConroter,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 10.0),
+          child: TextFormField(
+            decoration: InputDecoration(
+              border: const OutlineInputBorder(),
+              hintText: widget.label,
             ),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please input the ${widget.label.toLowerCase()}';
+              }
+              return null;
+            },
+            controller: myConroter,
           ),
         ),
       ),

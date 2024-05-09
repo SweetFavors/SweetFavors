@@ -31,6 +31,7 @@ class _ProfileBarState extends State<ProfileBar> {
             shape: BoxShape.circle,
             boxShadow: [
               BoxShadow(
+                color: Color.fromARGB(161, 124, 124, 124),
                 spreadRadius: 2,
                 blurRadius: 5,
                 offset: Offset(0, 3),
@@ -46,7 +47,7 @@ class _ProfileBarState extends State<ProfileBar> {
             },
             child: CircleAvatar(
               radius: 40.0,
-              backgroundImage: CachedNetworkImageProvider(widget.images),
+              backgroundImage: NetworkImage(widget.images),
             ),
           ),
         ),
@@ -68,7 +69,7 @@ class _ProfileBarState extends State<ProfileBar> {
                 shadows: [
                   Shadow(
                     blurRadius: 8.0,
-                    color: colorUse.textShadow,
+                    color: Color.fromARGB(161, 124, 124, 124),
                     offset: Offset(3, 3),
                   )
                 ],
@@ -82,7 +83,7 @@ class _ProfileBarState extends State<ProfileBar> {
                 shadows: [
                   Shadow(
                     blurRadius: 15.0,
-                    color: colorUse.textShadow,
+                    color: Color.fromARGB(161, 124, 124, 124),
                     offset: Offset(3, 3),
                   )
                 ],

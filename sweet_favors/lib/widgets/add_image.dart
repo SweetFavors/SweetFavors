@@ -15,7 +15,8 @@ class AddImage extends StatelessWidget {
             // margin: EdgeInsets.only(bottom: 25),
             color: colorUse.secondaryColor,
             child: Padding(
-              padding: const EdgeInsets.all(40.0),
+              padding: const EdgeInsets.only(
+                  top: 40, left: 40, right: 40, bottom: 30),
               child: Column(mainAxisSize: MainAxisSize.min, children: [
                 ClipRRect(
                     borderRadius: BorderRadius.circular(8.0),
@@ -25,6 +26,9 @@ class AddImage extends StatelessWidget {
                       height: 170,
                       fit: BoxFit.cover,
                     )),
+                SizedBox(
+                  height: 20,
+                ),
                 Text(
                   'Add Image +',
                   style: const TextStyle(
