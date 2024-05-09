@@ -7,12 +7,14 @@ class CardWidget extends StatelessWidget {
   final String product;
   final String grantBy;
   final int wishlistId;
+  final String? username;
 
   const CardWidget(
       {super.key,
       required this.product,
       required this.grantBy,
-      required this.wishlistId});
+      required this.wishlistId,
+      this.username});
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +29,7 @@ class CardWidget extends StatelessWidget {
                 MaterialPageRoute(
                   builder: (context) => WishDetails(
                     wishlist_id: wishlistId,
+                    username: username ?? '',
                   ),
                 ),
               );

@@ -107,20 +107,23 @@ class _WishGrantPageState extends State<WishGrantPage> {
             Flexible(
               flex: 3,
               fit: FlexFit.tight,
-              child: ButtonAtBottom(
+              child: _wishItems.isNotEmpty?
+              ButtonAtBottom(
                   onPressed: () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const WishDetails(
+                        builder: (context) => WishDetails(
                           wishlist_id:
-                              1, //put here choey choey to show the nav tmrw -nes
+                               _wishItems[_currentIndex].wishlistId,
+                          username: 
+                               _wishItems[_currentIndex].usernameOfWishlist//put here choey choey to show the nav tmrw -nes
                         ),
                         // builder: (context) => WishDetails(product: product, grantBy: grantBy),
                       ),
                     );
                   },
-                  text: 'VIEW WISH DETAILS'),
+                  text: 'VIEW WISH DETAILS') : const Center(child: CircularProgressIndicator()),
             ),
             // SizedBox(height: 100,),
           ],

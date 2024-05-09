@@ -13,9 +13,6 @@ class PaymentInfo extends StatefulWidget {
   
 }
 
-
-
-
 class _PaymentInfoState extends State<PaymentInfo> {
 
   @override

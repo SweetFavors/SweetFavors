@@ -9,7 +9,8 @@ import 'package:sweet_favors/widgets/title_bar.dart';
 
 class WishDetails extends StatefulWidget {
   final int wishlist_id;
-  const WishDetails({super.key, required this.wishlist_id});
+  final String username;
+  const WishDetails({super.key, required this.wishlist_id, required this.username});
 
   @override
   State<WishDetails> createState() => _WishDetailsState();
@@ -50,8 +51,8 @@ class _WishDetailsState extends State<WishDetails> {
               (wishdata?['quantity'] as num)!.toString() ?? 'Unknown quantity';
           final linkurl = wishdata?['link_url'] ?? 'Unknown link';
           final pics = wishdata?['item_pic'] ?? 'Unknown pics';
-          final userId = (wishdata?['user_Id']) ?? 'Unknown userId';
-
+          final userId = (wishdata?['user_id']) ?? 0;
+          final username = widget.username;
           return Scaffold(
             appBar: CustomAppBarNavigation(
               title: itemName,
@@ -95,10 +96,10 @@ class _WishDetailsState extends State<WishDetails> {
                             padding: EdgeInsets.only(left: 12),
                             child: RegularTextBold('Request by'),
                           ),
-                          const Padding(
+                           Padding(
                             padding: EdgeInsets.only(left: 12),
                             child:
-                                RegularText('test'), // Replace with actual data
+                                RegularText(username), // Replace with actual data
                           ),
                           const SizedBox(height: 24),
                           const Padding(
@@ -120,7 +121,7 @@ class _WishDetailsState extends State<WishDetails> {
                           context,
                           MaterialPageRoute(
                               builder: (context) => Payment(
-                                    userId: userId,
+                                    userId: userId.toString(),
                                   )),
                         );
                       },
