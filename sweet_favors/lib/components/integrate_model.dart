@@ -7,17 +7,18 @@ class Wishlist {
   String? linkurl;
   String itemPic;
   bool? alreadyBought; // Make it nullable to handle potential null values
+  String? userNameOfGranter;
 
-  Wishlist({
-    required this.wishlistId,
-    required this.userId,
-    required this.itemname,
-    required this.quantity,
-    required this.price,
-    this.linkurl,
-    required this.itemPic,
-    this.alreadyBought,
-  });
+  Wishlist(
+      {required this.wishlistId,
+      required this.userId,
+      required this.itemname,
+      required this.quantity,
+      required this.price,
+      this.linkurl,
+      required this.itemPic,
+      this.alreadyBought,
+      this.userNameOfGranter});
 
   factory Wishlist.fromJson(Map<String, dynamic> json) {
     return Wishlist(
@@ -26,13 +27,13 @@ class Wishlist {
       itemname: json['itemname'],
       quantity: json['quantity'],
       price: json['price'],
-      linkurl: json['link_url'],  
+      linkurl: json['link_url'],
       itemPic: json['item_pic'],
       alreadyBought: json['already_bought'],
+      userNameOfGranter: json['username_of_granter'],
     );
   }
 }
-
 
 class WishlistItem {
   final int id;
@@ -51,10 +52,7 @@ class WishlistItem {
     required this.linkUrl,
     required this.itemPic,
   });
-
-  
 }
-
 
 class WishItem {
   final int wishlistId;

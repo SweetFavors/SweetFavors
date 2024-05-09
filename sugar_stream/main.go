@@ -89,7 +89,7 @@ func main() {
 	app.Get("/GetFriendsWishlists/:UserID", wishlistHandler.GetFriendsWishlists)
 	app.Get("/GetWishlistDetails/:WishlistID", wishlistHandler.GetWishlistDetails)
 	app.Get("/GetDonateInfo/:UserID", userHandler.GetDonateInfo)
-	app.Get("/GetProfileFriendWishlists/:UserID", wishlistHandler.GetProfileFriendWishlists)
+	app.Get("	", wishlistHandler.GetProfileFriendWishlists)
 	//#####################################################################################
 
 	log.Printf("ToDoList run at port:  %v", viper.GetInt("app.port"))
