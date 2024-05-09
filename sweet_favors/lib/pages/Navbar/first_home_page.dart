@@ -45,7 +45,7 @@ class _FirstHomePageState extends State<FirstHomePage> {
   Future<void> fetchUserData() async {
     Dio dio = Dio();
     final response =
-        await dio.get('http://10.0.2.2:1432/GetProfileOfCurrentUser/3');
+        await dio.get('http://10.0.2.2:1432/GetProfileOfCurrentUser/1');
 
     if (response.statusCode == 200) {
       final parsedJson = response.data; // Directly get the parsed data

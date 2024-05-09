@@ -35,7 +35,7 @@ class _ProfileState extends State<Profile> {
   Future<Map<String, dynamic>> fetchUserData() async {
     Dio dio = Dio();
     final response =
-        await dio.get('http://10.0.2.2:1432/GetProfileOfCurrentUser/3');
+        await dio.get('http://10.0.2.2:1432/GetProfileOfCurrentUser/1');
 
     if (response.statusCode == 200) {
       return response.data;
