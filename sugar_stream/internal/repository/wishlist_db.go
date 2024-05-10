@@ -65,6 +65,8 @@ func (r wishlistRepositoryDB) GetAllFriendsWishlists(userid int) ([]entities.Wis
 		Joins("LEFT JOIN follows AS f1 ON wishlists.user_id = f1.user_id AND f1.following_id = ? AND wishlists.user_id != ?", userid, userid).
 		Joins("LEFT JOIN follows AS f2 ON wishlists.user_id = f2.following_id AND f2.user_id = ? AND wishlists.user_id != ?", userid, userid).
 		Where("f1.user_id IS NOT NULL AND f2.user_id IS NOT NULL").
+		Where("wishlists.already_bought IS NULL").
+		Where("wishlists.granted_by_user_id IS NULL").
 		Scan(&wishlists)
 	if result.Error != nil {
 		return nil, result.Error
@@ -91,6 +93,8 @@ func (r wishlistRepositoryDB) GetAllProfileFriendWishlists(currentUserID, wishli
 		Joins("INNER JOIN follows AS f2 ON wishlists.user_id = f2.user_id AND f2.following_id = ?", currentUserID).
 		Joins("LEFT JOIN users ON wishlists.user_id = users.user_id").
 		Where("wishlists.user_id = ?", wishlistOwnerID).
+		Where("wishlists.already_bought IS NULL").
+		Where("wishlists.granted_by_user_id IS NULL").
 		Scan(&wishlists)
 
 	if result.Error != nil {
