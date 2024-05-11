@@ -220,3 +220,24 @@ func (h *wishlistHandler) GetProfileFriendWishlists(c *fiber.Ctx) error {
 	}
 	return c.JSON(wishlistsResponse)
 }
+
+func (h *wishlistHandler) UpdateGrantForFriend(c *fiber.Ctx) error {
+	wishlistID, err := strconv.Atoi(c.Params("WishlistID"))
+	if err != nil {
+		return err
+	}
+
+	granterUserID, err := strconv.Atoi(c.Params("GranterUserID"))
+	if err != nil {
+		return err
+	}
+
+	// Call the service method to update the wishlist item
+	_, err = h.wishlistSer.UpdateGrantForFriend(wishlistID, granterUserID)
+	if err != nil {
+		return err
+	}
+
+	// Return a success response
+	return c.JSON(fiber.Map{"message": "Wishlist item updated successfully"})
+}

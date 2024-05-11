@@ -60,3 +60,12 @@ func (r userRepositoryDB) GetDonateInfoByUserId(userid int) (*entities.User, err
 	}
 	return &users, nil
 }
+
+//func (r userRepositoryDB) PostRegister() (*entities.User, error) {
+//	users := entities.User{}
+//
+//	if result.Error != nil {
+//		return nil, result.Error
+//	}
+//	return &users, nil
+//}
