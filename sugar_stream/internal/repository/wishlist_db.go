@@ -114,3 +114,23 @@ func (r wishlistRepositoryDB) UpdateGrantForFriend(wishlist *entities.Wishlist) 
 
 	return nil
 }
+
+func (r wishlistRepositoryDB) UpdateReceiverGotIt(wishlist *entities.Wishlist) error {
+	// Update the wishlist item in the database
+	result := r.db.Save(wishlist)
+	if result.Error != nil {
+		return result.Error
+	}
+
+	return nil
+}
+
+func (r wishlistRepositoryDB) UpdateReceiverDidntGetIt(wishlist *entities.Wishlist) error {
+	// Update the wishlist item in the database
+	result := r.db.Save(wishlist)
+	if result.Error != nil {
+		return result.Error
+	}
+
+	return nil
+}
