@@ -195,7 +195,7 @@ func (s wishlistService) UpdateGrantForFriend(wishlistID, granterUserID int) (*e
 		return nil, err
 	}
 
-	bought := true
+	bought := false
 	wishlist.AlreadyBought = &bought
 
 	// Convert granterUserID to uint
