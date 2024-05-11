@@ -18,7 +18,7 @@ class _bottomBar extends State<bottomBar> with SingleTickerProviderStateMixin {
   int currentPage = 0;
   List<IconData> icons = [
     Icons.home,
-    Icons.compare_arrows_sharp,
+    Icons.explore,
     Icons.add,
     Icons.people,
   ];
@@ -66,7 +66,7 @@ class _bottomBar extends State<bottomBar> with SingleTickerProviderStateMixin {
           controller: tabController,
           dragStartBehavior: DragStartBehavior.down,
           physics: const NeverScrollableScrollPhysics(),
-          children:  [
+          children: [
             FirstHomePage(),
             WishGrantPage(),
             NewWishAdd(),
