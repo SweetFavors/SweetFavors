@@ -67,6 +67,7 @@ func (r wishlistRepositoryDB) GetAllFriendsWishlists(userid int) ([]entities.Wis
 		Where("f1.user_id IS NOT NULL AND f2.user_id IS NOT NULL").
 		Where("wishlists.already_bought IS NULL").
 		Where("wishlists.granted_by_user_id IS NULL").
+		Order("wishlist_id").
 		Scan(&wishlists)
 	if result.Error != nil {
 		return nil, result.Error
@@ -102,4 +103,14 @@ func (r wishlistRepositoryDB) GetAllProfileFriendWishlists(currentUserID, wishli
 	}
 
 	return wishlists, nil
+}
+
+func (r wishlistRepositoryDB) UpdateGrantForFriend(wishlist *entities.Wishlist) error {
+	// Update the wishlist item in the database
+	result := r.db.Save(wishlist)
+	if result.Error != nil {
+		return result.Error
+	}
+
+	return nil
 }

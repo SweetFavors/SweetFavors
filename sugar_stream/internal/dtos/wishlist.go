@@ -90,3 +90,10 @@ type ProfileFriendWishlistsResponse struct {
 	UsernameOfWishlist *string `json:"username_of_wishlist" validate:"required"`
 	UserPicOfWishlist  *string `json:"user_pic_of_wishlist" validate:"required"`
 }
+
+type GrantForFriendRequest struct {
+	WishlistID int `json:"wishlist_id" validate:"required"`
+}
+type GrantForFriendResponse struct {
+	Success bool `json:"success"`
+}

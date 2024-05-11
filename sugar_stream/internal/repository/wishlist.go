@@ -11,4 +11,6 @@ type WishlistRepository interface {
 	GetAllFriendsWishlists(int) ([]entities.Wishlist, error)
 	GetWishlistDetailsByWishlistId(int) (*entities.Wishlist, error)
 	GetAllProfileFriendWishlists(int, int) ([]entities.Wishlist, error)
+
+	UpdateGrantForFriend(wishlist *entities.Wishlist) error
 }

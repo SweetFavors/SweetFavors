@@ -4,6 +4,7 @@ import (
 	"log"
 	"sugar_stream/internal/entities"
 	"sugar_stream/internal/repository"
+	"sugar_stream/internal/utils/v"
 )
 
 type wishlistService struct {
@@ -186,4 +187,24 @@ func (s wishlistService) GetProfileFriendWishlists(currentUserID, wishlistOwnerI
 		wishlistResponses = append(wishlistResponses, wishlistResponse)
 	}
 	return wishlistResponses, nil
+}
+
+func (s wishlistService) UpdateGrantForFriend(wishlistID, granterUserID int) (*entities.Wishlist, error) {
+	wishlist, err := s.wishlistRepo.GetWishlistByWishlistId(wishlistID)
+	if err != nil {
+		return nil, err
+	}
+
+	bought := true
+	wishlist.AlreadyBought = &bought
+
+	// Convert granterUserID to uint
+	wishlist.GrantedByUserId = v.UintPtr(granterUserID)
+
+	err = s.wishlistRepo.UpdateGrantForFriend(wishlist)
+	if err != nil {
+		return nil, err
+	}
+
+	return wishlist, nil
 }
