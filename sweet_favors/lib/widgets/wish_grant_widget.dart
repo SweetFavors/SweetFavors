@@ -17,43 +17,48 @@ class WishGrant extends StatelessWidget {
     return Center(
       child: Column(
         children: [
-          SizedBox(
-            height: MediaQuery.of(context).size.height / 3.2,
-            child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Flexible(
-                    fit: FlexFit.loose,
-                    flex: 5,
-                    child: Padding(
-                      padding: const EdgeInsets.all(5.0),
+          Container(
+            //color: colorUse.activeButton,
+            child: SizedBox(
+              height: MediaQuery.of(context).size.height / 3.8,
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Flexible(
+                      fit: FlexFit.loose,
+                      flex: 8,
+                      child: Padding(
+                        padding: const EdgeInsets.all(2.0),
                         child: ClipRRect(
                             borderRadius: BorderRadius.circular(8.0),
                             child: Image.network(
                               pic,
-                              width: 350,
+                              width: 500,
                               height: 200,
                               fit: BoxFit.fill,
                             )),
-                      
+                      ),
                     ),
-                  ),
-                  Flexible(
-                    fit: FlexFit.loose,
-                    flex:  0,
-                    child: Column(
-                      children: [
-                        Text(
-                          price,
-                          style: const TextStyle(
-                              fontSize: 24.0,
-                              color: colorUse.textColorSecondary,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ],
+                    const SizedBox(
+                      height: 5,
                     ),
-                  ),
-                ]),
+                    Flexible(
+                      fit: FlexFit.loose,
+                      flex: 2,
+                      child: Column(
+                        children: [
+                          Text(
+                            price,
+                            style: const TextStyle(
+                                fontSize: 18.0,
+                                color: colorUse.textColorSecondary,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ]),
+            ),
           )
         ],
       ),

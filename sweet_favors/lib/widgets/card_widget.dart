@@ -14,8 +14,7 @@ class CardWidget extends StatelessWidget {
       required this.product,
       this.grantBy,
       required this.wishlistId,
-      this.username
-      });
+      this.username});
 
   @override
   Widget build(BuildContext context) {
@@ -38,9 +37,12 @@ class CardWidget extends StatelessWidget {
           },
           child: Card(
             // margin: EdgeInsets.only(bottom: 25),
-            color: grantBy != null?
-              colorUse.grantedColor :
-              Color.fromARGB(198, 242, 215, 255),
+            color: grantBy != null
+                ? const Color.fromARGB(173, 183, 255, 219)
+                // : ,
+                : grantBy == null
+                    ? const Color.fromARGB(198, 242, 215, 255)
+                    : const Color.fromARGB(153, 255, 225, 90),
             elevation: 7,
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -57,10 +59,7 @@ class CardWidget extends StatelessWidget {
                     ),
                   ),
                   subtitle: Text(
-                    grantBy != null?
-                    'Granted by $grantBy' 
-                    :
-                    'Not granted yet',
+                    grantBy != null ? 'Granted by $grantBy' : 'Not granted yet',
                     style: const TextStyle(
                       color: Color.fromARGB(255, 93, 94, 101),
                     ).merge(

@@ -43,7 +43,24 @@ class _WishGrantPageState extends State<WishGrantPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      body: Center(
+        child: GridView.builder(
+          itemCount: _wishItems.length,
+          shrinkWrap: true,
+          physics: const BouncingScrollPhysics(),
+          padding: const EdgeInsets.all(8.0),
+          gridDelegate:
+              SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+          itemBuilder: (context, index) {
+            return WishGrant(
+              price: "\$${_wishItems[index].price}",
+              pic: _wishItems[index].itemPic,
+            );
+          },
+        ),
+      ),
+    );
     // return Scaffold(
     //   body: Padding(
     //     padding: const EdgeInsets.all(20.0),
