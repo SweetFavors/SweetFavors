@@ -1,9 +1,11 @@
 package service
 
 import (
+	"errors"
 	"log"
 	"sugar_stream/internal/entities"
 	"sugar_stream/internal/repository"
+	"sugar_stream/internal/utils/v"
 )
 
 type followService struct {
@@ -122,4 +124,50 @@ func (s followService) GetCheckFollowingYet(currentUserID, friendUserID int) (*e
 		FollowingID: follow.FollowingID,
 	}
 	return &followResponse, nil
+}
+
+func (s *followService) AddToFollowing(currentUserID, friendUserID int) error {
+	follow, err := s.followRepo.GetCheckFollowingYetByData(currentUserID, friendUserID)
+	if err != nil {
+		return err
+	}
+
+	if follow.UserID != nil && follow.FollowingID != nil {
+		return errors.New("Following relationship already exists")
+	}
+
+	newFollow := &entities.Follow{
+		UserID:      v.UintPtr(currentUserID),
+		FollowingID: v.UintPtr(friendUserID),
+	}
+
+	err = s.followRepo.PostAddToFollowing(newFollow)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (s *followService) UnFollowing(currentUserID, friendUserID int) error {
+	follow, err := s.followRepo.GetCheckFollowingYetByData(currentUserID, friendUserID)
+	if err != nil {
+		return err
+	}
+
+	if follow.UserID == nil || follow.FollowingID == nil {
+		return errors.New("Following relationship does not exist")
+	}
+
+	followToDelete := &entities.Follow{
+		UserID:      follow.UserID,
+		FollowingID: follow.FollowingID,
+	}
+
+	err = s.followRepo.DeleteUnFollowing(followToDelete)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }

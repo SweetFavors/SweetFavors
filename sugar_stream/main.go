@@ -46,11 +46,11 @@ func main() {
 
 	userService := service.NewUserService(userRepositoryDB)
 	wishlistService := service.NewWishlistService(wishlistRepositoryDB)
-	followService := service.NewFollowService(followRepositoryDB)
+	followService := service.NewFollowService(&followRepositoryDB)
 
 	userHandler := handler.NewUserHandler(userService)
 	wishlistHandler := handler.NewWishlistHandler(wishlistService)
-	followHandler := handler.NewFollowHandler(followService)
+	followHandler := handler.NewFollowHandler(&followService)
 
 	app := fiber.New()
 
@@ -96,6 +96,8 @@ func main() {
 	app.Put("/UpdateReceiverDidntGetIt/:WishlistID/:GranterUserID", wishlistHandler.UpdateReceiverDidntGetIt)
 
 	app.Get("/GetCheckFollowingYet/:CurrentUserID/:FriendUserID", followHandler.GetCheckFollowingYet)
+	app.Post("/PostAddToFollowing/:CurrentUserID/:FriendUserID", followHandler.PostAddToFollowing)
+	app.Delete("/DeleteUnFollowing/:CurrentUserID/:FriendUserID", followHandler.DeleteUnFollowing)
 	//#####################################################################################
 
 	log.Printf("SweetFavors run at port:  %v", viper.GetInt("app.port"))

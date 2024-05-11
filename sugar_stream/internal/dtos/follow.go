@@ -35,3 +35,8 @@ type CheckFollowingYetResponse struct {
 	UserID      *uint `json:"user_id" validate:"required"`
 	FollowingID *uint `json:"following_id" validate:"required"`
 }
+
+type AddToFollowingRequest struct {
+	CurrentUserID int `json:"current_user_id" validate:"required"`
+	FriendUserID  int `json:"friend_user_id" validate:"required"`
+}
