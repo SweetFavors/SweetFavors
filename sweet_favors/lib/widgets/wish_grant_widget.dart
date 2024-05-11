@@ -40,7 +40,7 @@ class WishGrant extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(
-                      height: 5,
+                      height: 10,
                     ),
                     Flexible(
                       fit: FlexFit.loose,

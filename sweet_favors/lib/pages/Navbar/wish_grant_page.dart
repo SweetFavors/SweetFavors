@@ -44,21 +44,40 @@ class _WishGrantPageState extends State<WishGrantPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: GridView.builder(
-          itemCount: _wishItems.length,
-          shrinkWrap: true,
-          physics: const BouncingScrollPhysics(),
-          padding: const EdgeInsets.all(8.0),
-          gridDelegate:
-              SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-          itemBuilder: (context, index) {
-            return WishGrant(
-              price: "\$${_wishItems[index].price}",
-              pic: _wishItems[index].itemPic,
-            );
-          },
+      appBar: AppBar(
+        title: const Text(
+          "Discover",
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
         ),
+        centerTitle: true,
+      ),
+      body: Column(
+        children: [
+          const SizedBox(
+            height: 10,
+          ),
+          SingleChildScrollView(
+            physics: const AlwaysScrollableScrollPhysics(),
+            child: Center(
+              child: GridView.builder(
+                itemCount: _wishItems.length,
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                padding: const EdgeInsets.all(8.0),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2),
+                itemBuilder: (context, index) {
+                  return WishGrant(
+                    price: "\$${_wishItems[index].price}",
+                    pic: _wishItems[index].itemPic,
+                  );
+                },
+              ),
+            ),
+          ),
+        ],
       ),
     );
     // return Scaffold(
