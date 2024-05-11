@@ -159,7 +159,6 @@ func (s *followService) UnFollowing(currentUserID, friendUserID int) error {
 		return errors.New("Following relationship does not exist")
 	}
 
-	// Create an entities.Follow object and pass it to the repository
 	followToDelete := &entities.Follow{
 		UserID:      follow.UserID,
 		FollowingID: follow.FollowingID,
