@@ -13,4 +13,6 @@ type WishlistService interface {
 	GetProfileFriendWishlists(int, int) ([]entities.Wishlist, error)
 
 	UpdateGrantForFriend(int, int) (*entities.Wishlist, error)
+	UpdateReceiverGotIt(int, int) (*entities.Wishlist, error)
+	UpdateReceiverDidntGetIt(int, int) (*entities.Wishlist, error)
 }

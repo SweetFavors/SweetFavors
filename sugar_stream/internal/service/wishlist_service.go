@@ -208,3 +208,43 @@ func (s wishlistService) UpdateGrantForFriend(wishlistID, granterUserID int) (*e
 
 	return wishlist, nil
 }
+
+func (s wishlistService) UpdateReceiverGotIt(wishlistID, granterUserID int) (*entities.Wishlist, error) {
+	wishlist, err := s.wishlistRepo.GetWishlistByWishlistId(wishlistID)
+	if err != nil {
+		return nil, err
+	}
+
+	bought := true
+	wishlist.AlreadyBought = &bought
+
+	// Convert granterUserID to uint
+	wishlist.GrantedByUserId = v.UintPtr(granterUserID)
+
+	err = s.wishlistRepo.UpdateReceiverGotIt(wishlist)
+	if err != nil {
+		return nil, err
+	}
+
+	return wishlist, nil
+}
+
+func (s wishlistService) UpdateReceiverDidntGetIt(wishlistID, granterUserID int) (*entities.Wishlist, error) {
+	wishlist, err := s.wishlistRepo.GetWishlistByWishlistId(wishlistID)
+	if err != nil {
+		return nil, err
+	}
+
+	var bought *bool = nil
+	wishlist.AlreadyBought = bought
+
+	// Convert granterUserID to uint
+	wishlist.GrantedByUserId = v.UintPtr(granterUserID)
+
+	err = s.wishlistRepo.UpdateReceiverDidntGetIt(wishlist)
+	if err != nil {
+		return nil, err
+	}
+
+	return wishlist, nil
+}
