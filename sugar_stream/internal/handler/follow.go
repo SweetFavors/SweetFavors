@@ -155,3 +155,41 @@ func (h *followHandler) GetCheckFollowingYet(c *fiber.Ctx) error {
 
 	return c.JSON(followResponse)
 }
+
+func (h *followHandler) PostAddToFollowing(c *fiber.Ctx) error {
+	currentUserID, err := strconv.Atoi(c.Params("CurrentUserID"))
+	if err != nil {
+		return err
+	}
+
+	friendUserID, err := strconv.Atoi(c.Params("FriendUserID"))
+	if err != nil {
+		return err
+	}
+
+	err = h.followSer.AddToFollowing(currentUserID, friendUserID)
+	if err != nil {
+		return err
+	}
+
+	return c.SendStatus(fiber.StatusCreated)
+}
+
+func (h *followHandler) DeleteUnFollowing(c *fiber.Ctx) error {
+	currentUserID, err := strconv.Atoi(c.Params("CurrentUserID"))
+	if err != nil {
+		return err
+	}
+
+	friendUserID, err := strconv.Atoi(c.Params("FriendUserID"))
+	if err != nil {
+		return err
+	}
+
+	err = h.followSer.UnFollowing(currentUserID, friendUserID)
+	if err != nil {
+		return err
+	}
+
+	return c.SendStatus(fiber.StatusOK)
+}
