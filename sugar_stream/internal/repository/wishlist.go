@@ -15,4 +15,6 @@ type WishlistRepository interface {
 	UpdateGrantForFriend(wishlist *entities.Wishlist) error
 	UpdateReceiverGotIt(wishlist *entities.Wishlist) error
 	UpdateReceiverDidntGetIt(wishlist *entities.Wishlist) error
+
+	//PostAddWishlist(wishlist *entities.Wishlist) error
 }

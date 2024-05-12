@@ -232,13 +232,11 @@ func (h *wishlistHandler) UpdateGrantForFriend(c *fiber.Ctx) error {
 		return err
 	}
 
-	// Call the service method to update the wishlist item
 	_, err = h.wishlistSer.UpdateGrantForFriend(wishlistID, granterUserID)
 	if err != nil {
 		return err
 	}
 
-	// Return a success response
 	return c.JSON(fiber.Map{"message": "UpdateGrantForFriend successfully"})
 }
 
@@ -253,13 +251,11 @@ func (h *wishlistHandler) UpdateReceiverGotIt(c *fiber.Ctx) error {
 		return err
 	}
 
-	// Call the service method to update the wishlist item
 	_, err = h.wishlistSer.UpdateReceiverGotIt(wishlistID, granterUserID)
 	if err != nil {
 		return err
 	}
 
-	// Return a success response
 	return c.JSON(fiber.Map{"message": "UpdateReceiverGotIt successfully"})
 }
 
@@ -274,12 +270,10 @@ func (h *wishlistHandler) UpdateReceiverDidntGetIt(c *fiber.Ctx) error {
 		return err
 	}
 
-	// Call the service method to update the wishlist item
 	_, err = h.wishlistSer.UpdateReceiverDidntGetIt(wishlistID, granterUserID)
 	if err != nil {
 		return err
 	}
 
-	// Return a success response
 	return c.JSON(fiber.Map{"message": "UpdateReceiverDidntGetIt successfully"})
 }
