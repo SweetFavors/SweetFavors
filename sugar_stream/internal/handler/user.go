@@ -195,3 +195,30 @@ func (h *userHandler) GetEditUserProfile(c *fiber.Ctx) error {
 
 	return c.JSON(userResponse)
 }
+
+func (h *userHandler) UpdateEditUserProfile(c *fiber.Ctx) error {
+	userID, err := strconv.Atoi(c.Params("UserID"))
+	if err != nil {
+		return err
+	}
+
+	var req dtos.EditUserProfileRequest
+	if err := c.BodyParser(&req); err != nil {
+		return err
+	}
+
+	user, err := h.userSer.UpdateEditUserProfile(userID, req)
+	if err != nil {
+		return err
+	}
+
+	userResponse := dtos.EditUserProfileRequest{
+		Username:  user.Username,
+		Email:     user.Email,
+		Firstname: user.Firstname,
+		Lastname:  user.Lastname,
+		PhoneNum:  user.PhoneNum,
+	}
+
+	return c.JSON(userResponse)
+}

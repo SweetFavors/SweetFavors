@@ -291,7 +291,7 @@ func (h *wishlistHandler) PostAddWishlist(c *fiber.Ctx) error {
 		return err
 	}
 
-	wishlistResponse := dtos.WishlistResponse{
+	wishlistResponse := dtos.AddWishlistRequest{
 		UserID:   wishlist.UserID,
 		Itemname: wishlist.Itemname,
 		Quantity: wishlist.Quantity,

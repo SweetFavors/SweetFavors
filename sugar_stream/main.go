@@ -95,9 +95,11 @@ func main() {
 	app.Post("/PostAddToFollowing/:CurrentUserID/:FriendUserID", followHandler.PostAddToFollowing)
 	app.Delete("/DeleteUnFollowing/:CurrentUserID/:FriendUserID", followHandler.DeleteUnFollowing)
 
-	app.Post("/PostWishlist/:UserID", wishlistHandler.PostAddWishlist)
+	app.Post("/PostAddWishlist/:UserID", wishlistHandler.PostAddWishlist)
 
 	app.Get("/GetEditUserProfile/:UserID", userHandler.GetEditUserProfile)
+	app.Patch("/UpdateEditUserProfile/:UserID", userHandler.UpdateEditUserProfile)
+
 	//#####################################################################################
 
 	log.Printf("SweetFavors run at port:  %v", viper.GetInt("app.port"))

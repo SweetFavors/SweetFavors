@@ -1,6 +1,9 @@
 package service
 
-import "sugar_stream/internal/entities"
+import (
+	"sugar_stream/internal/dtos"
+	"sugar_stream/internal/entities"
+)
 
 type UserService interface {
 	GetUsers() ([]entities.User, error)
@@ -11,4 +14,6 @@ type UserService interface {
 	GetDonateInfo(int) (*entities.User, error)
 
 	GetEditUserProfile(int) (*entities.User, error)
+
+	UpdateEditUserProfile(int, dtos.EditUserProfileRequest) (*entities.User, error)
 }

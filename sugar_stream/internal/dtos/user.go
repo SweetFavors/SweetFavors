@@ -72,6 +72,14 @@ type EditUserProfileResponse struct {
 	PhoneNum  *string `json:"phone_num" validate:"required"`
 }
 
+type EditUserProfileRequest struct {
+	Username  *string `json:"username" validate:"required"`
+	Email     *string `json:"email" validate:"required"`
+	Firstname *string `json:"firstname" validate:"required"`
+	Lastname  *string `json:"lastname" validate:"required"`
+	PhoneNum  *string `json:"phone_num" validate:"required"`
+}
+
 //type PostRegisterResponse struct {
 //	Username     *string `json:"username" validate:"required"`
 //	Password     *string `json:"password" validate:"required"`

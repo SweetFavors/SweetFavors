@@ -6,8 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="ff5bdd17-43a6-40c6-9987-57eaa2537347" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/dtos/follow.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/dtos/follow.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internal/dtos/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/dtos/user.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internal/handler/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/handler/user.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/handler/wishlist.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/handler/wishlist.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internal/repository/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/repository/user.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internal/repository/user_db.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/repository/user_db.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internal/service/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/service/user.go" afterDir="false" />
