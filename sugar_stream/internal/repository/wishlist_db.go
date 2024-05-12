@@ -132,10 +132,10 @@ func (r wishlistRepositoryDB) UpdateReceiverDidntGetIt(wishlist *entities.Wishli
 	return nil
 }
 
-//func (r *followRepositoryDB) PostAddWishlist(wishlist *entities.Wishlist) error {
-//	result := r.db.Create(wishlist)
-//	if result.Error != nil {
-//		return result.Error
-//	}
-//	return nil
-//}
+func (r wishlistRepositoryDB) PostAddWishlist(wishlist *entities.Wishlist) error {
+	result := r.db.Create(wishlist)
+	if result.Error != nil {
+		return result.Error
+	}
+	return nil
+}

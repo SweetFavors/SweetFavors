@@ -277,3 +277,28 @@ func (h *wishlistHandler) UpdateReceiverDidntGetIt(c *fiber.Ctx) error {
 
 	return c.JSON(fiber.Map{"message": "UpdateReceiverDidntGetIt successfully"})
 }
+
+func (h *wishlistHandler) PostAddWishlist(c *fiber.Ctx) error {
+	userIDExtract := 1 // Assuming you'll get the userID from the request later
+
+	var req dtos.AddWishlistRequest
+	if err := c.BodyParser(&req); err != nil {
+		return err
+	}
+
+	wishlist, err := h.wishlistSer.PostAddWishlist(userIDExtract, req)
+	if err != nil {
+		return err
+	}
+
+	wishlistResponse := dtos.WishlistResponse{
+		UserID:   wishlist.UserID,
+		Itemname: wishlist.Itemname,
+		Quantity: wishlist.Quantity,
+		Price:    wishlist.Price,
+		LinkURL:  wishlist.LinkURL,
+		ItemPic:  wishlist.ItemPic,
+	}
+
+	return c.JSON(wishlistResponse)
+}

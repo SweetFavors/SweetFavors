@@ -1,6 +1,9 @@
 package service
 
-import "sugar_stream/internal/entities"
+import (
+	"sugar_stream/internal/dtos"
+	"sugar_stream/internal/entities"
+)
 
 type WishlistService interface {
 	GetWishlists() ([]entities.Wishlist, error)
@@ -15,4 +18,6 @@ type WishlistService interface {
 	UpdateGrantForFriend(int, int) (*entities.Wishlist, error)
 	UpdateReceiverGotIt(int, int) (*entities.Wishlist, error)
 	UpdateReceiverDidntGetIt(int, int) (*entities.Wishlist, error)
+
+	PostAddWishlist(int, dtos.AddWishlistRequest) (*entities.Wishlist, error)
 }
