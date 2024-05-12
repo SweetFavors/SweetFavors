@@ -16,7 +16,7 @@ class FriendsMsgCard extends StatelessWidget {
           height: 150,
           width: 400,
           child: Card(
-            color: const Color.fromARGB(197, 206, 120, 246),
+            color: Color.fromARGB(163, 223, 143, 210),
             elevation: 7,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -26,7 +26,7 @@ class FriendsMsgCard extends StatelessWidget {
                   child: Text(
                     message,
                     style: const TextStyle(
-                      color: Colors.white,
+                      color: Color.fromARGB(255, 245, 232, 251),
                       fontSize: 16.0,
                       fontWeight: FontWeight.bold,
                     ),

@@ -85,24 +85,43 @@ class FriendProfileBar extends StatelessWidget {
               //If they're not mutuals, there will be an option to add them
               //If they're mutuals, the icon will change to another one
               const SizedBox(
-                width: 120,
+                width: 45,
               ),
-              IconButton(
-                icon: const Icon(
-                  Icons.person_add,
-                  size: 30,
-                ),
-                tooltip: 'Add friend',
-                onPressed: () {
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //     builder: (context) => const AddFriend(),
-                  //     // this is not completed, it needs to check if the friend is mutual follow or not
-                  //   ),
-                  // );
-                },
-              ),
+              ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const AddFriend(),
+                        // this is not completed, it needs to check if the friend is mutual follow or not
+                      ),
+                    );
+                  },
+                  style: ButtonStyle(
+                      backgroundColor: WidgetStateProperty.all<Color>(
+                          const Color.fromARGB(229, 253, 247, 255)),
+                      foregroundColor: WidgetStateProperty.all<Color>(
+                          const Color.fromARGB(185, 109, 42, 128))),
+                  child: const Text(
+                    "Add Friend",
+                    style: TextStyle(fontWeight: FontWeight.w600),
+                  ))
+              // IconButton(
+              //   icon: const Icon(
+              //     Icons.person_add,
+              //     size: 30,
+              //   ),
+              //   tooltip: 'Add friend',
+              //   onPressed: () {
+              //     // Navigator.push(
+              //     //   context,
+              //     //   MaterialPageRoute(
+              //     //     builder: (context) => const AddFriend(),
+              //     //     // this is not completed, it needs to check if the friend is mutual follow or not
+              //     //   ),
+              //     // );
+              //   },
+              // ),
             ],
           ),
         ),

@@ -124,31 +124,14 @@ class _FriendWishlistFollowersState extends State<FriendWishlistFollowers> {
                             ),
                     );
                   } else {
-                    return Center(
-                      child: Text("You need to follow each other"),
+                    return const FriendsMsgCard(
+                      message:
+                          "You can view each other's wishlist once you both start following each other \u{1F929}",
                     );
                   }
                 }
               },
             ),
-            // const SizedBox(
-            //   height: 400,
-            //   child: FriendsMsgCard(
-            //       message:
-            //           "You can view each other's wishlist once you both start following each other \u{1F929}"),
-            // ),
-
-            // Card positioned below profile
-            // const CardWidget(
-            //   wishlistId: 1,
-            //   product: 'Labubu',
-            //   grantBy: 'Nong Ne',
-            // ),
-            // const CardWidget(
-            //   wishlistId: 2,
-            //   product: 'Valorant Skin',
-            //   grantBy: 'Nong Putu',
-            // ),
           ],
         ),
       ),

@@ -105,7 +105,7 @@ class _AddFriendState extends State<AddFriend> {
             ),
         ],
       ),
-      // bottomNavigationBar: bottomBar(),
+      // bottomNavigationBar: const bottomBar(),
     );
   }
 }

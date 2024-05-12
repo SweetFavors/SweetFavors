@@ -87,7 +87,7 @@ class _FriendWishlistFollowingState extends State<FriendWishlistFollowing> {
             FriendProfileBar(
               images: widget.following.followingUserPic,
               name: widget.following.followingUsername,
-              email: "",
+              email: "testing@gmail.com",
             ),
             const SizedBox(height: 35.0),
             FutureBuilder(
@@ -116,8 +116,9 @@ class _FriendWishlistFollowingState extends State<FriendWishlistFollowing> {
                             ),
                     );
                   } else {
-                    return Center(
-                      child: Text("You need to follow each other"),
+                    return const FriendsMsgCard(
+                      message:
+                          "You can view each other's wishlist once you both start following each other \u{1F929}",
                     );
                   }
                 }

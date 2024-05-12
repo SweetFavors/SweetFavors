@@ -21,7 +21,6 @@ class MainApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(fontFamily: 'Inter'),
       home: const Home(),
-      // home: WishDetails(),
     );
   }
 }
