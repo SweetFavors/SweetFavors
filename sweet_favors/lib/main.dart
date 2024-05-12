@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:sweet_favors/Auth/login.dart';
+import 'package:sweet_favors/Auth/login_or_register.dart';
+import 'package:sweet_favors/Auth/sign_up.dart';
+import 'package:sweet_favors/pages/Navbar/first_home_page.dart';
+import 'package:sweet_favors/pages/Navbar/friend_page.dart';
+import 'package:sweet_favors/pages/Navbar/new_wish_add.dart';
+import 'package:sweet_favors/pages/Navbar/wish_grant_page.dart';
 import 'package:sweet_favors/pages/home.dart';
-
 
 void main() {
   runApp(const MainApp());
@@ -11,11 +17,11 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-   return MaterialApp(
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(fontFamily: 'Inter'),
       home: const Home(),
       // home: WishDetails(),
-
-  );
- }
- }
+    );
+  }
+}

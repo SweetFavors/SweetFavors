@@ -43,9 +43,9 @@ func (r userRepositoryDB) GetProfileOfCurrentUserId(userid int) (*entities.User,
 	return &users, nil
 }
 
-func (r userRepositoryDB) GetAllSearchFriend(excludeUserID int) ([]entities.User, error) {
+func (r userRepositoryDB) GetAllSearchFriend(excludeUserID int, query string) ([]entities.User, error) {
 	users := []entities.User{}
-	result := r.db.Not("user_id = ?", excludeUserID).Find(&users)
+	result := r.db.Where("username LIKE ?", "%"+query+"%").Where("user_id != ?", excludeUserID).Find(&users)
 	if result.Error != nil {
 		return nil, result.Error
 	}

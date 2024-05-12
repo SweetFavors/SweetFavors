@@ -21,17 +21,28 @@ class TextStyles {
       fontSize: 16.0,
     );
   }
+
   static TextStyle regularTextStyleButton() {
     return const TextStyle(
-      fontSize: 16.0,
-      color: colorUse.textColorButton
+        fontSize: 16.0,
+        color: colorUse.textColorButton,
+        fontWeight: FontWeight.bold);
+  }
+
+  static TextStyle cardTitleStyle() {
+    return const TextStyle(
+      fontSize: 18.0,
+      fontWeight: FontWeight.w800,
     );
   }
 
-  
-
+  static TextStyle cardSubtitleStyle() {
+    return const TextStyle(
+      fontSize: 14.0,
+      fontWeight: FontWeight.w600,
+    );
+  }
 }
-
 
 class Heading extends StatelessWidget {
   final String text;

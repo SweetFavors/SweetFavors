@@ -10,7 +10,7 @@ type UserService interface {
 	GetUser(int) (*entities.User, error)
 	////////////////////////////////////////////////////////////////////
 	GetProfileOfCurrentUser(int) (*entities.User, error)
-	GetSearchFriend(int) ([]entities.User, error)
+	GetSearchFriend(int, string) ([]entities.User, error)
 	GetDonateInfo(int) (*entities.User, error)
 
 	GetEditUserProfile(int) (*entities.User, error)

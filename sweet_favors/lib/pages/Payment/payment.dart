@@ -4,7 +4,8 @@ import 'package:sweet_favors/widgets/button_at_bottom.dart';
 import 'package:sweet_favors/widgets/title_bar.dart';
 
 class Payment extends StatelessWidget {
-  const Payment({super.key});
+  final String userId;
+  const Payment({super.key, required this.userId});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +17,7 @@ class Payment extends StatelessWidget {
           Divider(color: Colors.grey),
            Container( 
               padding: EdgeInsets.all(20), 
-              child: PaymentInfo(), 
+              child: PaymentInfo(userId: userId,), 
           ),
           const Spacer(), 
           ButtonAtBottom(onPressed: () {}, text: 'Done'), 

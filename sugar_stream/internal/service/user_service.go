@@ -88,8 +88,8 @@ func (s userService) GetProfileOfCurrentUser(userid int) (*entities.User, error)
 	return &userResponse, nil
 }
 
-func (s userService) GetSearchFriend(excludeUserID int) ([]entities.User, error) {
-	users, err := s.userRepo.GetAllSearchFriend(excludeUserID)
+func (s userService) GetSearchFriend(excludeUserID int, query string) ([]entities.User, error) {
+	users, err := s.userRepo.GetAllSearchFriend(excludeUserID, query)
 	if err != nil {
 		log.Println(err)
 		return nil, err
@@ -98,16 +98,9 @@ func (s userService) GetSearchFriend(excludeUserID int) ([]entities.User, error)
 	userResponses := []entities.User{}
 	for _, user := range users {
 		userResponse := entities.User{
-			UserID:       user.UserID,
-			Username:     user.Username,
-			Password:     user.Password,
-			Email:        user.Email,
-			Firstname:    user.Firstname,
-			Lastname:     user.Lastname,
-			PhoneNum:     user.PhoneNum,
-			UserPic:      user.UserPic,
-			PromptPayAcc: user.PromptPayAcc,
-			PromptPayQR:  user.PromptPayQR,
+			UserID:   user.UserID,
+			Username: user.Username,
+			UserPic:  user.UserPic,
 		}
 		userResponses = append(userResponses, userResponse)
 	}

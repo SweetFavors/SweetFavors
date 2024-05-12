@@ -123,15 +123,16 @@ func (h *userHandler) GetProfileOfCurrentUser(c *fiber.Ctx) error {
 }
 
 func (h *userHandler) GetSearchFriend(c *fiber.Ctx) error {
-	// userIDExtract, err := 1, nil
-	// if err != nil {
-	//     return err
-	// }
+	query := c.Query("query")
+	if query == "" {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "query parameter is required"})
+	}
+
 	userIDExtract := 1
 
 	usersResponse := make([]dtos.SearchFriendResponse, 0)
 
-	users, err := h.userSer.GetSearchFriend(userIDExtract)
+	users, err := h.userSer.GetSearchFriend(userIDExtract, query)
 	if err != nil {
 		return err
 	}
