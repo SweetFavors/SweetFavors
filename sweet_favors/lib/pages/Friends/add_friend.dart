@@ -88,8 +88,7 @@ class _AddFriendState extends State<AddFriend> {
           ),
           if (_isLoading)
             const CircularProgressIndicator()
-          else if (_query.isNotEmpty &&
-              friends.isEmpty) // Check if query is not empty
+          else if (_query.isNotEmpty && friends.isEmpty)
             const Padding(
               padding: EdgeInsets.only(top: 40.0),
               child: Text(

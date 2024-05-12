@@ -53,33 +53,33 @@ class _WishGrantPageState extends State<WishGrantPage> {
         ),
         centerTitle: true,
       ),
-      body: Column(
-        children: [
-          const SizedBox(
-            height: 10,
-          ),
-          SingleChildScrollView(
-            physics: const AlwaysScrollableScrollPhysics(),
-            child: Center(
-              child: GridView.builder(
-                itemCount: _wishItems.length,
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                padding: const EdgeInsets.all(8.0),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2),
-                itemBuilder: (context, index) {
-                  return WishGrant(
-                    price: "\$${_wishItems[index].price}",
-                    pic: _wishItems[index].itemPic,
-                  );
-                },
+      body: Expanded(
+        child: SingleChildScrollView(
+          physics: const AlwaysScrollableScrollPhysics(),
+          child: Center(
+            child: GridView.builder(
+              itemCount: _wishItems.length,
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              padding: const EdgeInsets.all(8.0),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                childAspectRatio: 1, // Adjust aspect ratio as needed
               ),
+              itemBuilder: (context, index) {
+                return WishGrant(
+                  price: "\$${_wishItems[index].price}",
+                  pic: _wishItems[index].itemPic,
+                );
+              },
             ),
           ),
-        ],
+        ),
       ),
     );
+  }
+}
+    //Peem's swiping animation
     // return Scaffold(
     //   body: Padding(
     //     padding: const EdgeInsets.all(20.0),
@@ -167,5 +167,4 @@ class _WishGrantPageState extends State<WishGrantPage> {
     //     ),
     //   ),
     // );
-  }
-}
+
