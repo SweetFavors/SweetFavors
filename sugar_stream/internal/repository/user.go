@@ -10,6 +10,9 @@ type UserRepository interface {
 	GetAllSearchFriend(int) ([]entities.User, error)
 	GetDonateInfoByUserId(int) (*entities.User, error)
 
-	//PostRegister() (*entities.User, error)
+	GetEditUserProfile(int) (*entities.User, error)
 
+	UpdateEditUserProfile(user *entities.User) error
+
+	//PostRegister() (*entities.User, error)
 }

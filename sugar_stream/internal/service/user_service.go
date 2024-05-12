@@ -2,8 +2,10 @@ package service
 
 import (
 	"log"
+	"sugar_stream/internal/dtos"
 	"sugar_stream/internal/entities"
 	"sugar_stream/internal/repository"
+	"sugar_stream/internal/utils/v"
 )
 
 type userService struct {
@@ -132,4 +134,41 @@ func (s userService) GetDonateInfo(userid int) (*entities.User, error) {
 		PromptPayQR:  user.PromptPayQR,
 	}
 	return &userResponse, nil
+}
+
+func (s userService) GetEditUserProfile(userid int) (*entities.User, error) {
+	user, err := s.userRepo.GetEditUserProfile(userid)
+	if err != nil {
+		log.Println(err)
+		return nil, err
+	}
+
+	userResponse := entities.User{
+		UserID:    user.UserID,
+		Username:  user.Username,
+		Email:     user.Email,
+		Firstname: user.Firstname,
+		Lastname:  user.Lastname,
+		PhoneNum:  user.PhoneNum,
+	}
+	return &userResponse, nil
+}
+
+func (s userService) UpdateEditUserProfile(userid int, req dtos.EditUserProfileRequest) (*entities.User, error) {
+	user := &entities.User{
+		UserID:    v.UintPtr(userid),
+		Username:  req.Username,
+		Email:     req.Email,
+		Firstname: req.Firstname,
+		Lastname:  req.Lastname,
+		PhoneNum:  req.PhoneNum,
+	}
+
+	err := s.userRepo.UpdateEditUserProfile(user)
+	if err != nil {
+		log.Println(err)
+		return nil, err
+	}
+
+	return user, nil
 }
