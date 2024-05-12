@@ -2,6 +2,7 @@ package service
 
 import (
 	"log"
+	"sugar_stream/internal/dtos"
 	"sugar_stream/internal/entities"
 	"sugar_stream/internal/repository"
 	"sugar_stream/internal/utils/v"
@@ -243,6 +244,25 @@ func (s wishlistService) UpdateReceiverDidntGetIt(wishlistID, granterUserID int)
 
 	err = s.wishlistRepo.UpdateReceiverDidntGetIt(wishlist)
 	if err != nil {
+		return nil, err
+	}
+
+	return wishlist, nil
+}
+
+func (s wishlistService) PostAddWishlist(userID int, req dtos.AddWishlistRequest) (*entities.Wishlist, error) {
+	wishlist := &entities.Wishlist{
+		UserID:   v.UintPtr(userID),
+		Itemname: req.Itemname,
+		Quantity: req.Quantity,
+		Price:    req.Price,
+		LinkURL:  req.LinkURL,
+		ItemPic:  req.ItemPic,
+	}
+
+	err := s.wishlistRepo.PostAddWishlist(wishlist)
+	if err != nil {
+		log.Println(err)
 		return nil, err
 	}
 

@@ -126,7 +126,7 @@ func (s followService) GetCheckFollowingYet(currentUserID, friendUserID int) (*e
 	return &followResponse, nil
 }
 
-func (s followService) AddToFollowing(currentUserID, friendUserID int) (*entities.Follow, error) {
+func (s followService) PostAddToFollowing(currentUserID, friendUserID int) (*entities.Follow, error) {
 	follow, err := s.followRepo.GetCheckFollowingYetByData(currentUserID, friendUserID)
 	if err != nil {
 		return nil, err
@@ -149,7 +149,7 @@ func (s followService) AddToFollowing(currentUserID, friendUserID int) (*entitie
 	return follow, nil
 }
 
-func (s followService) UnFollowing(currentUserID, friendUserID int) (*entities.Follow, error) {
+func (s followService) DeleteUnFollowing(currentUserID, friendUserID int) (*entities.Follow, error) {
 	follow, err := s.followRepo.GetCheckFollowingYetByData(currentUserID, friendUserID)
 	if err != nil {
 		return nil, err

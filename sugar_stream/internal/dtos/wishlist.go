@@ -92,6 +92,7 @@ type ProfileFriendWishlistsResponse struct {
 }
 
 type AddWishlistRequest struct {
+	UserID   *uint   `json:"user_id" validate:"required"`
 	Itemname *string `json:"itemname" validate:"required"`
 	Quantity *uint   `json:"quantity" validate:"required"`
 	Price    *uint   `json:"price" validate:"required"`
