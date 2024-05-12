@@ -84,7 +84,7 @@ func (r followRepositoryDB) GetCheckFollowingYetByData(currentUserID, friendUser
 	return &follows, nil
 }
 
-func (r *followRepositoryDB) PostAddToFollowing(follow *entities.Follow) error {
+func (r followRepositoryDB) PostAddToFollowing(follow *entities.Follow) error {
 	result := r.db.Create(follow)
 	if result.Error != nil {
 		return result.Error
@@ -92,7 +92,7 @@ func (r *followRepositoryDB) PostAddToFollowing(follow *entities.Follow) error {
 	return nil
 }
 
-func (r *followRepositoryDB) DeleteUnFollowing(follow *entities.Follow) error {
+func (r followRepositoryDB) DeleteUnFollowing(follow *entities.Follow) error {
 	result := r.db.Where("user_id = ? AND following_id = ?", follow.UserID, follow.FollowingID).Delete(&entities.Follow{})
 	if result.Error != nil {
 		return result.Error

@@ -5,14 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ff5bdd17-43a6-40c6-9987-57eaa2537347" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/dtos/wishlist.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/dtos/wishlist.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/handler/follow.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/handler/follow.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/handler/wishlist.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/handler/wishlist.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/repository/wishlist.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/repository/wishlist.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/repository/wishlist_db.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/repository/wishlist_db.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/service/follow.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/service/follow.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/service/follow_service.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/service/follow_service.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

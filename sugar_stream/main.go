@@ -46,11 +46,11 @@ func main() {
 
 	userService := service.NewUserService(userRepositoryDB)
 	wishlistService := service.NewWishlistService(wishlistRepositoryDB)
-	followService := service.NewFollowService(&followRepositoryDB)
+	followService := service.NewFollowService(followRepositoryDB)
 
 	userHandler := handler.NewUserHandler(userService)
 	wishlistHandler := handler.NewWishlistHandler(wishlistService)
-	followHandler := handler.NewFollowHandler(&followService)
+	followHandler := handler.NewFollowHandler(followService)
 
 	app := fiber.New()
 
@@ -62,14 +62,10 @@ func main() {
 
 	app.Get("/UserCurrent", userHandler.GetUserCurrent)
 
-	//------------------------------------------------------------------------------------
-
 	app.Get("/Wishlists", wishlistHandler.GetWishlists)
 	app.Get("/Wishlist/:WishlistID", wishlistHandler.GetWishlist)
 
 	app.Get("/WishlistOfUser/:UserID", wishlistHandler.GetWishlistsOfUser)
-
-	//------------------------------------------------------------------------------------
 
 	app.Get("/Follows", followHandler.GetFollows)
 
