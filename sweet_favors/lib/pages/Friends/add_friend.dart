@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:sweet_favors/Utils/color_use.dart';
 import 'package:sweet_favors/pages/Navbar/friend_page.dart';
 import 'package:sweet_favors/pages/home.dart';
 import 'package:sweet_favors/widgets/friend_form.dart';
@@ -66,35 +67,40 @@ class _AddFriendState extends State<AddFriend> {
             icon: const Icon(Icons.arrow_back, color: Colors.black)),
       ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SizedBox(
-            height: MediaQuery.of(context).size.height / 2.5,
-            width: 400,
-            child: Form(
-              key: _formKey,
-              child: FriendForm(
-                label: 'Search friend',
-                onSaved: (value) => _query = value!,
-                onSubmitted: _submitForm,
+          const SizedBox(
+            height: 5,
+          ),
+          Center(
+            child: SizedBox(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Form(
+                  key: _formKey,
+                  child: FriendForm(
+                    label: 'Search friend',
+                    onSaved: (value) => _query = value!,
+                    onSubmitted: _submitForm,
+                  ),
+                ),
               ),
             ),
           ),
           if (_isLoading)
             const CircularProgressIndicator()
           else if (friends.isEmpty)
-            const Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'We couldn\'t find the user',
-                    style: TextStyle(fontSize: 20),
-                  ),
-                  SizedBox(height: 20),
-                ],
-              ),
+            Container(
+              child: Text("We couldn\'t find the user"),
             )
+          // const Center(
+          //   child: Text(
+          //     'We couldn\'t find the user',
+          //     style: TextStyle(
+          //         fontSize: 20,
+          //         fontWeight: FontWeight.bold,
+          //         color: colorUse.primaryColor),
+          //   ),
+          // )
           else
             Expanded(
               child: FriendList(friends: friends),

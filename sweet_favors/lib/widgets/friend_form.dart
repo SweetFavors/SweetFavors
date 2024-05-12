@@ -22,20 +22,16 @@ class _FriendFormState extends State<FriendForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Container(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10.0),
-          child: TextFormField(
-            decoration: InputDecoration(
-              border: OutlineInputBorder(),
-              hintText: widget.label,
-            ),
-            controller: myConroter,
-            onSaved: widget.onSaved,
-            onFieldSubmitted: (value) => widget.onSubmitted?.call(),
-          ),
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10.0),
+      child: TextFormField(
+        decoration: InputDecoration(
+          border: OutlineInputBorder(),
+          hintText: widget.label,
         ),
+        controller: myConroter,
+        onSaved: widget.onSaved,
+        onFieldSubmitted: (value) => widget.onSubmitted?.call(),
       ),
     );
   }
