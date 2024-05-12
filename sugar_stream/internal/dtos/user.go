@@ -63,6 +63,15 @@ type DonateInfoResponse struct {
 	PromptPayQR  *string `json:"prompt_pay_qr" validate:"required"`
 }
 
+type EditUserProfileResponse struct {
+	UserID    *uint   `json:"user_id" validate:"required"`
+	Username  *string `json:"username" validate:"required"`
+	Email     *string `json:"email" validate:"required"`
+	Firstname *string `json:"firstname" validate:"required"`
+	Lastname  *string `json:"lastname" validate:"required"`
+	PhoneNum  *string `json:"phone_num" validate:"required"`
+}
+
 //type PostRegisterResponse struct {
 //	Username     *string `json:"username" validate:"required"`
 //	Password     *string `json:"password" validate:"required"`

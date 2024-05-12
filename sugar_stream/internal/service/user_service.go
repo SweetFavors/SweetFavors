@@ -133,3 +133,21 @@ func (s userService) GetDonateInfo(userid int) (*entities.User, error) {
 	}
 	return &userResponse, nil
 }
+
+func (s userService) GetEditUserProfile(userid int) (*entities.User, error) {
+	user, err := s.userRepo.GetEditUserProfile(userid)
+	if err != nil {
+		log.Println(err)
+		return nil, err
+	}
+
+	userResponse := entities.User{
+		UserID:    user.UserID,
+		Username:  user.Username,
+		Email:     user.Email,
+		Firstname: user.Firstname,
+		Lastname:  user.Lastname,
+		PhoneNum:  user.PhoneNum,
+	}
+	return &userResponse, nil
+}

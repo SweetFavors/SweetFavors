@@ -170,3 +170,28 @@ func (h *userHandler) GetDonateInfo(c *fiber.Ctx) error {
 
 	return c.JSON(userResponse)
 }
+
+func (h *userHandler) GetEditUserProfile(c *fiber.Ctx) error {
+	userID := c.Params("userID")
+
+	userIDReceive, err := strconv.Atoi(userID)
+	if err != nil {
+		return err
+	}
+
+	user, err := h.userSer.GetEditUserProfile(userIDReceive)
+	if err != nil {
+		return err
+	}
+
+	userResponse := dtos.EditUserProfileResponse{
+		UserID:    user.UserID,
+		Username:  user.Username,
+		Email:     user.Email,
+		Firstname: user.Firstname,
+		Lastname:  user.Lastname,
+		PhoneNum:  user.PhoneNum,
+	}
+
+	return c.JSON(userResponse)
+}
