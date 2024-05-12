@@ -7,7 +7,7 @@ type UserRepository interface {
 	GetUserById(int) (*entities.User, error)
 	////////////////////////////////////////////////////////////////////
 	GetProfileOfCurrentUserId(int) (*entities.User, error)
-	GetAllSearchFriend(int) ([]entities.User, error)
+	GetAllSearchFriend(int, string) ([]entities.User, error)
 	GetDonateInfoByUserId(int) (*entities.User, error)
 
 	GetEditUserProfile(int) (*entities.User, error)

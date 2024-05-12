@@ -94,13 +94,13 @@ class FriendProfileBar extends StatelessWidget {
                 ),
                 tooltip: 'Add friend',
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const AddFriend(),
-                      // this is not completed, it needs to check if the friend is mutual follow or not
-                    ),
-                  );
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //     builder: (context) => const AddFriend(),
+                  //     // this is not completed, it needs to check if the friend is mutual follow or not
+                  //   ),
+                  // );
                 },
               ),
             ],

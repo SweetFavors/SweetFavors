@@ -6,7 +6,7 @@ import 'package:sweet_favors/components/following_model.dart';
 import 'package:sweet_favors/services/following_service.dart';
 
 class FollowingContent extends StatefulWidget {
-  const FollowingContent({Key? key});
+  const FollowingContent({super.key});
 
   @override
   State<FollowingContent> createState() => _FollowingContentState();

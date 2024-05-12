@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
 
 class TextForm extends StatefulWidget {
-  final String label;
-  const TextForm({super.key, required this.label});
+  final String? label;
+  final TextEditingController? controller;
+
+  const TextForm({
+    super.key,
+    this.label,
+    this.controller,
+  });
 
   @override
   State<TextForm> createState() => _TextFormState();
 }
 
 class _TextFormState extends State<TextForm> {
-  final myConroter = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -25,11 +29,11 @@ class _TextFormState extends State<TextForm> {
             ),
             validator: (value) {
               if (value == null || value.isEmpty) {
-                return 'Please input the ${widget.label.toLowerCase()}';
+                return 'Please enter some text';
               }
               return null;
             },
-            controller: myConroter,
+            controller: widget.controller,
           ),
         ),
       ),

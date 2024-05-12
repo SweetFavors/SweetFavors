@@ -2,7 +2,15 @@ import 'package:flutter/material.dart';
 
 class FriendForm extends StatefulWidget {
   final String label;
-  const FriendForm({super.key, required this.label});
+  final void Function(String?)? onSaved;
+  final VoidCallback? onSubmitted;
+
+  const FriendForm({
+    super.key,
+    required this.label,
+    this.onSaved,
+    this.onSubmitted,
+  });
 
   @override
   State<FriendForm> createState() => _FriendFormState();
@@ -24,6 +32,8 @@ class _FriendFormState extends State<FriendForm> {
               hintText: widget.label,
             ),
             controller: myConroter,
+            onSaved: widget.onSaved,
+            onFieldSubmitted: (value) => widget.onSubmitted?.call(),
           ),
         ),
       ),
