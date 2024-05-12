@@ -12,7 +12,6 @@ class AddImage extends StatelessWidget {
         child: InkWell(
           onTap: () {},
           child: Card(
-            // margin: EdgeInsets.only(bottom: 25),
             color: colorUse.secondaryColor,
             child: Padding(
               padding: const EdgeInsets.only(

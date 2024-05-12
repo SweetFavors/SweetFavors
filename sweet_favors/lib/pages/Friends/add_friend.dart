@@ -88,19 +88,18 @@ class _AddFriendState extends State<AddFriend> {
           ),
           if (_isLoading)
             const CircularProgressIndicator()
-          else if (friends.isEmpty)
-            Container(
-              child: Text("We couldn\'t find the user"),
+          else if (_query.isNotEmpty &&
+              friends.isEmpty) // Check if query is not empty
+            const Padding(
+              padding: EdgeInsets.only(top: 40.0),
+              child: Text(
+                "User not found",
+                style: TextStyle(
+                  fontWeight: FontWeight.w500,
+                  fontSize: 16,
+                ),
+              ),
             )
-          // const Center(
-          //   child: Text(
-          //     'We couldn\'t find the user',
-          //     style: TextStyle(
-          //         fontSize: 20,
-          //         fontWeight: FontWeight.bold,
-          //         color: colorUse.primaryColor),
-          //   ),
-          // )
           else
             Expanded(
               child: FriendList(friends: friends),

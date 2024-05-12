@@ -15,10 +15,6 @@ class Friendpage extends StatelessWidget {
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
             centerTitle: true,
-            leading: IconButton(
-                onPressed: () => Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const Home())),
-                icon: const Icon(Icons.arrow_back, color: Colors.black)),
             actions: <Widget>[
               Padding(
                 padding: const EdgeInsets.only(right: 18.0),
