@@ -90,3 +90,11 @@ type ProfileFriendWishlistsResponse struct {
 	UsernameOfWishlist *string `json:"username_of_wishlist" validate:"required"`
 	UserPicOfWishlist  *string `json:"user_pic_of_wishlist" validate:"required"`
 }
+
+type AddWishlistRequest struct {
+	Itemname *string `json:"itemname" validate:"required"`
+	Quantity *uint   `json:"quantity" validate:"required"`
+	Price    *uint   `json:"price" validate:"required"`
+	LinkURL  *string `json:"link_url" validate:"required"`
+	ItemPic  *string `json:"item_pic" validate:"required"`
+}

@@ -167,7 +167,7 @@ func (h *followHandler) PostAddToFollowing(c *fiber.Ctx) error {
 		return err
 	}
 
-	err = h.followSer.AddToFollowing(currentUserID, friendUserID)
+	_, err = h.followSer.AddToFollowing(currentUserID, friendUserID)
 	if err != nil {
 		return err
 	}
@@ -186,7 +186,7 @@ func (h *followHandler) DeleteUnFollowing(c *fiber.Ctx) error {
 		return err
 	}
 
-	err = h.followSer.UnFollowing(currentUserID, friendUserID)
+	_, err = h.followSer.UnFollowing(currentUserID, friendUserID)
 	if err != nil {
 		return err
 	}

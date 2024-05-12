@@ -126,14 +126,14 @@ func (s followService) GetCheckFollowingYet(currentUserID, friendUserID int) (*e
 	return &followResponse, nil
 }
 
-func (s *followService) AddToFollowing(currentUserID, friendUserID int) error {
+func (s *followService) AddToFollowing(currentUserID, friendUserID int) (*entities.Follow, error) {
 	follow, err := s.followRepo.GetCheckFollowingYetByData(currentUserID, friendUserID)
 	if err != nil {
-		return err
+		return nil, err
 	}
 
 	if follow.UserID != nil && follow.FollowingID != nil {
-		return errors.New("Following relationship already exists")
+		return nil, errors.New("Following relationship already exists")
 	}
 
 	newFollow := &entities.Follow{
@@ -143,20 +143,20 @@ func (s *followService) AddToFollowing(currentUserID, friendUserID int) error {
 
 	err = s.followRepo.PostAddToFollowing(newFollow)
 	if err != nil {
-		return err
+		return nil, err
 	}
 
-	return nil
+	return follow, nil
 }
 
-func (s *followService) UnFollowing(currentUserID, friendUserID int) error {
+func (s *followService) UnFollowing(currentUserID, friendUserID int) (*entities.Follow, error) {
 	follow, err := s.followRepo.GetCheckFollowingYetByData(currentUserID, friendUserID)
 	if err != nil {
-		return err
+		return nil, err
 	}
 
 	if follow.UserID == nil || follow.FollowingID == nil {
-		return errors.New("Following relationship does not exist")
+		return nil, errors.New("Following relationship does not exist")
 	}
 
 	followToDelete := &entities.Follow{
@@ -166,8 +166,8 @@ func (s *followService) UnFollowing(currentUserID, friendUserID int) error {
 
 	err = s.followRepo.DeleteUnFollowing(followToDelete)
 	if err != nil {
-		return err
+		return nil, err
 	}
 
-	return nil
+	return follow, nil
 }

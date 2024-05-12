@@ -106,7 +106,6 @@ func (r wishlistRepositoryDB) GetAllProfileFriendWishlists(currentUserID, wishli
 }
 
 func (r wishlistRepositoryDB) UpdateGrantForFriend(wishlist *entities.Wishlist) error {
-	// Update the wishlist item in the database
 	result := r.db.Save(wishlist)
 	if result.Error != nil {
 		return result.Error
@@ -116,7 +115,6 @@ func (r wishlistRepositoryDB) UpdateGrantForFriend(wishlist *entities.Wishlist) 
 }
 
 func (r wishlistRepositoryDB) UpdateReceiverGotIt(wishlist *entities.Wishlist) error {
-	// Update the wishlist item in the database
 	result := r.db.Save(wishlist)
 	if result.Error != nil {
 		return result.Error
@@ -126,7 +124,6 @@ func (r wishlistRepositoryDB) UpdateReceiverGotIt(wishlist *entities.Wishlist) e
 }
 
 func (r wishlistRepositoryDB) UpdateReceiverDidntGetIt(wishlist *entities.Wishlist) error {
-	// Update the wishlist item in the database
 	result := r.db.Save(wishlist)
 	if result.Error != nil {
 		return result.Error
@@ -134,3 +131,11 @@ func (r wishlistRepositoryDB) UpdateReceiverDidntGetIt(wishlist *entities.Wishli
 
 	return nil
 }
+
+//func (r *followRepositoryDB) PostAddWishlist(wishlist *entities.Wishlist) error {
+//	result := r.db.Create(wishlist)
+//	if result.Error != nil {
+//		return result.Error
+//	}
+//	return nil
+//}
