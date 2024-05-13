@@ -78,10 +78,8 @@ class _NewWishAddState extends State<NewWishAdd> {
           ),
         ),
         centerTitle: true,
-        // leading: IconButton(
-        //     onPressed: () => Navigator.pop(context),
-        //     icon: const Icon(Icons.arrow_back, color: Colors.black)),
         backgroundColor: const Color.fromARGB(255, 188, 143, 223),
+        elevation: 5,
         shadowColor: const Color.fromARGB(255, 171, 171, 171),
       ),
       body: SingleChildScrollView(
@@ -109,7 +107,7 @@ class _NewWishAddState extends State<NewWishAdd> {
                   controller: _linkUrlController,
                 ),
                 Padding(
-                  padding: EdgeInsets.only(top: 20.0),
+                  padding: const EdgeInsets.only(top: 20.0),
                   child: AddImage(
                     onImageSelected: (image) {
                       if (image != null) {

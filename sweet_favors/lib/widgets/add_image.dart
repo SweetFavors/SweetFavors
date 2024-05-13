@@ -9,7 +9,7 @@ import 'package:sweet_favors/Utils/color_use.dart';
 // import 'package:sweet_favors/widgets/button_at_bottom.dart';
 
 class AddImage extends StatefulWidget {
-  final Function(File)  onImageSelected;
+  final Function(File) onImageSelected;
 
   const AddImage({super.key, required this.onImageSelected});
 
@@ -18,14 +18,14 @@ class AddImage extends StatefulWidget {
 }
 
 class _AddImageState extends State<AddImage> {
-  File? _imageFile; 
+  File? _imageFile;
 
   Future<File?> getImage() async {
     final ImagePicker _picker = ImagePicker();
     final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
-    if(image == null){
+    if (image == null) {
       return null;
-    }else{
+    } else {
       return File(image!.path);
     }
   }
@@ -38,32 +38,37 @@ class _AddImageState extends State<AddImage> {
         child: InkWell(
           onTap: () async {
             File? image = await getImage();
-            if(image != null){
-            setState(() {
-              _imageFile = image;
-            });
-            widget.onImageSelected(image); 
+            if (image != null) {
+              setState(() {
+                _imageFile = image;
+              });
+              widget.onImageSelected(image);
             }
           },
           child: Card(
-            color: colorUse.secondaryColor,
+            color: const Color.fromARGB(208, 249, 235, 251),
             child: Padding(
               padding: const EdgeInsets.only(
                   top: 40, left: 40, right: 40, bottom: 30),
               child: Column(mainAxisSize: MainAxisSize.min, children: [
                 ClipRRect(
-                    borderRadius: BorderRadius.circular(8.0),
-                    child: _imageFile != null
-                        ? Image.file(_imageFile!, // Show selected image
-                            width: 170, height: 170, fit: BoxFit.cover)
-                        : Icon(Icons.picture_in_picture), // Placeholder
-                          ),
+                  borderRadius: BorderRadius.circular(8.0),
+                  child: _imageFile != null
+                      ? Image.file(_imageFile!, // Show selected image
+                          width: 170,
+                          height: 170,
+                          fit: BoxFit.cover)
+                      : Icon(
+                          Icons.image,
+                          size: 30,
+                        ), // Placeholder
+                ),
                 const SizedBox(height: 20),
                 const Text(
                   'Add Image +',
                   style: TextStyle(
                     fontSize: 14.0,
-                    color: colorUse.textColorSecondary,
+                    color: Color.fromARGB(255, 27, 28, 50),
                   ),
                 ),
               ]),

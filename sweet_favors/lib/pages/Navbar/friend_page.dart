@@ -18,6 +18,7 @@ class Friendpage extends StatelessWidget {
                   color: Color.fromARGB(240, 255, 255, 255)),
             ),
             backgroundColor: colorUse.appBarColor,
+            elevation: 5,
             shadowColor: const Color.fromARGB(255, 171, 171, 171),
             centerTitle: true,
             actions: <Widget>[

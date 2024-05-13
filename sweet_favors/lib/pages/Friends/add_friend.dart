@@ -59,12 +59,21 @@ class _AddFriendState extends State<AddFriend> {
       appBar: AppBar(
         title: const Text(
           "Add Friend",
-          style: TextStyle(fontWeight: FontWeight.bold),
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Color.fromARGB(240, 255, 255, 255),
+          ),
         ),
+        elevation: 5,
         centerTitle: true,
+        backgroundColor: colorUse.appBarColor,
+        shadowColor: const Color.fromARGB(255, 171, 171, 171),
         leading: IconButton(
             onPressed: () => Navigator.pop(context),
-            icon: const Icon(Icons.arrow_back, color: Colors.black)),
+            icon: const Icon(
+              Icons.arrow_back_ios,
+              color: Color.fromARGB(240, 255, 255, 255),
+            )),
       ),
       body: Column(
         children: [

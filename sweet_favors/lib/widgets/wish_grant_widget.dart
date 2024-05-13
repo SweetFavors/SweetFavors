@@ -14,7 +14,7 @@ class WishGrant extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 800,
       child: Card(
           color: const Color.fromARGB(208, 249, 235, 251),
@@ -41,7 +41,7 @@ class WishGrant extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 8,
                 ),
                 Flexible(
