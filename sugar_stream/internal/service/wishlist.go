@@ -20,4 +20,6 @@ type WishlistService interface {
 	UpdateReceiverDidntGetIt(int, int) (*entities.Wishlist, error)
 
 	PostAddWishlist(int, dtos.AddWishlistRequest) (*entities.Wishlist, error)
+
+	PostCopyWishlist(int, int) (*entities.Wishlist, error)
 }

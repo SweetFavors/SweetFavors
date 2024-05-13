@@ -26,16 +26,14 @@ func (h *userHandler) GetUsers(c *fiber.Ctx) error {
 
 	for _, user := range users {
 		usersResponse = append(usersResponse, dtos.UserResponse{
-			UserID:       user.UserID,
-			Username:     user.Username,
-			Password:     user.Password,
-			Email:        user.Email,
-			Firstname:    user.Firstname,
-			Lastname:     user.Lastname,
-			PhoneNum:     user.PhoneNum,
-			UserPic:      user.UserPic,
-			PromptPayAcc: user.PromptPayAcc,
-			PromptPayQR:  user.PromptPayQR,
+			UserID:    user.UserID,
+			Username:  user.Username,
+			Password:  user.Password,
+			Email:     user.Email,
+			Firstname: user.Firstname,
+			Lastname:  user.Lastname,
+			PhoneNum:  user.PhoneNum,
+			UserPic:   user.UserPic,
 		})
 	}
 	return c.JSON(usersResponse)
@@ -54,16 +52,14 @@ func (h *userHandler) GetUser(c *fiber.Ctx) error {
 	}
 
 	userResponse := dtos.UserIDInfoResponse{
-		UserID:       user.UserID,
-		Username:     user.Username,
-		Password:     user.Password,
-		Email:        user.Email,
-		Firstname:    user.Firstname,
-		Lastname:     user.Lastname,
-		PhoneNum:     user.PhoneNum,
-		UserPic:      user.UserPic,
-		PromptPayAcc: user.PromptPayAcc,
-		PromptPayQR:  user.PromptPayQR,
+		UserID:    user.UserID,
+		Username:  user.Username,
+		Password:  user.Password,
+		Email:     user.Email,
+		Firstname: user.Firstname,
+		Lastname:  user.Lastname,
+		PhoneNum:  user.PhoneNum,
+		UserPic:   user.UserPic,
 	}
 
 	return c.JSON(userResponse)
@@ -82,13 +78,11 @@ func (h *userHandler) GetUserCurrent(c *fiber.Ctx) error {
 	}
 
 	userResponse := dtos.UserCurrentResponse{
-		UserID:       user.UserID,
-		Username:     user.Username,
-		Firstname:    user.Firstname,
-		Lastname:     user.Lastname,
-		UserPic:      user.UserPic,
-		PromptPayAcc: user.PromptPayAcc,
-		PromptPayQR:  user.PromptPayQR,
+		UserID:    user.UserID,
+		Username:  user.Username,
+		Firstname: user.Firstname,
+		Lastname:  user.Lastname,
+		UserPic:   user.UserPic,
 	}
 
 	return c.JSON(userResponse)
@@ -145,31 +139,6 @@ func (h *userHandler) GetSearchFriend(c *fiber.Ctx) error {
 		})
 	}
 	return c.JSON(usersResponse)
-}
-
-func (h *userHandler) GetDonateInfo(c *fiber.Ctx) error {
-	userID := c.Params("userID")
-
-	userIDReceive, err := strconv.Atoi(userID)
-	if err != nil {
-		return err
-	}
-
-	user, err := h.userSer.GetProfileOfCurrentUser(userIDReceive)
-	if err != nil {
-		return err
-	}
-
-	userResponse := dtos.DonateInfoResponse{
-		UserID:       user.UserID,
-		Username:     user.Username,
-		Firstname:    user.Firstname,
-		Lastname:     user.Lastname,
-		PromptPayAcc: user.PromptPayAcc,
-		PromptPayQR:  user.PromptPayQR,
-	}
-
-	return c.JSON(userResponse)
 }
 
 func (h *userHandler) GetEditUserProfile(c *fiber.Ctx) error {

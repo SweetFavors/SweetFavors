@@ -1,33 +1,30 @@
 package entities
 
 type User struct {
-	UserID       *uint `gorm:"primaryKey;autoIncrement"`
-	Username     *string
-	Password     *string
-	Email        *string
-	Firstname    *string
-	Lastname     *string
-	PhoneNum     *string
-	UserPic      *string
-	PromptPayAcc *string
-	PromptPayQR  *string
-	Wishlist     []Wishlist `gorm:"foreignKey:UserID"`
-	GrantedBy    []Wishlist `gorm:"foreignKey:GrantedByUserId"`
-	Followers    []Follow   `gorm:"foreignKey:UserID"`
-	Following    []Follow   `gorm:"foreignKey:FollowingID"`
+	UserID    *uint `gorm:"primaryKey;autoIncrement"`
+	Username  *string
+	Password  *string
+	Email     *string
+	Firstname *string
+	Lastname  *string
+	PhoneNum  *string
+	UserPic   *string
+
+	// Define associations
+	Wishlists  []Wishlist `gorm:"foreignKey:UserID"`
+	Followers  []Follow   `gorm:"foreignKey:FollowingID"`
+	Followings []Follow   `gorm:"foreignKey:UserID"`
 }
 
 type Wishlist struct {
 	WishlistID         *uint `gorm:"primaryKey;autoIncrement"`
 	UserID             *uint `gorm:"not null"`
-	User               User  `gorm:"foreignKey:UserID"`
 	Itemname           *string
-	Quantity           *uint
 	Price              *uint
 	LinkURL            *string
 	ItemPic            *string
 	AlreadyBought      *bool
-	GrantedByUserId    *uint
+	GrantedByUserID    *uint   `gorm:"index"`
 	UsernameOfWishlist *string `gorm:"->"`
 	UserPicOfWishlist  *string `gorm:"->"`
 	UsernameOfGranter  *string `gorm:"->"`
@@ -35,11 +32,13 @@ type Wishlist struct {
 
 type Follow struct {
 	UserID            *uint   `gorm:"not null"`
-	User              User    `gorm:"foreignKey:UserID"`
-	FollowingID       *uint   `gorm:"not null"`
-	Following         User    `gorm:"foreignKey:FollowingID"`
+	FollowingID       *uint   `gorm:"not null;index"`
 	FollowingUsername *string `gorm:"->"`
 	FollowingUserPic  *string `gorm:"->"`
 	FollowerUsername  *string `gorm:"->"`
 	FollowerUserPic   *string `gorm:"->"`
+
+	// Define associations
+	User      User `gorm:"foreignKey:UserID"`
+	Following User `gorm:"foreignKey:FollowingID"`
 }

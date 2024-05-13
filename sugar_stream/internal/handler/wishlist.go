@@ -1,11 +1,10 @@
 package handler
 
 import (
+	"github.com/gofiber/fiber/v2"
 	"strconv"
 	"sugar_stream/internal/dtos"
 	"sugar_stream/internal/service"
-
-	"github.com/gofiber/fiber/v2"
 )
 
 type wishlistHandler struct {
@@ -29,12 +28,11 @@ func (h *wishlistHandler) GetWishlists(c *fiber.Ctx) error {
 			WishlistID:      wishlist.WishlistID,
 			UserID:          wishlist.UserID,
 			Itemname:        wishlist.Itemname,
-			Quantity:        wishlist.Quantity,
 			Price:           wishlist.Price,
 			LinkURL:         wishlist.LinkURL,
 			ItemPic:         wishlist.ItemPic,
 			AlreadyBought:   wishlist.AlreadyBought,
-			GrantedByUserId: wishlist.GrantedByUserId,
+			GrantedByUserID: wishlist.GrantedByUserID,
 		})
 	}
 	return c.JSON(wishlistsResponse)
@@ -59,12 +57,11 @@ func (h *wishlistHandler) GetWishlistsOfUser(c *fiber.Ctx) error {
 			WishlistID:      wishlist.WishlistID,
 			UserID:          wishlist.UserID,
 			Itemname:        wishlist.Itemname,
-			Quantity:        wishlist.Quantity,
 			Price:           wishlist.Price,
 			LinkURL:         wishlist.LinkURL,
 			ItemPic:         wishlist.ItemPic,
 			AlreadyBought:   wishlist.AlreadyBought,
-			GrantedByUserId: wishlist.GrantedByUserId,
+			GrantedByUserID: wishlist.GrantedByUserID,
 		})
 	}
 	return c.JSON(wishlistsResponse)
@@ -86,12 +83,11 @@ func (h *wishlistHandler) GetWishlist(c *fiber.Ctx) error {
 		WishlistID:      wishlist.WishlistID,
 		UserID:          wishlist.UserID,
 		Itemname:        wishlist.Itemname,
-		Quantity:        wishlist.Quantity,
 		Price:           wishlist.Price,
 		LinkURL:         wishlist.LinkURL,
 		ItemPic:         wishlist.ItemPic,
 		AlreadyBought:   wishlist.AlreadyBought,
-		GrantedByUserId: wishlist.GrantedByUserId,
+		GrantedByUserID: wishlist.GrantedByUserID,
 	}
 
 	return c.JSON(wishlistResponse)
@@ -113,12 +109,11 @@ func (h *wishlistHandler) GetWishlistsOfCurrentUser(c *fiber.Ctx) error {
 			WishlistID:        wishlist.WishlistID,
 			UserID:            wishlist.UserID,
 			Itemname:          wishlist.Itemname,
-			Quantity:          wishlist.Quantity,
 			Price:             wishlist.Price,
 			LinkURL:           wishlist.LinkURL,
 			ItemPic:           wishlist.ItemPic,
 			AlreadyBought:     wishlist.AlreadyBought,
-			GrantedByUserId:   wishlist.GrantedByUserId,
+			GrantedByUserID:   wishlist.GrantedByUserID,
 			UsernameOfGranter: wishlist.UsernameOfGranter,
 		})
 	}
@@ -144,12 +139,11 @@ func (h *wishlistHandler) GetFriendsWishlists(c *fiber.Ctx) error {
 			WishlistID:         wishlist.WishlistID,
 			UserID:             wishlist.UserID,
 			Itemname:           wishlist.Itemname,
-			Quantity:           wishlist.Quantity,
 			Price:              wishlist.Price,
 			LinkURL:            wishlist.LinkURL,
 			ItemPic:            wishlist.ItemPic,
 			AlreadyBought:      wishlist.AlreadyBought,
-			GrantedByUserId:    wishlist.GrantedByUserId,
+			GrantedByUserID:    wishlist.GrantedByUserID,
 			UsernameOfWishlist: wishlist.UsernameOfWishlist,
 			UserPicOfWishlist:  wishlist.UserPicOfWishlist,
 		})
@@ -174,12 +168,11 @@ func (h *wishlistHandler) GetWishlistDetails(c *fiber.Ctx) error {
 		WishlistID:      wishlist.WishlistID,
 		UserID:          wishlist.UserID,
 		Itemname:        wishlist.Itemname,
-		Quantity:        wishlist.Quantity,
 		Price:           wishlist.Price,
 		LinkURL:         wishlist.LinkURL,
 		ItemPic:         wishlist.ItemPic,
 		AlreadyBought:   wishlist.AlreadyBought,
-		GrantedByUserId: wishlist.GrantedByUserId,
+		GrantedByUserID: wishlist.GrantedByUserID,
 	}
 
 	return c.JSON(wishlistResponse)
@@ -208,12 +201,11 @@ func (h *wishlistHandler) GetProfileFriendWishlists(c *fiber.Ctx) error {
 			WishlistID:         wishlist.WishlistID,
 			UserID:             wishlist.UserID,
 			Itemname:           wishlist.Itemname,
-			Quantity:           wishlist.Quantity,
 			Price:              wishlist.Price,
 			LinkURL:            wishlist.LinkURL,
 			ItemPic:            wishlist.ItemPic,
 			AlreadyBought:      wishlist.AlreadyBought,
-			GrantedByUserId:    wishlist.GrantedByUserId,
+			GrantedByUserID:    wishlist.GrantedByUserID,
 			UsernameOfWishlist: wishlist.UsernameOfWishlist,
 			UserPicOfWishlist:  wishlist.UserPicOfWishlist,
 		})
@@ -279,7 +271,7 @@ func (h *wishlistHandler) UpdateReceiverDidntGetIt(c *fiber.Ctx) error {
 }
 
 func (h *wishlistHandler) PostAddWishlist(c *fiber.Ctx) error {
-	userIDExtract := 1 // Assuming you'll get the userID from the request later
+	userIDExtract := 1
 
 	var req dtos.AddWishlistRequest
 	if err := c.BodyParser(&req); err != nil {
@@ -294,11 +286,26 @@ func (h *wishlistHandler) PostAddWishlist(c *fiber.Ctx) error {
 	wishlistResponse := dtos.AddWishlistRequest{
 		UserID:   wishlist.UserID,
 		Itemname: wishlist.Itemname,
-		Quantity: wishlist.Quantity,
 		Price:    wishlist.Price,
 		LinkURL:  wishlist.LinkURL,
 		ItemPic:  wishlist.ItemPic,
 	}
 
 	return c.JSON(wishlistResponse)
+}
+
+func (h *wishlistHandler) PostCopyWishlist(c *fiber.Ctx) error {
+	userIDExtract := 2
+
+	wishlistID, err := strconv.Atoi(c.Params("WishlistID"))
+	if err != nil {
+		return err
+	}
+
+	copiedWishlistItem, err := h.wishlistSer.PostCopyWishlist(userIDExtract, wishlistID)
+	if err != nil {
+		return err
+	}
+
+	return c.JSON(fiber.Map{"message": "Wishlist item copied successfully", "copied_wishlist_item": copiedWishlistItem})
 }
