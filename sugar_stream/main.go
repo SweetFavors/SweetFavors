@@ -35,9 +35,19 @@ func main() {
 		panic("Failed to connect database")
 	}
 
-	err = db.AutoMigrate(&entities.User{}, &entities.Wishlist{}, &entities.Follow{})
+	err = db.AutoMigrate(&entities.User{})
 	if err != nil {
-		panic("Failed to AutoMigrate")
+		panic("Failed to AutoMigrate User")
+	}
+
+	err = db.AutoMigrate(&entities.Wishlist{})
+	if err != nil {
+		panic("Failed to AutoMigrate Wishlist")
+	}
+
+	err = db.AutoMigrate(&entities.Follow{})
+	if err != nil {
+		panic("Failed to AutoMigrate Follow")
 	}
 
 	userRepositoryDB := repository.NewUserRepositoryDB(db)
@@ -84,7 +94,6 @@ func main() {
 	app.Get("/GetSearchFriend/:UserID", userHandler.GetSearchFriend)
 	app.Get("/GetFriendsWishlists/:UserID", wishlistHandler.GetFriendsWishlists)
 	app.Get("/GetWishlistDetails/:WishlistID", wishlistHandler.GetWishlistDetails)
-	app.Get("/GetDonateInfo/:UserID", userHandler.GetDonateInfo)
 	app.Get("/GetProfileFriendWishlists/:CurrentUserID/:WishlistOwnerID", wishlistHandler.GetProfileFriendWishlists)
 
 	app.Put("/UpdateGrantForFriend/:WishlistID/:GranterUserID", wishlistHandler.UpdateGrantForFriend)
@@ -99,6 +108,8 @@ func main() {
 
 	app.Get("/GetEditUserProfile/:UserID", userHandler.GetEditUserProfile)
 	app.Patch("/UpdateEditUserProfile/:UserID", userHandler.UpdateEditUserProfile)
+
+	app.Post("/PostCopyWishlist/:CurrentUserID/:WishlistID", wishlistHandler.PostCopyWishlist)
 
 	//#####################################################################################
 

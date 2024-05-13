@@ -26,16 +26,14 @@ func (s userService) GetUsers() ([]entities.User, error) {
 	userResponses := []entities.User{}
 	for _, user := range users {
 		userResponse := entities.User{
-			UserID:       user.UserID,
-			Username:     user.Username,
-			Password:     user.Password,
-			Email:        user.Email,
-			Firstname:    user.Firstname,
-			Lastname:     user.Lastname,
-			PhoneNum:     user.PhoneNum,
-			UserPic:      user.UserPic,
-			PromptPayAcc: user.PromptPayAcc,
-			PromptPayQR:  user.PromptPayQR,
+			UserID:    user.UserID,
+			Username:  user.Username,
+			Password:  user.Password,
+			Email:     user.Email,
+			Firstname: user.Firstname,
+			Lastname:  user.Lastname,
+			PhoneNum:  user.PhoneNum,
+			UserPic:   user.UserPic,
 		}
 		userResponses = append(userResponses, userResponse)
 	}
@@ -50,16 +48,14 @@ func (s userService) GetUser(userid int) (*entities.User, error) {
 	}
 
 	userResponse := entities.User{
-		UserID:       user.UserID,
-		Username:     user.Username,
-		Password:     user.Password,
-		Email:        user.Email,
-		Firstname:    user.Firstname,
-		Lastname:     user.Lastname,
-		PhoneNum:     user.PhoneNum,
-		UserPic:      user.UserPic,
-		PromptPayAcc: user.PromptPayAcc,
-		PromptPayQR:  user.PromptPayQR,
+		UserID:    user.UserID,
+		Username:  user.Username,
+		Password:  user.Password,
+		Email:     user.Email,
+		Firstname: user.Firstname,
+		Lastname:  user.Lastname,
+		PhoneNum:  user.PhoneNum,
+		UserPic:   user.UserPic,
 	}
 	return &userResponse, nil
 }
@@ -74,16 +70,14 @@ func (s userService) GetProfileOfCurrentUser(userid int) (*entities.User, error)
 	}
 
 	userResponse := entities.User{
-		UserID:       user.UserID,
-		Username:     user.Username,
-		Password:     user.Password,
-		Email:        user.Email,
-		Firstname:    user.Firstname,
-		Lastname:     user.Lastname,
-		PhoneNum:     user.PhoneNum,
-		UserPic:      user.UserPic,
-		PromptPayAcc: user.PromptPayAcc,
-		PromptPayQR:  user.PromptPayQR,
+		UserID:    user.UserID,
+		Username:  user.Username,
+		Password:  user.Password,
+		Email:     user.Email,
+		Firstname: user.Firstname,
+		Lastname:  user.Lastname,
+		PhoneNum:  user.PhoneNum,
+		UserPic:   user.UserPic,
 	}
 	return &userResponse, nil
 }
@@ -105,28 +99,6 @@ func (s userService) GetSearchFriend(excludeUserID int, query string) ([]entitie
 		userResponses = append(userResponses, userResponse)
 	}
 	return userResponses, nil
-}
-
-func (s userService) GetDonateInfo(userid int) (*entities.User, error) {
-	user, err := s.userRepo.GetDonateInfoByUserId(userid)
-	if err != nil {
-		log.Println(err)
-		return nil, err
-	}
-
-	userResponse := entities.User{
-		UserID:       user.UserID,
-		Username:     user.Username,
-		Password:     user.Password,
-		Email:        user.Email,
-		Firstname:    user.Firstname,
-		Lastname:     user.Lastname,
-		PhoneNum:     user.PhoneNum,
-		UserPic:      user.UserPic,
-		PromptPayAcc: user.PromptPayAcc,
-		PromptPayQR:  user.PromptPayQR,
-	}
-	return &userResponse, nil
 }
 
 func (s userService) GetEditUserProfile(userid int) (*entities.User, error) {
