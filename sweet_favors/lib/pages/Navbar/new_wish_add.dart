@@ -71,7 +71,7 @@ class _NewWishAddState extends State<NewWishAdd> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          "Item",
+          "Add New Wish",
           style: TextStyle(
             fontWeight: FontWeight.bold,
             color: Color.fromARGB(240, 255, 255, 255),
