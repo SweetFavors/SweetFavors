@@ -21,7 +21,6 @@ class WishGrant extends StatelessWidget {
           child: Center(
             child: Column(
               children: [
-                Icon(Icons.heart)
                 SizedBox(
                   height: MediaQuery.of(context).size.height / 5,
                   child: Padding(
