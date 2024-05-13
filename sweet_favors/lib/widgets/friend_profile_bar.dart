@@ -18,7 +18,7 @@ class FriendProfileBar extends StatelessWidget {
       // required this.fullname
       });
       
-        get WidgetStateProperty => null;
+        // get WidgetStateProperty => null;
 
   @override
   Widget build(BuildContext context) {
