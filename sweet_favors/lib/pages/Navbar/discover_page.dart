@@ -59,25 +59,41 @@ class _discover_pageState extends State<discover_page> {
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 20.0),
-        child: Expanded(
-          child: SingleChildScrollView(
-            physics: const AlwaysScrollableScrollPhysics(),
-            child: Center(
-              child: GridView.builder(
-                itemCount: _wishItems.length,
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                padding: const EdgeInsets.all(8.0),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  childAspectRatio: 1, // Adjust aspect ratio as needed
+        child: InkWell(
+          // onTap: () {
+          //   if (_wishItems.isNotEmpty) {
+          //     final wishItem = _wishItems[_currentIndex];
+          //     Navigator.push(
+          //       context,
+          //       MaterialPageRoute(
+          //         builder: (context) => WishDetails(
+          //           wishlist_id: wishItem.wishlistId,
+          //           username: wishItem.usernameOfWishlist ?? 'null',
+          //         ),
+          //       ),
+          //     );
+          //   }
+          // },
+          child: Expanded(
+            child: SingleChildScrollView(
+              physics: const AlwaysScrollableScrollPhysics(),
+              child: Center(
+                child: GridView.builder(
+                  itemCount: _wishItems.length,
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  padding: const EdgeInsets.all(8.0),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    childAspectRatio: 1, // Adjust aspect ratio as needed
+                  ),
+                  itemBuilder: (context, index) {
+                    return WishGrant(
+                      price: "\$${_wishItems[index].price}",
+                      pic: _wishItems[index].itemPic,
+                    );
+                  },
                 ),
-                itemBuilder: (context, index) {
-                  return WishGrant(
-                    price: "\$${_wishItems[index].price}",
-                    pic: _wishItems[index].itemPic,
-                  );
-                },
               ),
             ),
           ),
