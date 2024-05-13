@@ -24,15 +24,16 @@ class _FavoriteButtonState extends State<FavoriteButton> {
         child: Icon(
           _isFavorite ? Icons.favorite : Icons.favorite_border,
           color: _isFavorite
-              ? colorUse.appBarColor
-              : colorUse.appBarColor, // Change color if favorite
+              ? Colors.white
+              : Colors.white, // Change color if favorite
         ),
       ),
       label: SizedBox.shrink(),
       style: ElevatedButton.styleFrom(
         backgroundColor: _isFavorite
-            ? Colors.grey[300]
-            : null, // Change background color if favorite
+            ? Color.fromARGB(193, 255, 131, 218)
+            : Color.fromARGB(
+                193, 255, 131, 218), // Change background color if favorite
         shape: const CircleBorder(),
         padding: EdgeInsets.zero,
         alignment: Alignment.center,

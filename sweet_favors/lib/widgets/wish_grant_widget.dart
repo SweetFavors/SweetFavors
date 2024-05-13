@@ -38,29 +38,10 @@ class WishGrant extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Positioned(
+                    const Positioned(
                       top: 10.0,
                       right: 1.0,
                       child: FavoriteButton(),
-                      // child: ElevatedButton.icon(
-                      //   onPressed: () {
-                      //     // Handle favorite button tap
-                      //   },
-                      //   label: const SizedBox.shrink(), // Empty label
-                      //   style: ElevatedButton.styleFrom(
-                      //     shape: const CircleBorder(),
-                      //   ),
-                      //   icon: Row(
-                      //     mainAxisAlignment: MainAxisAlignment.center,
-                      //     mainAxisSize: MainAxisSize.min,
-                      //     children: [
-                      //       const Icon(
-                      //         Icons.favorite_border,
-                      //         color: colorUse.appBarColor,
-                      //       ),
-                      //     ],
-                      //   ),
-                      // ),
                     ),
                   ],
                 ),
