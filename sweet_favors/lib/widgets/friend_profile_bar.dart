@@ -8,12 +8,17 @@ class FriendProfileBar extends StatelessWidget {
   final String images;
   final String name;
   final String email;
+  // final String fullname;
 
   const FriendProfileBar(
       {super.key,
       required this.images,
       required this.name,
-      required this.email});
+      required this.email,
+      // required this.fullname
+      });
+      
+        get WidgetStateProperty => null;
 
   @override
   Widget build(BuildContext context) {
