@@ -1,8 +1,34 @@
+// import 'dart:developer';
+import 'dart:io';
+// import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:sweet_favors/Utils/color_use.dart';
+// import 'package:sweet_favors/pages/home.dart'; // Make sure this import is correct
+// import 'package:sweet_favors/widgets/text_form.dart';
+// import 'package:sweet_favors/widgets/button_at_bottom.dart';
 
-class AddImage extends StatelessWidget {
-  const AddImage({super.key});
+class AddImage extends StatefulWidget {
+  final Function(File)  onImageSelected;
+
+  const AddImage({super.key, required this.onImageSelected});
+
+  @override
+  _AddImageState createState() => _AddImageState();
+}
+
+class _AddImageState extends State<AddImage> {
+  File? _imageFile; 
+
+  Future<File?> getImage() async {
+    final ImagePicker _picker = ImagePicker();
+    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+    if(image == null){
+      return null;
+    }else{
+      return File(image!.path);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -10,7 +36,15 @@ class AddImage extends StatelessWidget {
       child: Container(
         margin: const EdgeInsets.only(bottom: 25),
         child: InkWell(
-          onTap: () {},
+          onTap: () async {
+            File? image = await getImage();
+            if(image != null){
+            setState(() {
+              _imageFile = image;
+            });
+            widget.onImageSelected(image); 
+            }
+          },
           child: Card(
             color: colorUse.secondaryColor,
             child: Padding(
@@ -19,18 +53,15 @@ class AddImage extends StatelessWidget {
               child: Column(mainAxisSize: MainAxisSize.min, children: [
                 ClipRRect(
                     borderRadius: BorderRadius.circular(8.0),
-                    child: Image.asset(
-                      'assets/myGirl.png',
-                      width: 170,
-                      height: 170,
-                      fit: BoxFit.cover,
-                    )),
-                SizedBox(
-                  height: 20,
-                ),
-                Text(
+                    child: _imageFile != null
+                        ? Image.file(_imageFile!, // Show selected image
+                            width: 170, height: 170, fit: BoxFit.cover)
+                        : Icon(Icons.picture_in_picture), // Placeholder
+                          ),
+                const SizedBox(height: 20),
+                const Text(
                   'Add Image +',
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 14.0,
                     color: colorUse.textColorSecondary,
                   ),
