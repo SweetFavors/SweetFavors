@@ -17,6 +17,10 @@ class _FirstHomePageState extends State<FirstHomePage> {
   String? username;
   String? email;
   String? img;
+  String? firstname;
+  String? lastname;
+  String? fullname;
+  
 
   @override
   void initState() {
@@ -54,6 +58,9 @@ class _FirstHomePageState extends State<FirstHomePage> {
         username = parsedJson['username'];
         email = parsedJson['email'];
         img = parsedJson['user_pic'];
+        firstname = parsedJson['firstname'];
+        lastname = parsedJson['lastname'];
+        fullname = '$firstname $lastname';
 
         print(username);
         print(email);
@@ -82,6 +89,7 @@ class _FirstHomePageState extends State<FirstHomePage> {
                 images: img ?? '',
                 name: username ?? '',
                 email: email ?? '',
+                fullname: fullname ?? '',
               ),
             ),
 
