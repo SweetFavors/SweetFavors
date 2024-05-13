@@ -5,7 +5,7 @@ import 'package:sweet_favors/Auth/sign_up.dart';
 import 'package:sweet_favors/pages/Navbar/first_home_page.dart';
 import 'package:sweet_favors/pages/Navbar/friend_page.dart';
 import 'package:sweet_favors/pages/Navbar/new_wish_add.dart';
-import 'package:sweet_favors/pages/Navbar/wish_grant_page.dart';
+import 'package:sweet_favors/pages/Navbar/discover_page.dart';
 import 'package:sweet_favors/pages/home.dart';
 
 void main() {

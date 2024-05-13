@@ -110,7 +110,9 @@ class _FriendWishlistFollowersState extends State<FriendWishlistFollowers> {
                   if (isFollowing) {
                     return Expanded(
                       child: wishlists.isEmpty
-                          ? const Center(child: Text("It's empty"))
+                          ? const FriendsMsgCard(
+                              message: "The list is empty",
+                            )
                           : ListView.builder(
                               itemCount: wishlists.length,
                               itemBuilder: (context, index) {

@@ -22,35 +22,34 @@ class _NewWishAddState extends State<NewWishAdd> {
   final TextEditingController _linkUrlController = TextEditingController();
 // /PostAddWishlist/:UserID
   File? _selectedImage;
-  
+
   Future<bool> addWishlistItem() async {
-    final url = 'http://10.0.2.2:1432/PostAddWishlist/1'; 
+    final url = 'http://10.0.2.2:1432/PostAddWishlist/1';
 
     try {
-        var formData = FormData.fromMap({
-          'itemName': _itemNameController.text ?? '',
-          'quantity': _quantityController.text ?? '',
-          'price': _priceController.text ?? '',
-          'linkURL': _linkUrlController.text ?? '',
-          'image': await MultipartFile.fromFile(
-            'Kuy/path/XD/', 
-            filename: _selectedImage!.path.split('/').last,
-          ),
-        });
+      var formData = FormData.fromMap({
+        'itemName': _itemNameController.text ?? '',
+        'quantity': _quantityController.text ?? '',
+        'price': _priceController.text ?? '',
+        'linkURL': _linkUrlController.text ?? '',
+        'image': await MultipartFile.fromFile(
+          'Kuy/path/XD/',
+          filename: _selectedImage!.path.split('/').last,
+        ),
+      });
 
-        final response = await Dio().post(url, data: formData);
+      final response = await Dio().post(url, data: formData);
 
-        if (response.statusCode == 200) {
-          var map = response.data as Map;
-          print('success');
-          if (map['status'] == 'Successfully registered') {
+      if (response.statusCode == 200) {
+        var map = response.data as Map;
+        print('success');
+        if (map['status'] == 'Successfully registered') {
           return true;
         }
-          return true;
-        } else {
-          return false;
-        }
-      
+        return true;
+      } else {
+        return false;
+      }
     } catch (e) {
       print(e);
       return false;
@@ -58,14 +57,13 @@ class _NewWishAddState extends State<NewWishAdd> {
   }
 
   @override
-    void dispose() {
-      _itemNameController.dispose();
-      _quantityController.dispose();
-      _priceController.dispose();
-      _linkUrlController.dispose();
-      super.dispose();
-    }
-
+  void dispose() {
+    _itemNameController.dispose();
+    _quantityController.dispose();
+    _priceController.dispose();
+    _linkUrlController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -74,12 +72,17 @@ class _NewWishAddState extends State<NewWishAdd> {
       appBar: AppBar(
         title: const Text(
           "Item",
-          style: TextStyle(fontWeight: FontWeight.bold),
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Color.fromARGB(240, 255, 255, 255),
+          ),
         ),
         centerTitle: true,
         // leading: IconButton(
         //     onPressed: () => Navigator.pop(context),
         //     icon: const Icon(Icons.arrow_back, color: Colors.black)),
+        backgroundColor: const Color.fromARGB(255, 188, 143, 223),
+        shadowColor: const Color.fromARGB(255, 171, 171, 171),
       ),
       body: SingleChildScrollView(
         child: Center(
@@ -89,35 +92,47 @@ class _NewWishAddState extends State<NewWishAdd> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                 TextForm(label: 'Item name',controller: _itemNameController,),
-                 TextForm(label: 'Quantity', controller: _quantityController,),
-                 TextForm(label: 'Price', controller: _priceController,),
-                 TextForm(label: 'Link URL', controller: _linkUrlController,),
+                TextForm(
+                  label: 'Item name',
+                  controller: _itemNameController,
+                ),
+                TextForm(
+                  label: 'Quantity',
+                  controller: _quantityController,
+                ),
+                TextForm(
+                  label: 'Price',
+                  controller: _priceController,
+                ),
+                TextForm(
+                  label: 'Link URL',
+                  controller: _linkUrlController,
+                ),
                 Padding(
                   padding: EdgeInsets.only(top: 20.0),
                   child: AddImage(
                     onImageSelected: (image) {
-                      if(image != null) {
+                      if (image != null) {
                         setState(() {
-                        _selectedImage = image;
-                      });
+                          _selectedImage = image;
+                        });
                       }
                     },
-                  ), 
+                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 20.0, bottom: 20),
                   child: ButtonAtBottom(
                     onPressed: () async {
                       bool success = await addWishlistItem();
-                      if(success){
+                      if (success) {
                         print('true');
                         print(_itemNameController.text);
                         print(_linkUrlController.text);
                         print(_priceController.text);
                         print(_quantityController.text);
                         print(_selectedImage);
-                      }else{
+                      } else {
                         print('false not successful');
                         print(_itemNameController.text);
                         print(_linkUrlController.text);
@@ -125,7 +140,7 @@ class _NewWishAddState extends State<NewWishAdd> {
                         print(_quantityController.text);
                         print(_selectedImage);
                       }
-                    } ,
+                    },
                     text: 'SUBMIT',
                   ),
                 ),

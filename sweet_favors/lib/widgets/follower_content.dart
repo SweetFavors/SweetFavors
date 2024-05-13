@@ -73,7 +73,8 @@ class _FollowerContentState extends State<FollowerContent> {
                                   child: Container(
                                     decoration: BoxDecoration(
                                       border: Border.all(
-                                        color: colorUse.activeIconCircle,
+                                        color:
+                                            Color.fromARGB(171, 199, 128, 227),
                                         width:
                                             15, //don't change this to anything less than 15
                                       ),

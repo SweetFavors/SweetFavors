@@ -10,14 +10,14 @@ import 'package:sweet_favors/widgets/button_at_bottom.dart';
 import 'package:sweet_favors/pages/Wish/wish_details.dart';
 import 'package:flutter_swiper_view/flutter_swiper_view.dart';
 
-class WishGrantPage extends StatefulWidget {
-  const WishGrantPage({super.key});
+class discover_page extends StatefulWidget {
+  const discover_page({super.key});
 
   @override
-  State<WishGrantPage> createState() => _WishGrantPageState();
+  State<discover_page> createState() => _discover_pageState();
 }
 
-class _WishGrantPageState extends State<WishGrantPage> {
+class _discover_pageState extends State<discover_page> {
   List<WishItem> _wishItems = [];
   int _currentIndex = 0; // State to track the current Swiper index
 
@@ -49,8 +49,12 @@ class _WishGrantPageState extends State<WishGrantPage> {
           "Discover",
           style: TextStyle(
             fontWeight: FontWeight.bold,
+            color: Color.fromARGB(240, 255, 255, 255),
           ),
         ),
+        backgroundColor: const Color.fromARGB(255, 188, 143, 223),
+        elevation: 5,
+        shadowColor: const Color.fromARGB(255, 171, 171, 171),
         centerTitle: true,
       ),
       body: Expanded(

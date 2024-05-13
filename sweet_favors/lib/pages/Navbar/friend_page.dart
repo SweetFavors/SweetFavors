@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sweet_favors/Utils/color_use.dart';
 import 'package:sweet_favors/pages/home.dart';
 import 'package:sweet_favors/pages/Friends/add_friend.dart';
 import 'package:sweet_favors/widgets/drop_down.dart';
@@ -12,8 +13,12 @@ class Friendpage extends StatelessWidget {
         appBar: AppBar(
             title: const Text(
               "Friends",
-              style: TextStyle(fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Color.fromARGB(240, 255, 255, 255)),
             ),
+            backgroundColor: colorUse.appBarColor,
+            shadowColor: const Color.fromARGB(255, 171, 171, 171),
             centerTitle: true,
             actions: <Widget>[
               Padding(
@@ -21,6 +26,7 @@ class Friendpage extends StatelessWidget {
                 child: SizedBox(
                   child: IconButton(
                     icon: const Icon(Icons.person_add),
+                    color: Color.fromARGB(240, 255, 255, 255),
                     tooltip: 'Add friend',
                     onPressed: () {
                       Navigator.push(
