@@ -19,11 +19,14 @@ class _FavoriteButtonState extends State<FavoriteButton> {
           _isFavorite = !_isFavorite;
         });
       },
-      icon: Icon(
-        _isFavorite ? Icons.favorite : Icons.favorite_border,
-        color: _isFavorite
-            ? colorUse.appBarColor
-            : colorUse.appBarColor, // Change color if favorite
+      icon: Padding(
+        padding: const EdgeInsets.only(left: 7.0),
+        child: Icon(
+          _isFavorite ? Icons.favorite : Icons.favorite_border,
+          color: _isFavorite
+              ? colorUse.appBarColor
+              : colorUse.appBarColor, // Change color if favorite
+        ),
       ),
       label: SizedBox.shrink(),
       style: ElevatedButton.styleFrom(
