@@ -70,11 +70,19 @@ func (r userRepositoryDB) UpdateEditUserProfile(user *entities.User) error {
 	return nil
 }
 
-//func (r userRepositoryDB) PostRegister() (*entities.User, error) {
-//	users := entities.User{}
-//
-//	if result.Error != nil {
-//		return nil, result.Error
-//	}
-//	return &users, nil
-//}
+func (r userRepositoryDB) CreateUser(user *entities.User) error {
+	result := r.db.Create(user)
+	if result.Error != nil {
+		return result.Error
+	}
+	return nil
+}
+
+func (r userRepositoryDB) GetUserByUsername(username string) (*entities.User, error) {
+	var user entities.User
+	result := r.db.Where("username = ?", username).First(&user)
+	if result.Error != nil {
+		return nil, result.Error
+	}
+	return &user, nil
+}

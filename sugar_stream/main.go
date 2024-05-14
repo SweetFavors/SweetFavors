@@ -10,16 +10,19 @@ import (
 	"sugar_stream/internal/service"
 	"time"
 
+	jwtware "github.com/gofiber/contrib/jwt"
 	"github.com/gofiber/fiber/v2"
+
 	"github.com/spf13/viper"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
 
+const jwtSecret = "SweetSecret"
+
 func main() {
 	initTimeZone()
 	initConfig()
-	//dsn := "BocchiKitsuNei:Crown1003@tcp(localhost:3306)/toDoListMariaDB?parseTime=true"
 	dsn := fmt.Sprintf("%v:%v@tcp(%v:%v)/%v?parseTime=true",
 		viper.GetString("db.username"),
 		viper.GetString("db.password"),
@@ -54,15 +57,28 @@ func main() {
 	wishlistRepositoryDB := repository.NewWishlistRepositoryDB(db)
 	followRepositoryDB := repository.NewFollowRepositoryDB(db)
 
-	userService := service.NewUserService(userRepositoryDB)
+	userService := service.NewUserService(userRepositoryDB, jwtSecret)
 	wishlistService := service.NewWishlistService(wishlistRepositoryDB)
 	followService := service.NewFollowService(followRepositoryDB)
 
-	userHandler := handler.NewUserHandler(userService)
+	userHandler := handler.NewUserHandler(userService, jwtSecret)
 	wishlistHandler := handler.NewWishlistHandler(wishlistService)
 	followHandler := handler.NewFollowHandler(followService)
 
 	app := fiber.New()
+
+	app.Use(func(c *fiber.Ctx) error {
+		if c.Path() != "/Register" && c.Path() != "/Login" {
+			jwtMiddleware := jwtware.New(jwtware.Config{
+				SigningKey: jwtware.SigningKey{Key: []byte(jwtSecret)},
+				ErrorHandler: func(c *fiber.Ctx, err error) error {
+					return fiber.ErrUnauthorized
+				},
+			})
+			return jwtMiddleware(c)
+		}
+		return c.Next()
+	})
 
 	//Endpoint ###########################################################################
 
@@ -85,7 +101,9 @@ func main() {
 	//////////////////////////////////////////////////////////////////////////////////////
 
 	// Use this endpoint for project
-	//app.Post("/PostRegister", userHandler.PostRegister)
+	app.Post("/Register", userHandler.Register)
+	app.Post("/Login", userHandler.Login)
+
 	app.Get("/GetWishlistsOfCurrentUser/:UserID", wishlistHandler.GetWishlistsOfCurrentUser)
 	app.Get("/GetProfileOfCurrentUser/:UserID", userHandler.GetProfileOfCurrentUser)
 

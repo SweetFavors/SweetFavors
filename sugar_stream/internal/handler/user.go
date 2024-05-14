@@ -1,23 +1,23 @@
 package handler
 
 import (
+	"github.com/gofiber/fiber/v2"
 	"strconv"
 	"sugar_stream/internal/dtos"
 	"sugar_stream/internal/service"
-
-	"github.com/gofiber/fiber/v2"
 )
 
 type userHandler struct {
-	userSer service.UserService
+	userSer   service.UserService
+	jwtSecret string
 }
 
-func NewUserHandler(userSer service.UserService) userHandler {
-	return userHandler{userSer: userSer}
+func NewUserHandler(userSer service.UserService, jwtSecret string) userHandler {
+	return userHandler{userSer: userSer, jwtSecret: jwtSecret}
 }
 
 func (h *userHandler) GetUsers(c *fiber.Ctx) error {
-	usersResponse := make([]dtos.UserResponse, 0)
+	usersResponse := make([]dtos.UserDataResponse, 0)
 
 	users, err := h.userSer.GetUsers()
 	if err != nil {
@@ -25,7 +25,7 @@ func (h *userHandler) GetUsers(c *fiber.Ctx) error {
 	}
 
 	for _, user := range users {
-		usersResponse = append(usersResponse, dtos.UserResponse{
+		usersResponse = append(usersResponse, dtos.UserDataResponse{
 			UserID:    user.UserID,
 			Username:  user.Username,
 			Password:  user.Password,
@@ -191,4 +191,110 @@ func (h *userHandler) UpdateEditUserProfile(c *fiber.Ctx) error {
 	}
 
 	return c.JSON(userResponse)
+}
+
+//func (h *userHandler) PostRegister(c *fiber.Ctx) error {
+//	request := dtos.RegisterRequest{}
+//	err := c.BodyParser(&request)
+//	if err != nil {
+//		return nil
+//	}
+//
+//	if request.Username == nil || request.Password == nil {
+//		return fiber.ErrUnprocessableEntity
+//	}
+//
+//	password, err := bcrypt.GenerateFromPassword([]byte(v.Ptr(request.Password)), 10)
+//	if err != nil {
+//		return fiber.NewError(fiber.StatusUnprocessableEntity, err.Error())
+//	}
+//
+//	query := "insert user (username, password) values (?,?)"
+//	result, err := db.Ex(query, request.Username, string(password))
+//	if err != nil {
+//		return fiber.NewError(fiber.StatusUnprocessableEntity, err.Error())
+//	}
+//
+//	user := entities.User{
+//		UserID:    UserID,
+//		Username:  request.Username,
+//		Passsword: string(password),
+//	}
+//
+//	return c.Status(fiber.StatusCreated).JSON(user)
+//}
+//
+//func (h *userHandler) PostLogin(c *fiber.Ctx) error {
+//	request := dtos.LoginRequest{}
+//	err := c.BodyParser(&request)
+//	if err != nil {
+//		return err
+//	}
+//
+//	if request.Username == nil || request.Password == nil {
+//		return fiber.ErrUnprocessableEntity
+//	}
+//
+//	user := User{}
+//	query := "select id, username, password from user where username=?"
+//	err := db.Ex(query, request.Username, string(password))
+//	if err != nil {
+//		return fiber.NewError(fiber.StatusNotFound, "Incorrect username or password")
+//	}
+//
+//	err = bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(request.Password))
+//	if err != nil {
+//		return fiber.NewError(fiber.StatusNotFound, "Incorrect username or password")
+//	}
+//
+//	cliams := jwt.StandardClaims{
+//		Issuer:    strconv.Itoa(user.Id),
+//		ExpiresAt: time.Now().Add(time.Hour * 24).Unix(),
+//	}
+//
+//	jwtToken := jwt.NewWithClaims(jwt.SigningMethodHS256, cliams)
+//	token, err := jwtToken.SignedString([]byte(jwtSecret))
+//	if err != nil {
+//		return fiber.NewError(fiber.StatusUnauthorized)
+//	}
+//
+//	return c.JSON(fiber.Map{
+//		"jwtToken": token,
+//	})
+//}
+
+func (h *userHandler) Register(c *fiber.Ctx) error {
+	var request dtos.RegisterRequest
+	if err := c.BodyParser(&request); err != nil {
+		return fiber.NewError(fiber.StatusBadRequest, err.Error())
+	}
+
+	if request.Username == nil || request.Password == nil {
+		return fiber.NewError(fiber.StatusBadRequest, "Username and Password are required")
+	}
+
+	response, err := h.userSer.Register(request)
+	if err != nil {
+		return fiber.NewError(fiber.StatusInternalServerError, err.Error())
+	}
+
+	return c.Status(fiber.StatusCreated).JSON(response)
+}
+
+func (h *userHandler) Login(c *fiber.Ctx) error {
+	var request dtos.LoginRequest
+	if err := c.BodyParser(&request); err != nil {
+		return fiber.NewError(fiber.StatusBadRequest, err.Error())
+	}
+
+	if request.Username == nil || request.Password == nil {
+		return fiber.NewError(fiber.StatusBadRequest, "Username and Password are required")
+	}
+
+	response, err := h.userSer.Login(request, h.jwtSecret)
+	if err != nil {
+		return fiber.NewError(fiber.StatusUnauthorized, err.Error())
+	}
+
+	return c.JSON(response)
 }
