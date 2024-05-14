@@ -1,6 +1,6 @@
 package dtos
 
-type UserResponse struct {
+type UserDataResponse struct {
 	UserID    *uint   `json:"user_id" validate:"required"`
 	Username  *string `json:"username" validate:"required"`
 	Password  *string `json:"password" validate:"required"`
@@ -63,4 +63,25 @@ type EditUserProfileRequest struct {
 	Firstname *string `json:"firstname" validate:"required"`
 	Lastname  *string `json:"lastname" validate:"required"`
 	PhoneNum  *string `json:"phone_num" validate:"required"`
+}
+
+type RegisterRequest struct {
+	Username  *string `json:"username" validate:"required"`
+	Password  *string `json:"password" validate:"required"`
+	Email     *string `json:"email" validate:"required"`
+	Firstname *string `json:"firstname" validate:"required"`
+	Lastname  *string `json:"lastname" validate:"required"`
+	PhoneNum  *string `json:"phone_num" validate:"required"`
+	UserPic   *string `json:"user_pic" validate:"required"`
+}
+
+type LoginRequest struct {
+	Username *string `json:"username" validate:"required"`
+	Password *string `json:"password" validate:"required"`
+}
+
+type UserResponse struct {
+	UserID   *uint   `json:"user_id" validate:"required"`
+	Username *string `json:"username"`
+	Token    *string `json:"token,omitempty"`
 }

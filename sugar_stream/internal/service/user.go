@@ -15,4 +15,7 @@ type UserService interface {
 	GetEditUserProfile(int) (*entities.User, error)
 
 	UpdateEditUserProfile(int, dtos.EditUserProfileRequest) (*entities.User, error)
+
+	Register(request dtos.RegisterRequest) (*dtos.UserResponse, error)
+	Login(request dtos.LoginRequest, jwtSecret string) (*dtos.UserResponse, error)
 }
