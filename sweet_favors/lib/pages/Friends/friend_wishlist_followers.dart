@@ -94,6 +94,8 @@ class _FriendWishlistFollowersState extends State<FriendWishlistFollowers> {
                   .follower.followerUserPic, // Use the passed follower's image
               name: widget.follower.followerUsername,
               email: "testing@gmail.com",
+              userId: widget.follower.followingId,
+              otherUserId: widget.follower.userId,
             ),
 
             const SizedBox(height: 35.0), // Spacing between profile and card

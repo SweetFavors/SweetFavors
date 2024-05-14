@@ -55,6 +55,8 @@ class _FriendWishlistFollowingState extends State<FriendWishlistFollowing> {
     final response1 = await dio.get(
       'http://10.0.2.2:1432/GetCheckFollowingYet/${widget.following.userId}/${widget.following.followingId}',
     );
+    print(widget.following.userId);
+    print(widget.following.followingId);
 
     if (response1.statusCode != 200 ||
         response1.data['user_id'] == null ||
@@ -66,6 +68,8 @@ class _FriendWishlistFollowingState extends State<FriendWishlistFollowing> {
     final response2 = await dio.get(
       'http://10.0.2.2:1432/GetCheckFollowingYet/${widget.following.followingId}/${widget.following.userId}',
     );
+    print(widget.following.userId);
+    print(widget.following.followingId);
 
     if (response2.statusCode != 200 ||
         response2.data['user_id'] == null ||
@@ -87,7 +91,9 @@ class _FriendWishlistFollowingState extends State<FriendWishlistFollowing> {
             FriendProfileBar(
               images: widget.following.followingUserPic,
               name: widget.following.followingUsername,
-              email: "testing@gmail.com",
+              email: "",
+              userId: widget.following.userId,
+              otherUserId: widget.following.followingId,
             ),
             const SizedBox(height: 35.0),
             FutureBuilder(
@@ -102,7 +108,9 @@ class _FriendWishlistFollowingState extends State<FriendWishlistFollowing> {
                   if (isFollowing) {
                     return Expanded(
                       child: wishlists.isEmpty
-                          ? const Center(child: Text("It's empty"))
+                          ? const FriendsMsgCard(
+                              message: "The list is empty",
+                            )
                           : ListView.builder(
                               itemCount: wishlists.length,
                               itemBuilder: (context, index) {
