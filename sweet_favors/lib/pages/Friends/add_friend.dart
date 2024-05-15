@@ -43,6 +43,7 @@ class _AddFriendState extends State<AddFriend> {
           friends = jsonResponse;
           _isLoading = false;
         });
+        print(friends);
       } else {
         print('Failed to load search results');
         setState(() {

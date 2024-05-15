@@ -10,7 +10,8 @@ import 'package:sweet_favors/widgets/title_bar.dart';
 class WishDetails extends StatefulWidget {
   final int wishlist_id;
   final String username;
-  const WishDetails({super.key, required this.wishlist_id, required this.username});
+  const WishDetails(
+      {super.key, required this.wishlist_id, required this.username});
 
   @override
   State<WishDetails> createState() => _WishDetailsState();
@@ -96,10 +97,10 @@ class _WishDetailsState extends State<WishDetails> {
                             padding: EdgeInsets.only(left: 12),
                             child: RegularTextBold('Request by'),
                           ),
-                           Padding(
+                          Padding(
                             padding: EdgeInsets.only(left: 12),
-                            child:
-                                RegularText(username), // Replace with actual data
+                            child: RegularText(
+                                username), // Replace with actual data
                           ),
                           const SizedBox(height: 24),
                           const Padding(
