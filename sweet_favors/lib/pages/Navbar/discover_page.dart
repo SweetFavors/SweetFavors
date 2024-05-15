@@ -2,8 +2,10 @@ import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:provider/provider.dart';
 import 'package:sweet_favors/Utils/color_use.dart';
 import 'package:sweet_favors/components/integrate_model.dart';
+import 'package:sweet_favors/provider/token_provider.dart';
 import 'package:sweet_favors/widgets/profile_bar.dart';
 import 'package:sweet_favors/widgets/wish_grant_widget.dart';
 import 'package:sweet_favors/widgets/button_at_bottom.dart';
@@ -28,9 +30,17 @@ class _discover_pageState extends State<discover_page> {
   }
 
   Future<List<dynamic>> _fetchData() async {
+    final token = Provider.of<TokenProvider>(context, listen: false).token;
     Dio dio = Dio();
     final response = await dio.get(
-        'http://10.0.2.2:1432/GetFriendsWishlists/3'); // Adjust the endpoint
+      'http://10.0.2.2:1432/GetFriendsWishlists/',
+      options: Options(
+        headers: {
+          'Authorization': 'Bearer $token',
+          'Content-Type': 'application/json', // Adjust content type as needed
+        },
+      ),
+    ); // Adjust the endpoint
     if (response.statusCode == 200) {
       final List<dynamic> wishData = response.data;
       _wishItems = wishData.map((json) => WishItem.fromJson(json)).toList();

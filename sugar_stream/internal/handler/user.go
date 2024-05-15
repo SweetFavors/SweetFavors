@@ -1,23 +1,26 @@
 package handler
 
 import (
+	"errors"
+	"github.com/gofiber/fiber/v2"
 	"strconv"
+	"strings"
 	"sugar_stream/internal/dtos"
 	"sugar_stream/internal/service"
-
-	"github.com/gofiber/fiber/v2"
+	"sugar_stream/internal/utils"
 )
 
 type userHandler struct {
-	userSer service.UserService
+	userSer   service.UserService
+	jwtSecret string
 }
 
-func NewUserHandler(userSer service.UserService) userHandler {
-	return userHandler{userSer: userSer}
+func NewUserHandler(userSer service.UserService, jwtSecret string) userHandler {
+	return userHandler{userSer: userSer, jwtSecret: jwtSecret}
 }
 
 func (h *userHandler) GetUsers(c *fiber.Ctx) error {
-	usersResponse := make([]dtos.UserResponse, 0)
+	usersResponse := make([]dtos.UserDataResponse, 0)
 
 	users, err := h.userSer.GetUsers()
 	if err != nil {
@@ -25,7 +28,7 @@ func (h *userHandler) GetUsers(c *fiber.Ctx) error {
 	}
 
 	for _, user := range users {
-		usersResponse = append(usersResponse, dtos.UserResponse{
+		usersResponse = append(usersResponse, dtos.UserDataResponse{
 			UserID:    user.UserID,
 			Username:  user.Username,
 			Password:  user.Password,
@@ -40,11 +43,19 @@ func (h *userHandler) GetUsers(c *fiber.Ctx) error {
 }
 
 func (h *userHandler) GetUser(c *fiber.Ctx) error {
-	// userIDExtract, err := 1, nil
-	// if err != nil {
-	//     return err
-	// }
-	userIDExtract := 1
+	// Extract the token from the request headers
+	token := c.Get("Authorization")
+
+	// Check if the token is empty
+	if token == "" {
+		return errors.New("token is missing")
+	}
+
+	// Extract the user ID from the token
+	userIDExtract, err := utils.ExtractUserIDFromToken(strings.Replace(token, "Bearer ", "", 1), h.jwtSecret)
+	if err != nil {
+		return err
+	}
 
 	user, err := h.userSer.GetUser(userIDExtract)
 	if err != nil {
@@ -122,7 +133,19 @@ func (h *userHandler) GetSearchFriend(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "query parameter is required"})
 	}
 
-	userIDExtract := 1
+	// Extract the token from the request headers
+	token := c.Get("Authorization")
+
+	// Check if the token is empty
+	if token == "" {
+		return errors.New("token is missing")
+	}
+
+	// Extract the user ID from the token
+	userIDExtract, err := utils.ExtractUserIDFromToken(strings.Replace(token, "Bearer ", "", 1), h.jwtSecret)
+	if err != nil {
+		return err
+	}
 
 	usersResponse := make([]dtos.SearchFriendResponse, 0)
 
@@ -191,4 +214,40 @@ func (h *userHandler) UpdateEditUserProfile(c *fiber.Ctx) error {
 	}
 
 	return c.JSON(userResponse)
+}
+
+func (h *userHandler) Register(c *fiber.Ctx) error {
+	var request dtos.RegisterRequest
+	if err := c.BodyParser(&request); err != nil {
+		return fiber.NewError(fiber.StatusBadRequest, err.Error())
+	}
+
+	if request.Username == nil || request.Password == nil {
+		return fiber.NewError(fiber.StatusBadRequest, "Username and Password are required")
+	}
+
+	response, err := h.userSer.Register(request)
+	if err != nil {
+		return fiber.NewError(fiber.StatusInternalServerError, err.Error())
+	}
+
+	return c.Status(fiber.StatusCreated).JSON(response)
+}
+
+func (h *userHandler) Login(c *fiber.Ctx) error {
+	var request dtos.LoginRequest
+	if err := c.BodyParser(&request); err != nil {
+		return fiber.NewError(fiber.StatusBadRequest, err.Error())
+	}
+
+	if request.Username == nil || request.Password == nil {
+		return fiber.NewError(fiber.StatusBadRequest, "Username and Password are required")
+	}
+
+	response, err := h.userSer.Login(request, h.jwtSecret)
+	if err != nil {
+		return fiber.NewError(fiber.StatusUnauthorized, err.Error())
+	}
+
+	return c.JSON(response)
 }

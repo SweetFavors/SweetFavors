@@ -13,5 +13,6 @@ type UserRepository interface {
 
 	UpdateEditUserProfile(user *entities.User) error
 
-	//PostRegister() (*entities.User, error)
+	CreateUser(user *entities.User) error
+	GetUserByUsername(username string) (*entities.User, error)
 }

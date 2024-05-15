@@ -1,7 +1,10 @@
 package service
 
 import (
+	"github.com/dgrijalva/jwt-go"
+	"golang.org/x/crypto/bcrypt"
 	"log"
+	"strconv"
 	"sugar_stream/internal/dtos"
 	"sugar_stream/internal/entities"
 	"sugar_stream/internal/repository"
@@ -9,11 +12,15 @@ import (
 )
 
 type userService struct {
-	userRepo repository.UserRepository
+	userRepo  repository.UserRepository
+	jwtSecret string
 }
 
-func NewUserService(userRepo repository.UserRepository) userService {
-	return userService{userRepo: userRepo}
+func NewUserService(userRepo repository.UserRepository, jwtSecret string) userService {
+	return userService{
+		userRepo:  userRepo,
+		jwtSecret: jwtSecret,
+	}
 }
 
 func (s userService) GetUsers() ([]entities.User, error) {
@@ -136,4 +143,60 @@ func (s userService) UpdateEditUserProfile(userid int, req dtos.EditUserProfileR
 	}
 
 	return user, nil
+}
+
+func (s userService) Register(request dtos.RegisterRequest) (*dtos.UserResponse, error) {
+	hashedPassword, err := bcrypt.GenerateFromPassword(v.ByteSlice(request.Password), bcrypt.DefaultCost)
+	if err != nil {
+		return nil, err
+	}
+
+	user := entities.User{
+		Username:  request.Username,
+		Password:  v.Ptr(string(hashedPassword)),
+		Email:     request.Email,
+		Firstname: request.Firstname,
+		Lastname:  request.Lastname,
+		PhoneNum:  request.PhoneNum,
+		UserPic:   request.UserPic,
+	}
+
+	err = s.userRepo.CreateUser(&user)
+	if err != nil {
+		return nil, err
+	}
+
+	return &dtos.UserResponse{
+		UserID:   user.UserID,
+		Username: user.Username,
+	}, nil
+
+}
+
+func (s userService) Login(request dtos.LoginRequest, jwtSecret string) (*dtos.UserResponse, error) {
+	username := *request.Username
+
+	user, err := s.userRepo.GetUserByUsername(username)
+	err = bcrypt.CompareHashAndPassword(v.ByteSlice(user.Password), v.ByteSlice(request.Password))
+	if err != nil {
+		return nil, err
+	}
+
+	claims := jwt.StandardClaims{
+		Issuer: strconv.Itoa(int(*user.UserID)),
+		//ExpiresAt: time.Now().Add(time.Hour * 24).Unix(),
+	}
+
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
+	jwtToken, err := token.SignedString([]byte(jwtSecret))
+	if err != nil {
+		return nil, err
+	}
+
+	return &dtos.UserResponse{
+		UserID:   user.UserID,
+		Username: user.Username,
+		Token:    v.Ptr(jwtToken),
+	}, nil
+
 }
