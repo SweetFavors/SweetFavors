@@ -78,6 +78,7 @@ class _NewWishAddState extends State<NewWishAdd> {
           ),
         ),
         centerTitle: true,
+        automaticallyImplyLeading: false,
         backgroundColor: const Color.fromARGB(255, 188, 143, 223),
         elevation: 5,
         shadowColor: const Color.fromARGB(255, 171, 171, 171),

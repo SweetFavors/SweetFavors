@@ -38,6 +38,7 @@ class _FriendpageState extends State<Friendpage>
         elevation: 5,
         shadowColor: Color.fromARGB(255, 98, 98, 98),
         centerTitle: true,
+        automaticallyImplyLeading: false,
         actions: <Widget>[
           Padding(
             padding: const EdgeInsets.only(right: 18.0),

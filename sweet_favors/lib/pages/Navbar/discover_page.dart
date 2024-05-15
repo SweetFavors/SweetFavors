@@ -66,6 +66,7 @@ class _discover_pageState extends State<discover_page> {
         elevation: 5,
         shadowColor: const Color.fromARGB(255, 171, 171, 171),
         centerTitle: true,
+        automaticallyImplyLeading: false,
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 20.0),
