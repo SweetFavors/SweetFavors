@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:sweet_favors/components/following_model.dart';
+import 'package:sweet_favors/provider/token_provider.dart';
 import 'package:sweet_favors/widgets/card_widget.dart';
 import 'package:sweet_favors/widgets/friend_profile_bar.dart';
 import 'package:sweet_favors/widgets/bottomBar.dart';
@@ -30,9 +32,17 @@ class _FriendWishlistFollowingState extends State<FriendWishlistFollowing> {
   }
 
   Future<void> fetchWishlists() async {
+    final token = Provider.of<TokenProvider>(context, listen: false).token;
     Dio dio = Dio(); // Create a Dio instance
     final response = await dio.get(
-        'http://10.0.2.2:1432/GetProfileFriendWishlists/${widget.following.userId}/${widget.following.followingId}');
+      'http://10.0.2.2:1432/GetProfileFriendWishlists/${widget.following.userId}/${widget.following.followingId}',
+      options: Options(
+        headers: {
+          'Authorization': 'Bearer $token',
+          'Content-Type': 'application/json', // Adjust content type as needed
+        },
+      ),
+    );
     print(widget.following.userId);
 
     if (response.statusCode == 200) {
@@ -49,11 +59,18 @@ class _FriendWishlistFollowingState extends State<FriendWishlistFollowing> {
   }
 
   Future<bool> fetchFriendCheck() async {
+    final token = Provider.of<TokenProvider>(context, listen: false).token;
     Dio dio = Dio(); // Create a Dio instance
 
     // Check if user 1 is following user 2
     final response1 = await dio.get(
       'http://10.0.2.2:1432/GetCheckFollowingYet/${widget.following.userId}/${widget.following.followingId}',
+      options: Options(
+        headers: {
+          'Authorization': 'Bearer $token',
+          'Content-Type': 'application/json', // Adjust content type as needed
+        },
+      ),
     );
     print(widget.following.userId);
     print(widget.following.followingId);
@@ -67,6 +84,12 @@ class _FriendWishlistFollowingState extends State<FriendWishlistFollowing> {
     // Check if user 2 is following user 1
     final response2 = await dio.get(
       'http://10.0.2.2:1432/GetCheckFollowingYet/${widget.following.followingId}/${widget.following.userId}',
+      options: Options(
+        headers: {
+          'Authorization': 'Bearer $token',
+          'Content-Type': 'application/json', // Adjust content type as needed
+        },
+      ),
     );
     print(widget.following.userId);
     print(widget.following.followingId);

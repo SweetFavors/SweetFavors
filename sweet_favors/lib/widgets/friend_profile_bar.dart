@@ -1,9 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:sweet_favors/Utils/color_use.dart';
 import 'package:sweet_favors/pages/Friends/add_friend.dart';
 import 'package:sweet_favors/pages/home.dart';
+import 'package:sweet_favors/provider/token_provider.dart';
 
 class FriendProfileBar extends StatefulWidget {
   final String images;
@@ -37,11 +39,18 @@ class _FriendProfileBarState extends State<FriendProfileBar> {
   }
 
   Future<void> fetchFriendCheck() async {
+    final token = Provider.of<TokenProvider>(context, listen: false).token;
     Dio dio = Dio(); // Create a Dio instance
 
     // Check if the current user (widget.userId) is following the other user (widget.otherUserId)
     final response1 = await dio.get(
       'http://10.0.2.2:1432/GetCheckFollowingYet/${widget.userId}/${widget.otherUserId}',
+      options: Options(
+        headers: {
+          'Authorization': 'Bearer $token',
+          'Content-Type': 'application/json', // Adjust content type as needed
+        },
+      ),
     );
 
     if (response1.statusCode == 200 &&
@@ -54,11 +63,18 @@ class _FriendProfileBarState extends State<FriendProfileBar> {
   }
 
   Future<void> fetchFollowerCheck() async {
+    final token = Provider.of<TokenProvider>(context, listen: false).token;
     Dio dio = Dio();
 
     // Check if the current user (widget.userId) is following the other user (widget.otherUserId)
     final response1 = await dio.get(
       'http://10.0.2.2:1432/GetCheckFollowingYet/${widget.otherUserId}/${widget.userId}',
+      options: Options(
+        headers: {
+          'Authorization': 'Bearer $token',
+          'Content-Type': 'application/json', // Adjust content type as needed
+        },
+      ),
     );
 
     if (response1.statusCode == 200 &&
@@ -71,12 +87,19 @@ class _FriendProfileBarState extends State<FriendProfileBar> {
   }
 
   Future<void> handleUnfriend() async {
+    final token = Provider.of<TokenProvider>(context, listen: false).token;
     try {
       final dio = Dio();
 
       // Delete the follow relationship
       final response = await dio.delete(
         'http://10.0.2.2:1432/DeleteUnFollowing/${widget.userId}/${widget.otherUserId}',
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+            'Content-Type': 'application/json', // Adjust content type as needed
+          },
+        ),
       );
 
       if (response.statusCode != 200) {
@@ -92,11 +115,18 @@ class _FriendProfileBarState extends State<FriendProfileBar> {
   }
 
   Future<void> handleFollow() async {
+    final token = Provider.of<TokenProvider>(context, listen: false).token;
     try {
       final dio = Dio();
 
       final response = await dio.post(
         'http://10.0.2.2:1432/PostAddToFollowing/${widget.userId}/${widget.otherUserId}',
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+            'Content-Type': 'application/json', // Adjust content type as needed
+          },
+        ),
       );
 
       if (response.statusCode == 201) {
