@@ -1,18 +1,22 @@
 package handler
 
 import (
+	"errors"
 	"github.com/gofiber/fiber/v2"
 	"strconv"
+	"strings"
 	"sugar_stream/internal/dtos"
 	"sugar_stream/internal/service"
+	"sugar_stream/internal/utils"
 )
 
 type wishlistHandler struct {
 	wishlistSer service.WishlistService
+	jwtSecret   string
 }
 
-func NewWishlistHandler(wishlistSer service.WishlistService) wishlistHandler {
-	return wishlistHandler{wishlistSer: wishlistSer}
+func NewWishlistHandler(wishlistSer service.WishlistService, jwtSecret string) wishlistHandler {
+	return wishlistHandler{wishlistSer: wishlistSer, jwtSecret: jwtSecret}
 }
 
 func (h *wishlistHandler) GetWishlists(c *fiber.Ctx) error {
@@ -96,9 +100,21 @@ func (h *wishlistHandler) GetWishlist(c *fiber.Ctx) error {
 //****************************************************************************
 
 func (h *wishlistHandler) GetWishlistsOfCurrentUser(c *fiber.Ctx) error {
-	userIDExtract := 1 // Assuming you'll get the userID from the request later
+	// Extract the token from the request headers
+	token := c.Get("Authorization")
 
-	wishlists, err := h.wishlistSer.GetWishlistsOfCurrentUser(userIDExtract)
+	// Check if the token is empty
+	if token == "" {
+		return errors.New("token is missing")
+	}
+
+	// Extract the user ID from the token
+	userID, err := utils.ExtractUserIDFromToken(strings.Replace(token, "Bearer ", "", 1), h.jwtSecret)
+	if err != nil {
+		return err
+	}
+
+	wishlists, err := h.wishlistSer.GetWishlistsOfCurrentUser(userID)
 	if err != nil {
 		return err
 	}
@@ -122,11 +138,19 @@ func (h *wishlistHandler) GetWishlistsOfCurrentUser(c *fiber.Ctx) error {
 
 func (h *wishlistHandler) GetFriendsWishlists(c *fiber.Ctx) error {
 
-	// userIDExtract, err := 1, nil
-	// if err != nil {
-	//     return err
-	// }
-	userIDExtract := 1
+	// Extract the token from the request headers
+	token := c.Get("Authorization")
+
+	// Check if the token is empty
+	if token == "" {
+		return errors.New("token is missing")
+	}
+
+	// Extract the user ID from the token
+	userIDExtract, err := utils.ExtractUserIDFromToken(strings.Replace(token, "Bearer ", "", 1), h.jwtSecret)
+	if err != nil {
+		return err
+	}
 
 	wishlistsResponse := make([]dtos.FriendsWishlistsResponse, 0)
 	wishlists, err := h.wishlistSer.GetFriendsWishlists(userIDExtract)
@@ -271,7 +295,19 @@ func (h *wishlistHandler) UpdateReceiverDidntGetIt(c *fiber.Ctx) error {
 }
 
 func (h *wishlistHandler) PostAddWishlist(c *fiber.Ctx) error {
-	userIDExtract := 1
+	// Extract the token from the request headers
+	token := c.Get("Authorization")
+
+	// Check if the token is empty
+	if token == "" {
+		return errors.New("token is missing")
+	}
+
+	// Extract the user ID from the token
+	userIDExtract, err := utils.ExtractUserIDFromToken(strings.Replace(token, "Bearer ", "", 1), h.jwtSecret)
+	if err != nil {
+		return err
+	}
 
 	var req dtos.AddWishlistRequest
 	if err := c.BodyParser(&req); err != nil {

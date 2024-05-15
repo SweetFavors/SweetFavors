@@ -62,8 +62,8 @@ func main() {
 	followService := service.NewFollowService(followRepositoryDB)
 
 	userHandler := handler.NewUserHandler(userService, jwtSecret)
-	wishlistHandler := handler.NewWishlistHandler(wishlistService)
-	followHandler := handler.NewFollowHandler(followService)
+	wishlistHandler := handler.NewWishlistHandler(wishlistService, jwtSecret)
+	followHandler := handler.NewFollowHandler(followService, jwtSecret)
 
 	app := fiber.New()
 
@@ -84,7 +84,7 @@ func main() {
 
 	// Just endpoint of test (Don't use it. Use down there endpoint)
 	app.Get("/Users", userHandler.GetUsers)
-	app.Get("/User/:UserID", userHandler.GetUser)
+	app.Get("/User", userHandler.GetUser) //#
 
 	app.Get("/UserCurrent", userHandler.GetUserCurrent)
 
@@ -104,13 +104,13 @@ func main() {
 	app.Post("/Register", userHandler.Register)
 	app.Post("/Login", userHandler.Login)
 
-	app.Get("/GetWishlistsOfCurrentUser/:UserID", wishlistHandler.GetWishlistsOfCurrentUser)
+	app.Get("/GetWishlistsOfCurrentUser", wishlistHandler.GetWishlistsOfCurrentUser) //#
 	app.Get("/GetProfileOfCurrentUser/:UserID", userHandler.GetProfileOfCurrentUser)
 
-	app.Get("/GetFollowingOfCurrentUser/:UserID", followHandler.GetFollowingOfCurrentUser)
-	app.Get("/GetFollowersOfCurrentUser/:UserID", followHandler.GetFollowersOfCurrentUser)
-	app.Get("/GetSearchFriend/:UserID", userHandler.GetSearchFriend)
-	app.Get("/GetFriendsWishlists/:UserID", wishlistHandler.GetFriendsWishlists)
+	app.Get("/GetFollowingOfCurrentUser", followHandler.GetFollowingOfCurrentUser) //#
+	app.Get("/GetFollowersOfCurrentUser", followHandler.GetFollowersOfCurrentUser) //#
+	app.Get("/GetSearchFriend", userHandler.GetSearchFriend)                       //#
+	app.Get("/GetFriendsWishlists", wishlistHandler.GetFriendsWishlists)           //#
 	app.Get("/GetWishlistDetails/:WishlistID", wishlistHandler.GetWishlistDetails)
 	app.Get("/GetProfileFriendWishlists/:CurrentUserID/:WishlistOwnerID", wishlistHandler.GetProfileFriendWishlists)
 
@@ -122,7 +122,7 @@ func main() {
 	app.Post("/PostAddToFollowing/:CurrentUserID/:FriendUserID", followHandler.PostAddToFollowing)
 	app.Delete("/DeleteUnFollowing/:CurrentUserID/:FriendUserID", followHandler.DeleteUnFollowing)
 
-	app.Post("/PostAddWishlist/:UserID", wishlistHandler.PostAddWishlist)
+	app.Post("/PostAddWishlist", wishlistHandler.PostAddWishlist) //#
 
 	app.Get("/GetEditUserProfile/:UserID", userHandler.GetEditUserProfile)
 	app.Patch("/UpdateEditUserProfile/:UserID", userHandler.UpdateEditUserProfile)
