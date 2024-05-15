@@ -1,10 +1,13 @@
 package handler
 
 import (
+	"errors"
 	"github.com/gofiber/fiber/v2"
 	"strconv"
+	"strings"
 	"sugar_stream/internal/dtos"
 	"sugar_stream/internal/service"
+	"sugar_stream/internal/utils"
 )
 
 type userHandler struct {
@@ -40,11 +43,19 @@ func (h *userHandler) GetUsers(c *fiber.Ctx) error {
 }
 
 func (h *userHandler) GetUser(c *fiber.Ctx) error {
-	// userIDExtract, err := 1, nil
-	// if err != nil {
-	//     return err
-	// }
-	userIDExtract := 1
+	// Extract the token from the request headers
+	token := c.Get("Authorization")
+
+	// Check if the token is empty
+	if token == "" {
+		return errors.New("token is missing")
+	}
+
+	// Extract the user ID from the token
+	userIDExtract, err := utils.ExtractUserIDFromToken(strings.Replace(token, "Bearer ", "", 1), h.jwtSecret)
+	if err != nil {
+		return err
+	}
 
 	user, err := h.userSer.GetUser(userIDExtract)
 	if err != nil {
@@ -122,7 +133,19 @@ func (h *userHandler) GetSearchFriend(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "query parameter is required"})
 	}
 
-	userIDExtract := 1
+	// Extract the token from the request headers
+	token := c.Get("Authorization")
+
+	// Check if the token is empty
+	if token == "" {
+		return errors.New("token is missing")
+	}
+
+	// Extract the user ID from the token
+	userIDExtract, err := utils.ExtractUserIDFromToken(strings.Replace(token, "Bearer ", "", 1), h.jwtSecret)
+	if err != nil {
+		return err
+	}
 
 	usersResponse := make([]dtos.SearchFriendResponse, 0)
 
