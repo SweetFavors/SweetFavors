@@ -62,7 +62,7 @@ class _FriendpageState extends State<Friendpage>
       body: Column(
         children: [
           Container(
-            color: Color.fromARGB(136, 194, 128, 224),
+            color: const Color.fromARGB(136, 194, 128, 224),
             child: TabBar(
               controller: _tabController,
               tabs: const [
