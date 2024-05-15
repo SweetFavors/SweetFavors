@@ -2,10 +2,9 @@ class Wishlist {
   int wishlistId;
   int userId;
   String itemname;
-  int quantity;
   int price;
   String? linkurl;
-  String itemPic;
+  String? itemPic;
   bool? alreadyBought; // Make it nullable to handle potential null values
   String? userNameOfGranter;
 
@@ -13,10 +12,9 @@ class Wishlist {
       {required this.wishlistId,
       required this.userId,
       required this.itemname,
-      required this.quantity,
       required this.price,
       this.linkurl,
-      required this.itemPic,
+      this.itemPic,
       this.alreadyBought,
       this.userNameOfGranter});
 
@@ -25,7 +23,6 @@ class Wishlist {
       wishlistId: json['wishlist_id'],
       userId: json['user_id'],
       itemname: json['itemname'],
-      quantity: json['quantity'],
       price: json['price'],
       linkurl: json['link_url'],
       itemPic: json['item_pic'],
@@ -58,7 +55,6 @@ class WishItem {
   final int wishlistId;
   final int userId;
   final String itemname;
-  final int quantity;
   final int price;
   final String linkurl;
   final String itemPic;
@@ -71,7 +67,6 @@ class WishItem {
     required this.wishlistId,
     required this.userId,
     required this.itemname,
-    required this.quantity,
     required this.price,
     required this.linkurl,
     required this.itemPic,
@@ -86,7 +81,6 @@ class WishItem {
       wishlistId: json['wishlist_id'],
       userId: json['user_id'],
       itemname: json['itemname'],
-      quantity: json['quantity'],
       price: json['price'],
       linkurl: json['link_url'],
       itemPic: json['item_pic'],

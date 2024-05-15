@@ -48,8 +48,8 @@ class _WishDetailsState extends State<WishDetails> {
         if (snapshot.hasData) {
           final wishdata = snapshot.data;
           final itemName = wishdata?['itemname'] ?? 'Unknown Item';
-          final quantity =
-              (wishdata?['quantity'] as num)!.toString() ?? 'Unknown quantity';
+          // final quantity =
+              // (wishdata?['quantity'] as num)!.toString() ?? 'Unknown quantity';
           final linkurl = wishdata?['link_url'] ?? 'Unknown link';
           final pics = wishdata?['item_pic'] ?? 'Unknown pics';
           final userId = (wishdata?['user_id']) ?? 0;
@@ -86,10 +86,10 @@ class _WishDetailsState extends State<WishDetails> {
                                     '\$0'
                                 : '',
                           ),
-                          Padding(
-                            padding: const EdgeInsets.all(3),
-                            child: RegularText('Quantity : $quantity'),
-                          ),
+                          // Padding(
+                          //   padding: const EdgeInsets.all(3),
+                          //   child: RegularText('Quantity : $quantity'),
+                          // ),
                           const SizedBox(height: 10),
                           const Divider(color: Colors.grey),
                           const SizedBox(height: 20),
@@ -118,13 +118,13 @@ class _WishDetailsState extends State<WishDetails> {
                     const SizedBox(height: 24),
                     ButtonAtBottom(
                       onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => Payment(
-                                    userId: userId.toString(),
-                                  )),
-                        );
+                        // Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute(
+                        //       builder: (context) => 
+                                    
+                        //           ),
+                        // );
                       },
                       text: 'GRANT WISH',
                     ),

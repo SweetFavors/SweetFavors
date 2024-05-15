@@ -80,8 +80,7 @@ class _FirstHomePageState extends State<FirstHomePage> {
         lastname = parsedJson['lastname'];
         fullname = '$firstname $lastname';
 
-        print(username);
-        print(email);
+
       });
     } else {
       throw Exception('Failed to load user data');
