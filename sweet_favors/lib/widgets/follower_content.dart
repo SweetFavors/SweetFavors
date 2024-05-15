@@ -1,9 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:sweet_favors/Utils/color_use.dart';
 import 'package:sweet_favors/pages/Friends/friend_wishlist_followers.dart';
 import 'package:sweet_favors/pages/Friends/friend_wishlist_following.dart';
 import 'package:sweet_favors/components/follower_model.dart';
+import 'package:sweet_favors/provider/token_provider.dart';
 import 'package:sweet_favors/services/follower_service.dart';
 
 class FollowerContent extends StatefulWidget {
@@ -25,7 +27,10 @@ class _FollowerContentState extends State<FollowerContent> {
   }
 
   Future<List<Follower>> _fetchFollowers() async {
-    final followers = await _followerService.fetchFollowersOfCurrentUser(1);
+    final token = Provider.of<TokenProvider>(context, listen: false).token;
+    final userId = Provider.of<TokenProvider>(context, listen: false).userId;
+    final followers =
+        await _followerService.fetchFollowersOfCurrentUser(token!, userId!);
     return followers;
   }
 

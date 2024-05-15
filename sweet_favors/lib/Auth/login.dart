@@ -33,7 +33,9 @@ class _LoginPageState extends State<LoginPage> {
 
       if (response.statusCode == 200) {
         final token = response.data['token'];
-        Provider.of<TokenProvider>(context, listen: false).setToken(token);
+        final userId = response.data['user_id'];
+        Provider.of<TokenProvider>(context, listen: false)
+            .setToken(token, userId);
         print("Success TOken");
         print(response);
         print(token);

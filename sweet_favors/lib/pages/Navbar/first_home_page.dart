@@ -56,9 +56,18 @@ class _FirstHomePageState extends State<FirstHomePage> {
   }
 
   Future<void> fetchUserData() async {
+    final token = Provider.of<TokenProvider>(context, listen: false).token;
+    final userId = Provider.of<TokenProvider>(context, listen: false).userId;
     Dio dio = Dio();
-    final response =
-        await dio.get('http://10.0.2.2:1432/GetProfileOfCurrentUser/1');
+    final response = await dio.get(
+      'http://10.0.2.2:1432/GetProfileOfCurrentUser/$userId',
+      options: Options(
+        headers: {
+          'Authorization': 'Bearer $token',
+          'Content-Type': 'application/json', // Adjust content type as needed
+        },
+      ),
+    );
 
     if (response.statusCode == 200) {
       final parsedJson = response.data; // Directly get the parsed data
