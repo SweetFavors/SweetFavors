@@ -2,8 +2,9 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sweet_favors/Utils/text_use.dart';
-import 'package:sweet_favors/components/integrate_model.dart' as components;
-import 'package:sweet_favors/pages/Payment/payment.dart';
+// import 'package:sweet_favors/components/integrate_model.dart' as components;
+import 'package:provider/provider.dart';
+import 'package:sweet_favors/provider/token_provider.dart';
 import 'package:sweet_favors/pages/home.dart';
 import 'package:sweet_favors/provider/token_provider.dart';
 import 'package:sweet_favors/widgets/button_at_bottom.dart';
@@ -27,9 +28,17 @@ class _WishDetailsState extends State<WishDetails> {
   }
 
   Future<Map<String, dynamic>> fetchWishlists() async {
+    final token = Provider.of<TokenProvider>(context, listen: false).token;
     Dio dio = Dio(); // Create a Dio instance
-    final response = await dio
-        .get('http://10.0.2.2:1432/GetWishlistDetails/${widget.wishlist_id}');
+    final response = await dio.get(
+      'http://10.0.2.2:1432/GetWishlistDetails/${widget.wishlist_id}',
+      options: Options(
+        headers: {
+          'Authorization': 'Bearer $token',
+          'Content-Type': 'application/json', // Adjust content type as needed
+        },
+      ),
+    );
 
     if (response.statusCode == 200) {
       return response.data;
