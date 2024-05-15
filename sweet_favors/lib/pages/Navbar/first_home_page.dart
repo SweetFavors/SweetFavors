@@ -22,6 +22,7 @@ class _FirstHomePageState extends State<FirstHomePage> {
   String? firstname;
   String? lastname;
   String? fullname;
+  int? userid;
 
   @override
   void initState() {
@@ -79,7 +80,7 @@ class _FirstHomePageState extends State<FirstHomePage> {
         firstname = parsedJson['firstname'];
         lastname = parsedJson['lastname'];
         fullname = '$firstname $lastname';
-
+        userid = userId;
 
       });
     } else {
@@ -122,6 +123,7 @@ class _FirstHomePageState extends State<FirstHomePage> {
                     grantBy: wishlist.userNameOfGranter,
                     wishlistId: wishlist.wishlistId,
                     username: username,
+                    userid: userid,
                   );
                 },
               ),
