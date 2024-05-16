@@ -51,6 +51,29 @@ class _discover_pageState extends State<discover_page> {
     }
   }
 
+  Future<List<dynamic>> _CopyItem(int index) async {
+    final token = Provider.of<TokenProvider>(context, listen: false).token;
+    final userId = Provider.of<TokenProvider>(context, listen: false).userId;
+    Dio dio = Dio();
+    final response = await dio.post(
+      'http://10.0.2.2:1432/PostCopyWishlist/$userId/${_wishItems[index].wishlistId}',
+      options: Options(
+        headers: {
+          'Authorization': 'Bearer $token',
+          'Content-Type': 'application/json', // Adjust content type as needed
+        },
+      ),
+    ); // Adjust the endpoint
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> wishData = response.data;
+      return [wishData]; // Wrap the map in a list
+    } else {
+      throw Exception('Failed to load wishlists');
+    }
+  }
+
+  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -102,6 +125,11 @@ class _discover_pageState extends State<discover_page> {
                     return WishGrant(
                       price: "\$${_wishItems[index].price}",
                       pic: _wishItems[index].itemPic,
+                      onFavoriteChanged: (isFavorite) {
+                        if (isFavorite) {
+                          _CopyItem(index);
+                        }
+                      },
                     );
                   },
                 ),

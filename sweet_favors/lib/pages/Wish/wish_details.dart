@@ -97,9 +97,17 @@ class _WishDetailsState extends State<WishDetails> {
                   children: [
                     const SizedBox(height: 30),
                     Image.network(
-                      pics,
+                      pics ?? 'https://via.placeholder.com/350/FFFFFF/000000?text=Image+Not+Found', // Placeholder URL
                       width: MediaQuery.of(context).size.width * 0.8,
                       height: MediaQuery.of(context).size.height * 0.4,
+                      errorBuilder: (context, error, stackTrace) {
+                        // Optional: Handle image loading errors gracefully
+                        return Image.network(
+                          'https://via.placeholder.com/350/FFFFFF/000000?text=Image+Not+Found',  // Fallback image
+                          width: MediaQuery.of(context).size.width * 0.8,
+                          height: MediaQuery.of(context).size.height * 0.4,
+                        );
+                      },
                     ),
                     const SizedBox(height: 25),
                     Container(
