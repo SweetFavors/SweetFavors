@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:sweet_favors/components/my_button.dart';
 import 'package:sweet_favors/components/my_textfield.dart';
@@ -15,8 +18,83 @@ class _SignUpPageState extends State<SignUpPage> {
   //text controllers
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final TextEditingController usernameController = TextEditingController();
+  final TextEditingController fnameController = TextEditingController();
+  final TextEditingController lnameController = TextEditingController();
+  final TextEditingController phoneNumController = TextEditingController();
   final TextEditingController confirmPwController = TextEditingController();
+
+  Future<void> signUp() async {
+    // Validate the form fields
+    if (fnameController.text.isEmpty ||
+        emailController.text.isEmpty ||
+        passwordController.text.isEmpty ||
+        confirmPwController.text.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Please fill in all fields')),
+      );
+      return;
+    }
+
+    if (passwordController.text != confirmPwController.text) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Passwords do not match')),
+      );
+      return;
+    }
+
+    // Send the POST request to the registration endpoint
+    final dio = Dio();
+    String username = fnameController.text + lnameController.text;
+    final payload = {
+      "username": username,
+      "password": passwordController.text,
+      "email": emailController.text,
+      "firstname": fnameController.text,
+      "lastname": lnameController.text,
+      "phone_num": phoneNumController.text,
+      "user_pic": "",
+    };
+
+    try {
+      final response = await dio.post(
+        'http://10.0.2.2:1432/Register',
+        data: json.encode(payload),
+        options: Options(
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        ),
+      );
+
+      print("test signtup");
+      print(response.statusCode);
+      print(response);
+
+      if (response.statusCode == 201) {
+        // Registration successful
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Registration successful')),
+        );
+        // Clear the form fields
+        fnameController.clear();
+        lnameController.clear();
+        phoneNumController.clear();
+        emailController.clear();
+        passwordController.clear();
+        confirmPwController.clear();
+      } else {
+        // Registration failed
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Error: ${response.statusCode}')),
+        );
+      }
+    } catch (e) {
+      // Network error or other exception
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Error: Failed to connect to server')),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,14 +130,14 @@ class _SignUpPageState extends State<SignUpPage> {
                     MyTextField(
                       hintText: 'Input your first name',
                       obscureText: false,
-                      controller: usernameController,
+                      controller: fnameController,
                       border: true,
                     ),
                     const SizedBox(height: 10),
                     MyTextField(
                       hintText: 'Input your last name',
                       obscureText: false,
-                      controller: usernameController,
+                      controller: lnameController,
                       border: true,
                     ),
                   ],
@@ -104,7 +182,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     MyTextField(
                       hintText: 'Input Your phone number',
                       obscureText: false,
-                      controller: emailController,
+                      controller: phoneNumController,
                       border: true,
                     ),
                   ],
@@ -172,7 +250,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   text: "Sign Up",
                   width: 400,
                   height: 50,
-                  onTap: () {},
+                  onTap: signUp,
                 ),
 
                 const SizedBox(height: 30),

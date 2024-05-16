@@ -36,9 +36,6 @@ class _LoginPageState extends State<LoginPage> {
         final userId = response.data['user_id'];
         Provider.of<TokenProvider>(context, listen: false)
             .setToken(token, userId);
-        print("Success TOken");
-        print(response);
-        print(token);
         _navigateToFirstHomePage(token);
       } else {
         _showErrorMessage(
@@ -70,7 +67,9 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void _showErrorMessage(String message) {
-    print(message);
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(message)),
+    );
   }
 
   @override
@@ -93,7 +92,7 @@ class _LoginPageState extends State<LoginPage> {
 
               //email textfield
               MyTextField(
-                hintText: 'Enter Email',
+                hintText: 'Enter Username',
                 obscureText: false,
                 controller: emailController,
               ),
