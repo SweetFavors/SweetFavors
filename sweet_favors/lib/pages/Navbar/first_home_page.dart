@@ -47,6 +47,7 @@ class _FirstHomePageState extends State<FirstHomePage> {
     if (response.statusCode == 200) {
       final parsedJson = response.data as List; // Directly get the parsed data
       print(response.data);
+      // print(token);
       // parsedJson.map((json) => Wishlist.fromJson(json)).toList();
       wishlists =
           parsedJson.map((json) => components.Wishlist.fromJson(json)).toList();
@@ -71,6 +72,7 @@ class _FirstHomePageState extends State<FirstHomePage> {
     );
 
     if (response.statusCode == 200) {
+      print(token);
       final parsedJson = response.data; // Directly get the parsed data
       setState(() {
         // Update the username and email variables with the parsed user data
@@ -124,6 +126,7 @@ class _FirstHomePageState extends State<FirstHomePage> {
                     wishlistId: wishlist.wishlistId,
                     username: username,
                     userid: userid,
+                    alreadyBought: wishlist.alreadyBought,
                   );
                 },
               ),

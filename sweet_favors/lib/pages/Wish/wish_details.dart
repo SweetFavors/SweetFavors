@@ -62,6 +62,21 @@ class _WishDetailsState extends State<WishDetails> {
     final Uri uri = Uri.parse(url); 
     if (!await launchUrl(uri)) {
         throw Exception('Could not launch $uri');
+    }else {
+      await Future.delayed(const Duration(seconds: 1));
+
+      showDialog(                
+        context: context,
+        builder: (context) => PopUp(
+          title: 'Have you bought the wish?',
+          buttons: [
+            ButtonForPopUp(onPressed: () {}, text: 'Yes'),
+            ButtonForPopUp(onPressed: () {
+              Navigator.of(context).pop();
+            }, text: 'No'),
+          ],
+        ),
+      );
     }
 }
 
@@ -162,8 +177,8 @@ class _WishDetailsState extends State<WishDetails> {
                                         buttons: [
                                           
                                                           ButtonForPopUp(onPressed: () async{
-                                                            await _launchUrl(linkurl);
                                                             Navigator.of(dialogContext).pop();
+                                                            await _launchUrl(linkurl);
                                                           }, text:'Yes'),
                                                           ButtonForPopUp(onPressed: (){
                                                             Navigator.of(dialogContext).pop();
