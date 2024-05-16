@@ -1,27 +1,77 @@
 import 'package:flutter/material.dart';
-import 'package:sweet_favors/Auth/login.dart';
-import 'package:sweet_favors/Auth/login_or_register.dart';
-import 'package:sweet_favors/Auth/sign_up.dart';
-import 'package:sweet_favors/pages/Navbar/first_home_page.dart';
-import 'package:sweet_favors/pages/Navbar/friend_page.dart';
-import 'package:sweet_favors/pages/Navbar/new_wish_add.dart';
-import 'package:sweet_favors/pages/Navbar/wish_grant_page.dart';
-import 'package:sweet_favors/pages/home.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sweet_favors/pages/welcome.dart';
+import 'package:sweet_favors/provider/token_provider.dart';
+import 'Auth/login.dart';
+import 'Auth/login_or_register.dart';
+import 'Auth/sign_up.dart';
+import 'pages/Navbar/first_home_page.dart';
+import 'pages/Navbar/friend_page.dart';
+import 'pages/Navbar/new_wish_add.dart';
+import 'pages/Navbar/discover_page.dart';
+import 'pages/home.dart';
 
 void main() {
-  runApp(const MainApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => TokenProvider()),
+        ChangeNotifierProvider(create: (context) => WelcomeProvider()),
+      ],
+      child: const MainApp(),
+    ),
+  );
 }
 
-class MainApp extends StatelessWidget {
+class WelcomeProvider with ChangeNotifier {
+  bool _isWelcomeShown = false;
+
+  bool get isWelcomeShown => _isWelcomeShown;
+
+  Future<void> checkWelcomeStatus() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    _isWelcomeShown = prefs.getBool('isWelcomeShown') ?? false;
+    notifyListeners();
+  }
+
+  Future<void> setWelcomeShown() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('isWelcomeShown', true);
+    _isWelcomeShown = true;
+    notifyListeners();
+  }
+}
+
+class MainApp extends StatefulWidget {
   const MainApp({super.key});
 
   @override
+  _MainAppState createState() => _MainAppState();
+}
+
+class _MainAppState extends State<MainApp> {
+  @override
+  void initState() {
+    super.initState();
+    Provider.of<WelcomeProvider>(context, listen: false).checkWelcomeStatus();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final tokenProvider = Provider.of<TokenProvider>(context);
+    final welcomeProvider = Provider.of<WelcomeProvider>(context);
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(fontFamily: 'Inter'),
-      home: const Home(),
-      // home: WishDetails(),
+      home: !welcomeProvider.isWelcomeShown
+          ? Welcome(onFinished: () {
+              welcomeProvider.setWelcomeShown();
+            })
+          : tokenProvider.token == null
+              ? const LoginOrRegister()
+              : const FirstHomePage(),
     );
   }
 }

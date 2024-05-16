@@ -14,4 +14,6 @@ class colorUse {
   static const activeIconCircle = Color(0xffDF8FD2);
   static const textShadow = Color.fromARGB(255, 124, 124, 124);
   static const textPriceGW = Color(0xff8E7272);
+  static const textFriend = Color.fromARGB(185, 109, 42, 128);
+  static const appBarColor = Color.fromARGB(255, 188, 143, 223);
 }

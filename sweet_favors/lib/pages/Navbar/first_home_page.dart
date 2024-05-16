@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:sweet_favors/provider/token_provider.dart';
 import 'package:sweet_favors/widgets/card_widget.dart';
 import 'package:sweet_favors/widgets/profile_bar.dart';
 import 'package:sweet_favors/components/integrate_model.dart' as components;
@@ -17,6 +19,10 @@ class _FirstHomePageState extends State<FirstHomePage> {
   String? username;
   String? email;
   String? img;
+  String? firstname;
+  String? lastname;
+  String? fullname;
+  int? userid;
 
   @override
   void initState() {
@@ -26,9 +32,17 @@ class _FirstHomePageState extends State<FirstHomePage> {
   }
 
   Future<List<components.Wishlist>> fetchWishlists() async {
+    final token = Provider.of<TokenProvider>(context, listen: false).token;
     Dio dio = Dio(); // Create a Dio instance
-    final response =
-        await dio.get('http://10.0.2.2:1432/getWishlistsOfCurrentUser/1');
+    final response = await dio.get(
+      'http://10.0.2.2:1432/getWishlistsOfCurrentUser',
+      options: Options(
+        headers: {
+          'Authorization': 'Bearer $token',
+          'Content-Type': 'application/json', // Adjust content type as needed
+        },
+      ),
+    );
 
     if (response.statusCode == 200) {
       final parsedJson = response.data as List; // Directly get the parsed data
@@ -43,9 +57,18 @@ class _FirstHomePageState extends State<FirstHomePage> {
   }
 
   Future<void> fetchUserData() async {
+    final token = Provider.of<TokenProvider>(context, listen: false).token;
+    final userId = Provider.of<TokenProvider>(context, listen: false).userId;
     Dio dio = Dio();
-    final response =
-        await dio.get('http://10.0.2.2:1432/GetProfileOfCurrentUser/1');
+    final response = await dio.get(
+      'http://10.0.2.2:1432/GetProfileOfCurrentUser/$userId',
+      options: Options(
+        headers: {
+          'Authorization': 'Bearer $token',
+          'Content-Type': 'application/json', // Adjust content type as needed
+        },
+      ),
+    );
 
     if (response.statusCode == 200) {
       final parsedJson = response.data; // Directly get the parsed data
@@ -54,9 +77,11 @@ class _FirstHomePageState extends State<FirstHomePage> {
         username = parsedJson['username'];
         email = parsedJson['email'];
         img = parsedJson['user_pic'];
+        firstname = parsedJson['firstname'];
+        lastname = parsedJson['lastname'];
+        fullname = '$firstname $lastname';
+        userid = userId;
 
-        print(username);
-        print(email);
       });
     } else {
       throw Exception('Failed to load user data');
@@ -82,6 +107,7 @@ class _FirstHomePageState extends State<FirstHomePage> {
                 images: img ?? '',
                 name: username ?? '',
                 email: email ?? '',
+                fullname: fullname ?? '',
               ),
             ),
 
@@ -97,6 +123,7 @@ class _FirstHomePageState extends State<FirstHomePage> {
                     grantBy: wishlist.userNameOfGranter,
                     wishlistId: wishlist.wishlistId,
                     username: username,
+                    userid: userid,
                   );
                 },
               ),

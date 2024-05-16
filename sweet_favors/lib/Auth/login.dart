@@ -1,6 +1,11 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:sweet_favors/components/my_button.dart';
 import 'package:sweet_favors/components/my_textfield.dart';
+import 'package:sweet_favors/pages/Navbar/first_home_page.dart';
+import 'package:sweet_favors/pages/home.dart';
+import 'package:sweet_favors/provider/token_provider.dart';
+import 'package:provider/provider.dart';
 
 class LoginPage extends StatefulWidget {
   final void Function()? onTap;
@@ -15,94 +20,150 @@ class _LoginPageState extends State<LoginPage> {
   //text constrollers
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final Dio dio = Dio();
+
+  void _login() async {
+    final data = {
+      "username": emailController.text,
+      "password": passwordController.text,
+    };
+
+    try {
+      final response = await _makeLoginRequest(data);
+
+      if (response.statusCode == 200) {
+        final token = response.data['token'];
+        final userId = response.data['user_id'];
+        Provider.of<TokenProvider>(context, listen: false)
+            .setToken(token, userId);
+        print("Success TOken");
+        print(response);
+        print(token);
+        _navigateToFirstHomePage(token);
+      } else {
+        _showErrorMessage(
+            'Login failed. Response status code: ${response.statusCode}');
+      }
+    } catch (e) {
+      _showErrorMessage('An error occurred. Exception: $e');
+    }
+  }
+
+  Future<Response> _makeLoginRequest(Map<String, dynamic> data) async {
+    return dio.post(
+      'http://10.0.2.2:1432/Login', // Use HTTPS
+      data: data,
+      options: Options(
+        headers: {
+          'Content-Type': 'application/json',
+          'secret': 'SweetSecret',
+        },
+      ),
+    );
+  }
+
+  void _navigateToFirstHomePage(String token) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => Home()),
+    );
+  }
+
+  void _showErrorMessage(String message) {
+    print(message);
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(25.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const SizedBox(height: 25),
-              //app name0
-              const Text(
-                "Sign In",
-                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-              ),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.only(top: 90),
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(25.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const SizedBox(height: 25),
+                //app name0
+                const Text(
+                  "Sign In",
+                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                ),
 
-              const SizedBox(height: 50),
+                const SizedBox(height: 50),
 
-              //email textfield
-              MyTextField(
-                hintText: 'Enter Email',
-                obscureText: false,
-                controller: emailController,
-              ),
+                //email textfield
+                MyTextField(
+                  hintText: 'Enter Email',
+                  obscureText: false,
+                  controller: emailController,
+                ),
 
-              const SizedBox(height: 20),
+                const SizedBox(height: 20),
 
-              //password textfield
-              MyTextField(
-                hintText: 'Enter Password',
-                obscureText: true,
-                controller: passwordController,
-                iconData: Icons.remove_red_eye_outlined,
-                onIconPressed: () {
-                  // Callback function to be called when the icon is pressed
-                },
-              ),
+                //password textfield
+                MyTextField(
+                  hintText: 'Enter Password',
+                  obscureText: true,
+                  controller: passwordController,
+                  iconData: Icons.remove_red_eye_outlined,
+                  onIconPressed: () {
+                    // Callback function to be called when the icon is pressed
+                  },
+                ),
 
-              const SizedBox(height: 25),
+                const SizedBox(height: 25),
 
-              //forgot password
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.end,
-              //   children: [
-              //     Text(
-              //       "Forgot Password",
-              //       style: TextStyle(
-              //         color: Theme.of(context).colorScheme.secondary,
-              //       ),
-              //     )
-              //   ],
-              // ),
+                //forgot password
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.end,
+                //   children: [
+                //     Text(
+                //       "Forgot Password",
+                //       style: TextStyle(
+                //         color: Theme.of(context).colorScheme.secondary,
+                //       ),
+                //     )
+                //   ],
+                // ),
 
-              const SizedBox(height: 25),
+                const SizedBox(height: 25),
 
-              //sign in button
-              MyButton(
-                text: "Sign In",
-                width: 400,
-                height: 58,
-                onTap: () {},
-              ),
+                //sign in button
+                MyButton(
+                  text: "Sign In",
+                  width: 400,
+                  height: 58,
+                  onTap: _login,
+                ),
 
-              const SizedBox(height: 40),
+                const SizedBox(height: 40),
 
-              //register here
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text(
-                    "Don't have an account? ",
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
-                  ),
-                  GestureDetector(
-                    onTap: widget.onTap,
-                    child: const Text(
-                      "Register Here",
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xFF4461F2),
+                //register here
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      "Don't have an account? ",
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                    ),
+                    GestureDetector(
+                      onTap: widget.onTap,
+                      child: const Text(
+                        "Register Here",
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xFF4461F2),
+                        ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-            ],
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),

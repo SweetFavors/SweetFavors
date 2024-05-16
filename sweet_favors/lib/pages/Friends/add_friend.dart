@@ -1,8 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:sweet_favors/Utils/color_use.dart';
 import 'package:sweet_favors/pages/Navbar/friend_page.dart';
 import 'package:sweet_favors/pages/home.dart';
+import 'package:sweet_favors/provider/token_provider.dart';
 import 'package:sweet_favors/widgets/friend_form.dart';
 import 'package:sweet_favors/widgets/bottomBar.dart';
 import 'package:sweet_favors/widgets/friend_list.dart';
@@ -26,6 +28,7 @@ class _AddFriendState extends State<AddFriend> {
   }
 
   Future<void> _submitForm() async {
+    final token = Provider.of<TokenProvider>(context, listen: false).token;
     setState(() {
       _isLoading = true;
     });
@@ -33,8 +36,15 @@ class _AddFriendState extends State<AddFriend> {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
 
-      final response = await dio
-          .get('http://10.0.2.2:1432/GetSearchFriend/1/?query=$_query');
+      final response = await dio.get(
+        'http://10.0.2.2:1432/GetSearchFriend/?query=$_query',
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+            'Content-Type': 'application/json', // Adjust content type as needed
+          },
+        ),
+      );
 
       if (response.statusCode == 200) {
         final jsonResponse = response.data;
@@ -43,6 +53,7 @@ class _AddFriendState extends State<AddFriend> {
           friends = jsonResponse;
           _isLoading = false;
         });
+        print(friends);
       } else {
         print('Failed to load search results');
         setState(() {
@@ -59,12 +70,21 @@ class _AddFriendState extends State<AddFriend> {
       appBar: AppBar(
         title: const Text(
           "Add Friend",
-          style: TextStyle(fontWeight: FontWeight.bold),
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Color.fromARGB(240, 255, 255, 255),
+          ),
         ),
+        elevation: 5,
         centerTitle: true,
+        backgroundColor: colorUse.appBarColor,
+        shadowColor: const Color.fromARGB(255, 171, 171, 171),
         leading: IconButton(
             onPressed: () => Navigator.pop(context),
-            icon: const Icon(Icons.arrow_back, color: Colors.black)),
+            icon: const Icon(
+              Icons.arrow_back_ios,
+              color: Color.fromARGB(240, 255, 255, 255),
+            )),
       ),
       body: Column(
         children: [
@@ -105,7 +125,7 @@ class _AddFriendState extends State<AddFriend> {
             ),
         ],
       ),
-      // bottomNavigationBar: bottomBar(),
+      // bottomNavigationBar: const bottomBar(),
     );
   }
 }

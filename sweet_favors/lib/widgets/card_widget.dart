@@ -8,13 +8,16 @@ class CardWidget extends StatelessWidget {
   final String? grantBy;
   final int wishlistId;
   final String? username;
+  final int? userid;
 
   const CardWidget(
       {super.key,
       required this.product,
       this.grantBy,
       required this.wishlistId,
-      this.username});
+      this.username,
+      this.userid
+      });
 
   @override
   Widget build(BuildContext context) {
@@ -55,16 +58,25 @@ class CardWidget extends StatelessWidget {
                     padding: const EdgeInsets.only(bottom: 10.0),
                     child: Text(
                       product,
-                      style: TextStyles.cardTitleStyle(),
+                      style: TextStyles.cardTitleStyle().merge(TextStyle(
+                          color: grantBy != null
+                              ? const Color.fromARGB(200, 5, 117, 70)
+                              : colorUse.textFriend)),
                     ),
                   ),
                   subtitle: Text(
                     grantBy != null ? 'Granted by $grantBy' : 'Not granted yet',
-                    style: const TextStyle(
-                      color: Color.fromARGB(255, 93, 94, 101),
-                    ).merge(
-                      TextStyles.cardSubtitleStyle(),
-                    ),
+                    style: grantBy != null
+                        ? const TextStyle(
+                            color: Color.fromARGB(202, 76, 122, 102),
+                          ).merge(
+                            TextStyles.cardSubtitleStyle(),
+                          )
+                        : const TextStyle(
+                            color: Color.fromARGB(224, 103, 78, 117),
+                          ).merge(
+                            TextStyles.cardSubtitleStyle(),
+                          ),
                   ),
                 ),
                 const SizedBox(height: 10.0),

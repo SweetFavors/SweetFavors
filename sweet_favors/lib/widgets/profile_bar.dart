@@ -8,12 +8,15 @@ class ProfileBar extends StatefulWidget {
   final String images;
   final String name;
   final String email;
+  final String fullname;
 
   const ProfileBar(
       {super.key,
       required this.images,
       required this.name,
-      required this.email});
+      required this.email,
+      required this.fullname
+      });
 
   @override
   State<ProfileBar> createState() => _ProfileBarState();
@@ -76,7 +79,7 @@ class _ProfileBarState extends State<ProfileBar> {
               ),
             ),
             Text(
-              widget.email,
+              widget.fullname,
               style: const TextStyle(
                 fontSize: 13.0,
                 color: colorUse.textColorSecondary,

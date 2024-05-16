@@ -1,10 +1,10 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_floating_bottom_bar/flutter_floating_bottom_bar.dart';
+import 'package:sweet_favors/pages/Navbar/discover_page.dart';
 import 'package:sweet_favors/pages/Navbar/first_home_page.dart';
 import 'package:sweet_favors/pages/Navbar/friend_page.dart';
 import 'package:sweet_favors/pages/Navbar/new_wish_add.dart';
-import 'package:sweet_favors/pages/Navbar/wish_grant_page.dart';
 import 'package:sweet_favors/Utils/color_use.dart';
 
 class bottomBar extends StatefulWidget {
@@ -68,7 +68,7 @@ class _bottomBar extends State<bottomBar> with SingleTickerProviderStateMixin {
           physics: const NeverScrollableScrollPhysics(),
           children: [
             FirstHomePage(),
-            WishGrantPage(),
+            discover_page(),
             NewWishAdd(),
             Friendpage(),
           ],

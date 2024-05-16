@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:sweet_favors/components/following_model.dart';
+import 'package:sweet_favors/provider/token_provider.dart';
 import 'package:sweet_favors/widgets/card_widget.dart';
 import 'package:sweet_favors/widgets/friend_profile_bar.dart';
 import 'package:sweet_favors/widgets/bottomBar.dart';
@@ -30,9 +32,17 @@ class _FriendWishlistFollowingState extends State<FriendWishlistFollowing> {
   }
 
   Future<void> fetchWishlists() async {
+    final token = Provider.of<TokenProvider>(context, listen: false).token;
     Dio dio = Dio(); // Create a Dio instance
     final response = await dio.get(
-        'http://10.0.2.2:1432/GetProfileFriendWishlists/${widget.following.userId}/${widget.following.followingId}');
+      'http://10.0.2.2:1432/GetProfileFriendWishlists/${widget.following.userId}/${widget.following.followingId}',
+      options: Options(
+        headers: {
+          'Authorization': 'Bearer $token',
+          'Content-Type': 'application/json', // Adjust content type as needed
+        },
+      ),
+    );
     print(widget.following.userId);
 
     if (response.statusCode == 200) {
@@ -49,12 +59,21 @@ class _FriendWishlistFollowingState extends State<FriendWishlistFollowing> {
   }
 
   Future<bool> fetchFriendCheck() async {
+    final token = Provider.of<TokenProvider>(context, listen: false).token;
     Dio dio = Dio(); // Create a Dio instance
 
     // Check if user 1 is following user 2
     final response1 = await dio.get(
       'http://10.0.2.2:1432/GetCheckFollowingYet/${widget.following.userId}/${widget.following.followingId}',
+      options: Options(
+        headers: {
+          'Authorization': 'Bearer $token',
+          'Content-Type': 'application/json', // Adjust content type as needed
+        },
+      ),
     );
+    print(widget.following.userId);
+    print(widget.following.followingId);
 
     if (response1.statusCode != 200 ||
         response1.data['user_id'] == null ||
@@ -65,7 +84,15 @@ class _FriendWishlistFollowingState extends State<FriendWishlistFollowing> {
     // Check if user 2 is following user 1
     final response2 = await dio.get(
       'http://10.0.2.2:1432/GetCheckFollowingYet/${widget.following.followingId}/${widget.following.userId}',
+      options: Options(
+        headers: {
+          'Authorization': 'Bearer $token',
+          'Content-Type': 'application/json', // Adjust content type as needed
+        },
+      ),
     );
+    print(widget.following.userId);
+    print(widget.following.followingId);
 
     if (response2.statusCode != 200 ||
         response2.data['user_id'] == null ||
@@ -88,6 +115,8 @@ class _FriendWishlistFollowingState extends State<FriendWishlistFollowing> {
               images: widget.following.followingUserPic,
               name: widget.following.followingUsername,
               email: "",
+              userId: widget.following.userId,
+              otherUserId: widget.following.followingId,
             ),
             const SizedBox(height: 35.0),
             FutureBuilder(
@@ -102,7 +131,9 @@ class _FriendWishlistFollowingState extends State<FriendWishlistFollowing> {
                   if (isFollowing) {
                     return Expanded(
                       child: wishlists.isEmpty
-                          ? const Center(child: Text("It's empty"))
+                          ? const FriendsMsgCard(
+                              message: "The list is empty",
+                            )
                           : ListView.builder(
                               itemCount: wishlists.length,
                               itemBuilder: (context, index) {
@@ -116,8 +147,9 @@ class _FriendWishlistFollowingState extends State<FriendWishlistFollowing> {
                             ),
                     );
                   } else {
-                    return Center(
-                      child: Text("You need to follow each other"),
+                    return const FriendsMsgCard(
+                      message:
+                          "You can view each other's wishlist once you both start following each other \u{1F929}",
                     );
                   }
                 }

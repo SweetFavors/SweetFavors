@@ -1,10 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:sweet_favors/Auth/login_or_register.dart';
 import 'package:sweet_favors/Utils/color_use.dart';
 import 'package:sweet_favors/Utils/text_use.dart';
 import 'package:sweet_favors/pages/Profile/edit_profile.dart';
 import 'package:sweet_favors/pages/Profile/eula.dart';
+import 'package:sweet_favors/provider/token_provider.dart';
 import 'package:sweet_favors/widgets/bottomBar.dart';
 import 'package:sweet_favors/widgets/button_at_bottom.dart';
 import 'package:sweet_favors/widgets/card_widget.dart';
@@ -33,9 +36,22 @@ class _ProfileState extends State<Profile> {
   }
 
   Future<Map<String, dynamic>> fetchUserData() async {
+    final token = Provider.of<TokenProvider>(context, listen: false).token;
+    final userId = Provider.of<TokenProvider>(context, listen: false).userId;
+
+    print("Profile.dart");
+    print(token);
+    print(userId);
     Dio dio = Dio();
-    final response =
-        await dio.get('http://10.0.2.2:1432/GetProfileOfCurrentUser/1');
+    final response = await dio.get(
+      'http://10.0.2.2:1432/GetProfileOfCurrentUser/$userId',
+      options: Options(
+        headers: {
+          'Authorization': 'Bearer $token',
+          'Content-Type': 'application/json', // Adjust content type as needed
+        },
+      ),
+    );
 
     if (response.statusCode == 200) {
       return response.data;
@@ -99,7 +115,18 @@ class _ProfileState extends State<Profile> {
   }
 
   Widget logout() {
-    return ButtonAtBottom(onPressed: () {}, text: 'Logout');
+    void logoutFunction() {
+      // Notify the TokenProvider that the token has been cleared
+      Provider.of<TokenProvider>(context, listen: false).setToken("", 0);
+
+      // Navigate to the login page
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => LoginOrRegister()),
+      );
+    }
+
+    return ButtonAtBottom(onPressed: logoutFunction, text: 'Logout');
   }
 
   Widget buildtop(Map<String, dynamic>? userData) {

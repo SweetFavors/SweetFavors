@@ -2,22 +2,24 @@ import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:provider/provider.dart';
 import 'package:sweet_favors/Utils/color_use.dart';
 import 'package:sweet_favors/components/integrate_model.dart';
+import 'package:sweet_favors/provider/token_provider.dart';
 import 'package:sweet_favors/widgets/profile_bar.dart';
 import 'package:sweet_favors/widgets/wish_grant_widget.dart';
 import 'package:sweet_favors/widgets/button_at_bottom.dart';
 import 'package:sweet_favors/pages/Wish/wish_details.dart';
 import 'package:flutter_swiper_view/flutter_swiper_view.dart';
 
-class WishGrantPage extends StatefulWidget {
-  const WishGrantPage({super.key});
+class discover_page extends StatefulWidget {
+  const discover_page({super.key});
 
   @override
-  State<WishGrantPage> createState() => _WishGrantPageState();
+  State<discover_page> createState() => _discover_pageState();
 }
 
-class _WishGrantPageState extends State<WishGrantPage> {
+class _discover_pageState extends State<discover_page> {
   List<WishItem> _wishItems = [];
   int _currentIndex = 0; // State to track the current Swiper index
 
@@ -28,9 +30,17 @@ class _WishGrantPageState extends State<WishGrantPage> {
   }
 
   Future<List<dynamic>> _fetchData() async {
+    final token = Provider.of<TokenProvider>(context, listen: false).token;
     Dio dio = Dio();
     final response = await dio.get(
-        'http://10.0.2.2:1432/GetFriendsWishlists/3'); // Adjust the endpoint
+      'http://10.0.2.2:1432/GetFriendsWishlists/',
+      options: Options(
+        headers: {
+          'Authorization': 'Bearer $token',
+          'Content-Type': 'application/json', // Adjust content type as needed
+        },
+      ),
+    ); // Adjust the endpoint
     if (response.statusCode == 200) {
       final List<dynamic> wishData = response.data;
       _wishItems = wishData.map((json) => WishItem.fromJson(json)).toList();
@@ -49,29 +59,53 @@ class _WishGrantPageState extends State<WishGrantPage> {
           "Discover",
           style: TextStyle(
             fontWeight: FontWeight.bold,
+            color: Color.fromARGB(240, 255, 255, 255),
           ),
         ),
+        backgroundColor: const Color.fromARGB(255, 188, 143, 223),
+        elevation: 5,
+        shadowColor: const Color.fromARGB(255, 171, 171, 171),
         centerTitle: true,
+        automaticallyImplyLeading: false,
       ),
-      body: Expanded(
-        child: SingleChildScrollView(
-          physics: const AlwaysScrollableScrollPhysics(),
-          child: Center(
-            child: GridView.builder(
-              itemCount: _wishItems.length,
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              padding: const EdgeInsets.all(8.0),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                childAspectRatio: 1, // Adjust aspect ratio as needed
+      body: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 20.0),
+        child: InkWell(
+          // onTap: () {
+          //   if (_wishItems.isNotEmpty) {
+          //     final wishItem = _wishItems[_currentIndex];
+          //     Navigator.push(
+          //       context,
+          //       MaterialPageRoute(
+          //         builder: (context) => WishDetails(
+          //           wishlist_id: wishItem.wishlistId,
+          //           username: wishItem.usernameOfWishlist ?? 'null',
+          //         ),
+          //       ),
+          //     );
+          //   }
+          // },
+          child: Expanded(
+            child: SingleChildScrollView(
+              physics: const AlwaysScrollableScrollPhysics(),
+              child: Center(
+                child: GridView.builder(
+                  itemCount: _wishItems.length,
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  padding: const EdgeInsets.all(8.0),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    childAspectRatio: 1, // Adjust aspect ratio as needed
+                  ),
+                  itemBuilder: (context, index) {
+                    return WishGrant(
+                      price: "\$${_wishItems[index].price}",
+                      pic: _wishItems[index].itemPic,
+                    );
+                  },
+                ),
               ),
-              itemBuilder: (context, index) {
-                return WishGrant(
-                  price: "\$${_wishItems[index].price}",
-                  pic: _wishItems[index].itemPic,
-                );
-              },
             ),
           ),
         ),
