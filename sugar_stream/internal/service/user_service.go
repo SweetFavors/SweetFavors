@@ -2,8 +2,8 @@ package service
 
 import (
 	"errors"
-	"fmt"
 	"github.com/dgrijalva/jwt-go"
+	"github.com/gofiber/fiber/v2"
 	"golang.org/x/crypto/bcrypt"
 	"gorm.io/gorm"
 	"log"
@@ -182,14 +182,14 @@ func (s userService) Login(request dtos.LoginRequest, jwtSecret string) (*dtos.U
 	user, err := s.userRepo.GetUserByUsername(username)
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
-			return nil, fmt.Errorf("user not found")
+			return nil, fiber.NewError(fiber.StatusBadRequest, "invalid username or password")
 		}
 		return nil, err
 	}
 
 	// Compare password
 	if err := bcrypt.CompareHashAndPassword(v.ByteSlice(user.Password), []byte(*request.Password)); err != nil {
-		return nil, fmt.Errorf("invalid credentials")
+		return nil, fiber.NewError(fiber.StatusBadRequest, "invalid credentials")
 	}
 
 	// Generate JWT token
