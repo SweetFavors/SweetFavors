@@ -127,7 +127,7 @@ func main() {
 	app.Get("/GetEditUserProfile/:UserID", userHandler.GetEditUserProfile)
 	app.Patch("/UpdateEditUserProfile/:UserID", userHandler.UpdateEditUserProfile)
 
-	app.Post("/PostCopyWishlist/:CurrentUserID/:WishlistID", wishlistHandler.PostCopyWishlist)
+	app.Post("/PostCopyWishlist/:WishlistID", wishlistHandler.PostCopyWishlist)
 
 	//#####################################################################################
 
