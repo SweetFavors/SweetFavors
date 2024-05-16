@@ -331,7 +331,19 @@ func (h *wishlistHandler) PostAddWishlist(c *fiber.Ctx) error {
 }
 
 func (h *wishlistHandler) PostCopyWishlist(c *fiber.Ctx) error {
-	userIDExtract := 2
+	// Extract the token from the request headers
+	token := c.Get("Authorization")
+
+	// Check if the token is empty
+	if token == "" {
+		return errors.New("token is missing")
+	}
+
+	// Extract the user ID from the token
+	userIDExtract, err := utils.ExtractUserIDFromToken(strings.Replace(token, "Bearer ", "", 1), h.jwtSecret)
+	if err != nil {
+		return err
+	}
 
 	wishlistID, err := strconv.Atoi(c.Params("WishlistID"))
 	if err != nil {
