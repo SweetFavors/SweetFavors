@@ -2,7 +2,9 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:sweet_favors/pages/home.dart';
+import 'package:sweet_favors/provider/token_provider.dart';
 import 'package:sweet_favors/widgets/text_form.dart';
 import 'package:sweet_favors/widgets/button_at_bottom.dart';
 import 'package:sweet_favors/widgets/add_image.dart';
@@ -24,21 +26,28 @@ class _NewWishAddState extends State<NewWishAdd> {
   File? _selectedImage;
 
   Future<bool> addWishlistItem() async {
-    final url = 'http://10.0.2.2:1432/PostAddWishlist/1';
+  final token = Provider.of<TokenProvider>(context, listen: false).token;
+  final userId = Provider.of<TokenProvider>(context, listen: false).userId;
+    final url = 'http://10.0.2.2:1432/PostAddWishlist';
 
     try {
       var formData = FormData.fromMap({
-        'itemName': _itemNameController.text ?? '',
+        'itemname': _itemNameController.text ?? '',
         'quantity': _quantityController.text ?? '',
         'price': _priceController.text ?? '',
-        'linkURL': _linkUrlController.text ?? '',
-        'image': await MultipartFile.fromFile(
-          'Kuy/path/XD/',
+        'LinkURL': _linkUrlController.text ?? '',
+        'ItemPic': await MultipartFile.fromFile(
+          _selectedImage!.path,
           filename: _selectedImage!.path.split('/').last,
         ),
       });
 
-      final response = await Dio().post(url, data: formData);
+      final response = await Dio().post(url, data: formData,options: Options(
+        headers: {
+          'Authorization': 'Bearer $token',
+          'Content-Type': 'application/json', // Adjust content type as needed
+        },
+      ),);
 
       if (response.statusCode == 200) {
         var map = response.data as Map;
