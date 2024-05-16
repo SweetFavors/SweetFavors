@@ -9,6 +9,7 @@ class CardWidget extends StatelessWidget {
   final int wishlistId;
   final String? username;
   final int? userid;
+  final bool? alreadyBought;
 
   const CardWidget(
       {super.key,
@@ -16,7 +17,8 @@ class CardWidget extends StatelessWidget {
       this.grantBy,
       required this.wishlistId,
       this.username,
-      this.userid
+      this.userid,
+      this.alreadyBought,
       });
 
   @override
@@ -40,12 +42,11 @@ class CardWidget extends StatelessWidget {
           },
           child: Card(
             // margin: EdgeInsets.only(bottom: 25),
-            color: grantBy != null
-                ? const Color.fromARGB(173, 183, 255, 219)
-                // : ,
-                : grantBy == null
-                    ? const Color.fromARGB(198, 242, 215, 255)
-                    : const Color.fromARGB(153, 255, 225, 90),
+            color: grantBy != null && alreadyBought == true
+              ? const Color.fromARGB(173, 183, 255, 219) // Green (granted and bought)
+              : (grantBy != null || alreadyBought == true)
+                ? const Color.fromARGB(198, 242, 215, 255) // Purple (granted or bought)
+                : const Color.fromARGB(153, 255, 225, 90), // Yellow (neither)
             elevation: 7,
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -59,25 +60,23 @@ class CardWidget extends StatelessWidget {
                     child: Text(
                       product,
                       style: TextStyles.cardTitleStyle().merge(TextStyle(
-                          color: grantBy != null
+                          color: grantBy != null && alreadyBought == true
                               ? const Color.fromARGB(200, 5, 117, 70)
                               : colorUse.textFriend)),
                     ),
                   ),
                   subtitle: Text(
-                    grantBy != null ? 'Granted by $grantBy' : 'Not granted yet',
-                    style: grantBy != null
-                        ? const TextStyle(
-                            color: Color.fromARGB(202, 76, 122, 102),
-                          ).merge(
-                            TextStyles.cardSubtitleStyle(),
-                          )
-                        : const TextStyle(
-                            color: Color.fromARGB(224, 103, 78, 117),
-                          ).merge(
-                            TextStyles.cardSubtitleStyle(),
-                          ),
-                  ),
+                          grantBy != null
+                            ? 'Granted by $grantBy'
+                            : alreadyBought == true
+                              ? 'Already bought'
+                              : 'Not granted yet',
+                          style: (grantBy != null && alreadyBought == true) // Use nested ternary for subtitle style
+                            ? const TextStyle(color: Color.fromARGB(202, 76, 122, 102)).merge(TextStyles.cardSubtitleStyle())
+                            : (grantBy != null || alreadyBought == true)
+                              ? const TextStyle(color: Color.fromARGB(224, 103, 78, 117)).merge(TextStyles.cardSubtitleStyle())
+                              : TextStyles.cardSubtitleStyle(), // Default style if neither condition is true
+                        ),
                 ),
                 const SizedBox(height: 10.0),
               ],
