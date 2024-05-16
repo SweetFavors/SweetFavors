@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	jwtware "github.com/gofiber/contrib/jwt"
 	"log"
 	"strings"
 	"sugar_stream/internal/entities"
@@ -10,7 +11,6 @@ import (
 	"sugar_stream/internal/service"
 	"time"
 
-	jwtware "github.com/gofiber/contrib/jwt"
 	"github.com/gofiber/fiber/v2"
 
 	"github.com/spf13/viper"

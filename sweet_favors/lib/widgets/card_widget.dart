@@ -8,13 +8,16 @@ class CardWidget extends StatelessWidget {
   final String? grantBy;
   final int wishlistId;
   final String? username;
+  final int? userid;
 
   const CardWidget(
       {super.key,
       required this.product,
       this.grantBy,
       required this.wishlistId,
-      this.username});
+      this.username,
+      this.userid
+      });
 
   @override
   Widget build(BuildContext context) {

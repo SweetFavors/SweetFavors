@@ -38,6 +38,7 @@ class _FriendpageState extends State<Friendpage>
         elevation: 5,
         shadowColor: Color.fromARGB(255, 98, 98, 98),
         centerTitle: true,
+        automaticallyImplyLeading: false,
         actions: <Widget>[
           Padding(
             padding: const EdgeInsets.only(right: 18.0),
@@ -61,7 +62,7 @@ class _FriendpageState extends State<Friendpage>
       body: Column(
         children: [
           Container(
-            color: Color.fromARGB(136, 194, 128, 224),
+            color: const Color.fromARGB(136, 194, 128, 224),
             child: TabBar(
               controller: _tabController,
               tabs: const [

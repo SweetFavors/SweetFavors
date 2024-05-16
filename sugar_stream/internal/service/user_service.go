@@ -1,8 +1,11 @@
 package service
 
 import (
+	"errors"
 	"github.com/dgrijalva/jwt-go"
+	"github.com/gofiber/fiber/v2"
 	"golang.org/x/crypto/bcrypt"
+	"gorm.io/gorm"
 	"log"
 	"strconv"
 	"sugar_stream/internal/dtos"
@@ -177,14 +180,21 @@ func (s userService) Login(request dtos.LoginRequest, jwtSecret string) (*dtos.U
 	username := *request.Username
 
 	user, err := s.userRepo.GetUserByUsername(username)
-	err = bcrypt.CompareHashAndPassword(v.ByteSlice(user.Password), v.ByteSlice(request.Password))
 	if err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return nil, fiber.NewError(fiber.StatusBadRequest, "invalid username or password")
+		}
 		return nil, err
 	}
 
+	// Compare password
+	if err := bcrypt.CompareHashAndPassword(v.ByteSlice(user.Password), []byte(*request.Password)); err != nil {
+		return nil, fiber.NewError(fiber.StatusBadRequest, "invalid credentials")
+	}
+
+	// Generate JWT token
 	claims := jwt.StandardClaims{
 		Issuer: strconv.Itoa(int(*user.UserID)),
-		//ExpiresAt: time.Now().Add(time.Hour * 24).Unix(),
 	}
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
@@ -196,7 +206,6 @@ func (s userService) Login(request dtos.LoginRequest, jwtSecret string) (*dtos.U
 	return &dtos.UserResponse{
 		UserID:   user.UserID,
 		Username: user.Username,
-		Token:    v.Ptr(jwtToken),
+		Token:    &jwtToken,
 	}, nil
-
 }
