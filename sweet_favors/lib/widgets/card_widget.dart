@@ -1,7 +1,12 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:sweet_favors/Utils/color_use.dart';
 import 'package:sweet_favors/Utils/text_use.dart';
 import 'package:sweet_favors/pages/Wish/wish_details.dart';
+import 'package:sweet_favors/provider/token_provider.dart';
+import 'package:sweet_favors/widgets/Button_for_pop_up.dart';
+import 'package:sweet_favors/widgets/pop_up.dart';
 
 class CardWidget extends StatelessWidget {
   final String product;
@@ -10,6 +15,7 @@ class CardWidget extends StatelessWidget {
   final String? username;
   final int? userid;
   final bool? alreadyBought;
+  final int? grantedByUserId;
 
   const CardWidget(
       {super.key,
@@ -19,16 +25,91 @@ class CardWidget extends StatelessWidget {
       this.username,
       this.userid,
       this.alreadyBought,
+      this.grantedByUserId,
       });
+
+
+
 
   @override
   Widget build(BuildContext context) {
+
+    Future<Map<String, dynamic>> _RecieverGotIt() async {
+    final token = Provider.of<TokenProvider>(context, listen: false).token;
+    final userId = Provider.of<TokenProvider>(context, listen: false).userId;
+    Dio dio = Dio(); // Create a Dio instance
+    final response = await dio.put(
+      'http://10.0.2.2:1432/UpdateReceiverGotIt/$wishlistId/$grantedByUserId',
+      options: Options(
+        headers: {
+          'Authorization': 'Bearer $token',
+          'Content-Type': 'application/json', // Adjust content type as needed
+        },
+      ),
+    );
+
+    if (response.statusCode == 200) {
+      return response.data;
+    } else {
+      throw Exception('Failed to put _RecieverGotIt');
+    }
+  }
+
+  Future<Map<String, dynamic>> _RecieverDidntGetit() async {
+    final token = Provider.of<TokenProvider>(context, listen: false).token;
+    final userId = Provider.of<TokenProvider>(context, listen: false).userId;
+    Dio dio = Dio(); // Create a Dio instance
+    final response = await dio.put(
+      'http://10.0.2.2:1432/UpdateReceiverDidntGetIt/$wishlistId/$grantedByUserId',
+      options: Options(
+        headers: {
+          'Authorization': 'Bearer $token',
+          'Content-Type': 'application/json', // Adjust content type as needed
+        },
+      ),
+    );
+
+    if (response.statusCode == 200) {
+      return response.data;
+    } else {
+      throw Exception('Failed to put _RecieverDidntGetit');
+    }
+  }
+  
     return Center(
       child: Container(
         margin: const EdgeInsets.only(bottom: 25),
         child: InkWell(
           onTap: () {
-            if (wishlistId != null) {
+            if (grantBy != null && alreadyBought == true) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => WishDetails(
+                    wishlist_id: wishlistId,
+                    username: username ?? 'null',
+                  ),
+                ),
+              );
+            }else if(grantBy != null && alreadyBought != true ){
+              showDialog(context: context,
+                         builder: (BuildContext dialogContext) {
+                          return PopUp(title: 'Did you recieved the wish?',
+                                        buttons: [
+                                          
+                                                          ButtonForPopUp(onPressed: () async{
+                                                            Navigator.of(dialogContext).pop();
+                                                            await _RecieverGotIt();
+                                                          }, text:'Yes'),
+                                                          ButtonForPopUp(onPressed: () async{
+                                                            Navigator.of(dialogContext).pop();
+                                                            await _RecieverDidntGetit();
+                                                          }, text: 'No'),
+                                                 ],
+                              );
+                         }
+                         );
+            }else if(grantBy == null && alreadyBought == null){
               Navigator.push(
                 context,
                 MaterialPageRoute(
