@@ -5,10 +5,8 @@ import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:sweet_favors/Utils/text_use.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:provider/provider.dart';
 import 'package:sweet_favors/provider/token_provider.dart';
 import 'package:sweet_favors/pages/home.dart';
-import 'package:sweet_favors/provider/token_provider.dart';
 import 'package:sweet_favors/widgets/Button_for_pop_up.dart';
 import 'package:sweet_favors/widgets/button_at_bottom.dart';
 import 'package:sweet_favors/widgets/pop_up.dart';
@@ -57,6 +55,27 @@ class _WishDetailsState extends State<WishDetails> {
     }
   }
 
+  Future<Map<String, dynamic>> _postGranter() async {
+    final token = Provider.of<TokenProvider>(context, listen: false).token;
+    final userId = Provider.of<TokenProvider>(context, listen: false).userId;
+    Dio dio = Dio(); // Create a Dio instance
+    final response = await dio.put(
+      'http://10.0.2.2:1432/UpdateGrantForFriend/${widget.wishlist_id}/${userId}',
+      options: Options(
+        headers: {
+          'Authorization': 'Bearer $token',
+          'Content-Type': 'application/json', // Adjust content type as needed
+        },
+      ),
+    );
+
+    if (response.statusCode == 200) {
+      return response.data;
+    } else {
+      throw Exception('Failed to put _PostGranter');
+    }
+  }
+
 
   Future<void> _launchUrl(String url) async {
     final Uri uri = Uri.parse(url); 
@@ -70,7 +89,10 @@ class _WishDetailsState extends State<WishDetails> {
         builder: (context) => PopUp(
           title: 'Have you bought the wish?',
           buttons: [
-            ButtonForPopUp(onPressed: () {}, text: 'Yes'),
+            ButtonForPopUp(onPressed: () async{
+             await _postGranter();
+             Navigator.of(context).pop();
+            }, text: 'Yes'),
             ButtonForPopUp(onPressed: () {
               Navigator.of(context).pop();
             }, text: 'No'),
@@ -98,6 +120,8 @@ class _WishDetailsState extends State<WishDetails> {
           final pics = wishdata?['item_pic'] ?? 'Unknown pics';
           final userId = (wishdata?['user_id']) ?? 0;
           final username = widget.username;
+          final alreadyBought = (wishdata?['already_bought']);
+          final grantBy = (wishdata?['granted_by_user_id']);
           return Scaffold(
             appBar: CustomAppBarNavigation(
               title: itemName,

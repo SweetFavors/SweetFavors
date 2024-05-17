@@ -35,7 +35,7 @@ class _FirstHomePageState extends State<FirstHomePage> {
     final token = Provider.of<TokenProvider>(context, listen: false).token;
     Dio dio = Dio(); // Create a Dio instance
     final response = await dio.get(
-      'http://10.0.2.2:1432/getWishlistsOfCurrentUser',
+      'http://10.0.2.2:1432/GetWishlistsOfCurrentUser',
       options: Options(
         headers: {
           'Authorization': 'Bearer $token',
@@ -46,7 +46,7 @@ class _FirstHomePageState extends State<FirstHomePage> {
 
     if (response.statusCode == 200) {
       final parsedJson = response.data as List; // Directly get the parsed data
-      print(response.data);
+      print(parsedJson);
       // print(token);
       // parsedJson.map((json) => Wishlist.fromJson(json)).toList();
       wishlists =
@@ -123,6 +123,7 @@ class _FirstHomePageState extends State<FirstHomePage> {
                   return CardWidget(
                     product: wishlist.itemname,
                     grantBy: wishlist.userNameOfGranter,
+                    grantedByUserId: wishlist.grantedByUserId,
                     wishlistId: wishlist.wishlistId,
                     username: username,
                     userid: userid,
