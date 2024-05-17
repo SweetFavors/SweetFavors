@@ -42,7 +42,7 @@ class _LoginPageState extends State<LoginPage> {
             'Login failed. Response status code: ${response.statusCode}');
       }
     } catch (e) {
-      _showErrorMessage('An error occurred. Exception: $e');
+      _showErrorMessage('Login Failed');
     }
   }
 
