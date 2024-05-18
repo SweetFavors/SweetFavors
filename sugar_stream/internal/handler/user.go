@@ -240,7 +240,7 @@ func (h *userHandler) Register(c *fiber.Ctx) error {
 
 	// Check if user_pic field is empty or nil
 	if request.UserPic == nil {
-		return fiber.NewError(fiber.StatusBadRequest, "User pic is required")
+		return fiber.NewError(fiber.StatusBadRequest, "User picture is required")
 	}
 
 	response, err := h.userSer.Register(request)

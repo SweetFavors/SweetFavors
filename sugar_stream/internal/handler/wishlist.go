@@ -332,7 +332,7 @@ func (h *wishlistHandler) PostAddWishlist(c *fiber.Ctx) error {
 
 	// Check if user_pic field is empty or nil
 	if request.ItemPic == nil {
-		return fiber.NewError(fiber.StatusBadRequest, "Item pic is required")
+		return fiber.NewError(fiber.StatusBadRequest, "Item picture is required")
 	}
 
 	wishlist, err := h.wishlistSer.PostAddWishlist(userIDExtract, request)

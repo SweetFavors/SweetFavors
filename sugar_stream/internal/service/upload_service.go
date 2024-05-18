@@ -27,13 +27,13 @@ func (s *uploadService) UploadFile(file *multipart.FileHeader) (*string, error) 
 
 	fileName := file.Filename
 
-	_, err = s.client.PutObject(ctx, "testminio", fileName, buffer, file.Size, minio.PutObjectOptions{
+	_, err = s.client.PutObject(ctx, "sweetfavors", fileName, buffer, file.Size, minio.PutObjectOptions{
 		ContentType: "application/octet-stream",
 	})
 	if err != nil {
 		return nil, err
 	}
 
-	fileURL := fmt.Sprintf("http://199.241.138.79:9000/testminio/%s", fileName)
+	fileURL := fmt.Sprintf("http://199.241.138.79:9000/sweetfavors/%s", fileName)
 	return &fileURL, err
 }
