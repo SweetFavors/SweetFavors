@@ -13,10 +13,11 @@ import (
 type userHandler struct {
 	userSer   service.UserService
 	jwtSecret string
+	uploadSer service.UploadService
 }
 
-func NewUserHandler(userSer service.UserService, jwtSecret string) userHandler {
-	return userHandler{userSer: userSer, jwtSecret: jwtSecret}
+func NewUserHandler(userSer service.UserService, jwtSecret string, uploadSer service.UploadService) userHandler {
+	return userHandler{userSer: userSer, jwtSecret: jwtSecret, uploadSer: uploadSer}
 }
 
 func (h *userHandler) GetUsers(c *fiber.Ctx) error {
@@ -222,8 +223,24 @@ func (h *userHandler) Register(c *fiber.Ctx) error {
 		return fiber.NewError(fiber.StatusBadRequest, err.Error())
 	}
 
-	if request.Username == nil || request.Password == nil {
-		return fiber.NewError(fiber.StatusBadRequest, "Username and Password are required")
+	// Check if a file is uploaded
+	file, err := c.FormFile("file")
+	if err != nil {
+		return fiber.NewError(fiber.StatusBadRequest, "File not found")
+	}
+
+	// Call upload service to upload the file
+	fileURL, err := h.uploadSer.UploadFile(file)
+	if err != nil {
+		return fiber.NewError(fiber.StatusInternalServerError, "Failed to upload file")
+	}
+
+	// Set the uploaded file URL in the registration request
+	request.UserPic = fileURL
+
+	// Check if user_pic field is empty or nil
+	if request.UserPic == nil {
+		return fiber.NewError(fiber.StatusBadRequest, "User picture is required")
 	}
 
 	response, err := h.userSer.Register(request)

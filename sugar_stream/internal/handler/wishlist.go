@@ -13,10 +13,11 @@ import (
 type wishlistHandler struct {
 	wishlistSer service.WishlistService
 	jwtSecret   string
+	uploadSer   service.UploadService
 }
 
-func NewWishlistHandler(wishlistSer service.WishlistService, jwtSecret string) wishlistHandler {
-	return wishlistHandler{wishlistSer: wishlistSer, jwtSecret: jwtSecret}
+func NewWishlistHandler(wishlistSer service.WishlistService, jwtSecret string, uploadSer service.UploadService) wishlistHandler {
+	return wishlistHandler{wishlistSer: wishlistSer, jwtSecret: jwtSecret, uploadSer: uploadSer}
 }
 
 func (h *wishlistHandler) GetWishlists(c *fiber.Ctx) error {
@@ -309,12 +310,32 @@ func (h *wishlistHandler) PostAddWishlist(c *fiber.Ctx) error {
 		return err
 	}
 
-	var req dtos.AddWishlistRequest
-	if err := c.BodyParser(&req); err != nil {
+	var request dtos.AddWishlistRequest
+	if err := c.BodyParser(&request); err != nil {
 		return err
 	}
 
-	wishlist, err := h.wishlistSer.PostAddWishlist(userIDExtract, req)
+	// Check if a file is uploaded
+	file, err := c.FormFile("file")
+	if err != nil {
+		return fiber.NewError(fiber.StatusBadRequest, "File not found")
+	}
+
+	// Call upload service to upload the file
+	fileURL, err := h.uploadSer.UploadFile(file)
+	if err != nil {
+		return fiber.NewError(fiber.StatusInternalServerError, "Failed to upload file")
+	}
+
+	// Set the uploaded file URL in the registration request
+	request.ItemPic = fileURL
+
+	// Check if user_pic field is empty or nil
+	if request.ItemPic == nil {
+		return fiber.NewError(fiber.StatusBadRequest, "Item picture is required")
+	}
+
+	wishlist, err := h.wishlistSer.PostAddWishlist(userIDExtract, request)
 	if err != nil {
 		return err
 	}

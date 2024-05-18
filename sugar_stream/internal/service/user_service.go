@@ -172,6 +172,7 @@ func (s userService) Register(request dtos.RegisterRequest) (*dtos.UserResponse,
 	return &dtos.UserResponse{
 		UserID:   user.UserID,
 		Username: user.Username,
+		UserPic:  user.UserPic,
 	}, nil
 
 }
