@@ -371,10 +371,10 @@ func (h *wishlistHandler) PostCopyWishlist(c *fiber.Ctx) error {
 		return err
 	}
 
-	copiedWishlistItem, err := h.wishlistSer.PostCopyWishlist(userIDExtract, wishlistID)
+	copiedWishlistItem, copiedWishlistRecord, err := h.wishlistSer.PostCopyWishlist(userIDExtract, wishlistID)
 	if err != nil {
 		return err
 	}
 
-	return c.JSON(fiber.Map{"message": "Wishlist item copied successfully", "copied_wishlist_item": copiedWishlistItem})
+	return c.JSON(fiber.Map{"message": "Wishlist item copied successfully", "copied_wishlist_item": copiedWishlistItem, "copied_wishlist_record": copiedWishlistRecord})
 }

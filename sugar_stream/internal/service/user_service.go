@@ -177,7 +177,7 @@ func (s userService) Register(request dtos.RegisterRequest) (*dtos.UserResponse,
 
 }
 
-func (s userService) Login(request dtos.LoginRequest, jwtSecret string) (*dtos.UserResponse, error) {
+func (s userService) Login(request dtos.LoginRequest, jwtSecret string) (*dtos.LoginResponse, error) {
 	username := *request.Username
 
 	user, err := s.userRepo.GetUserByUsername(username)
@@ -204,7 +204,7 @@ func (s userService) Login(request dtos.LoginRequest, jwtSecret string) (*dtos.U
 		return nil, err
 	}
 
-	return &dtos.UserResponse{
+	return &dtos.LoginResponse{
 		UserID:   user.UserID,
 		Username: user.Username,
 		Token:    &jwtToken,

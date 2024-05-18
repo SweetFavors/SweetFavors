@@ -86,3 +86,9 @@ type UserResponse struct {
 	UserPic  *string `json:"user_pic" validate:"required"`
 	Token    *string `json:"token,omitempty"`
 }
+
+type LoginResponse struct {
+	UserID   *uint   `json:"user_id" validate:"required"`
+	Username *string `json:"username" validate:"required"`
+	Token    *string `json:"token,omitempty"`
+}

@@ -21,5 +21,5 @@ type WishlistService interface {
 
 	PostAddWishlist(int, dtos.AddWishlistRequest) (*entities.Wishlist, error)
 
-	PostCopyWishlist(int, int) (*entities.Wishlist, error)
+	PostCopyWishlist(int, int) (*entities.Wishlist, *entities.CopiedWishlist, error)
 }
