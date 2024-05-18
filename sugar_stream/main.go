@@ -55,6 +55,11 @@ func main() {
 		panic("Failed to AutoMigrate Follow")
 	}
 
+	err = db.AutoMigrate(&entities.CopiedWishlist{})
+	if err != nil {
+		panic("Failed to AutoMigrate CopiedWishlist")
+	}
+
 	minioClient, err := minio.New(viper.GetString("minio.host")+":"+viper.GetString("minio.port"), &minio.Options{
 		Creds:  credentials.NewStaticV4("EneudJTZpjRIZuFYq6MF", "eo1uLxOg33oeuOHbI7kokmSNSp1AgJTfw1QMWLda", ""),
 		Secure: false,

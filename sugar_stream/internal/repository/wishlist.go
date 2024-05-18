@@ -17,4 +17,6 @@ type WishlistRepository interface {
 	UpdateReceiverDidntGetIt(wishlist *entities.Wishlist) error
 
 	PostAddWishlist(wishlist *entities.Wishlist) error
+
+	PostCopyWishlist(wishlist *entities.Wishlist, copyproduct *entities.CopiedWishlist) error
 }

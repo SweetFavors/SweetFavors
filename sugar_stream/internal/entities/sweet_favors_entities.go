@@ -11,9 +11,10 @@ type User struct {
 	UserPic   *string
 
 	// Define associations
-	Wishlists  []Wishlist `gorm:"foreignKey:UserID"`
-	Followers  []Follow   `gorm:"foreignKey:FollowingID"`
-	Followings []Follow   `gorm:"foreignKey:UserID"`
+	Wishlists          []Wishlist       `gorm:"foreignKey:UserID"`
+	Followers          []Follow         `gorm:"foreignKey:FollowingID"`
+	Followings         []Follow         `gorm:"foreignKey:UserID"`
+	WishlistCopyByUser []CopiedWishlist `gorm:"foreignKey:UserWhoCopyID"`
 }
 
 type Wishlist struct {
@@ -28,6 +29,9 @@ type Wishlist struct {
 	UsernameOfWishlist *string `gorm:"->"`
 	UserPicOfWishlist  *string `gorm:"->"`
 	UsernameOfGranter  *string `gorm:"->"`
+
+	// Define associations
+	WishlistBeingCopy []CopiedWishlist `gorm:"foreignKey:WishlistID"`
 }
 
 type Follow struct {
@@ -41,4 +45,9 @@ type Follow struct {
 	// Define associations
 	User      User `gorm:"foreignKey:UserID"`
 	Following User `gorm:"foreignKey:FollowingID"`
+}
+
+type CopiedWishlist struct {
+	WishlistID    *uint `gorm:"not null"`
+	UserWhoCopyID *uint `gorm:"not null"`
 }
