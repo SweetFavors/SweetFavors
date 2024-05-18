@@ -3,6 +3,8 @@ package main
 import (
 	"fmt"
 	jwtware "github.com/gofiber/contrib/jwt"
+	"github.com/minio/minio-go/v7"
+	"github.com/minio/minio-go/v7/pkg/credentials"
 	"log"
 	"strings"
 	"sugar_stream/internal/entities"
@@ -53,6 +55,18 @@ func main() {
 		panic("Failed to AutoMigrate Follow")
 	}
 
+	minioClient, err := minio.New("199.241.138.79:9000", &minio.Options{
+		Creds:  credentials.NewStaticV4("EneudJTZpjRIZuFYq6MF", "eo1uLxOg33oeuOHbI7kokmSNSp1AgJTfw1QMWLda", ""),
+		Secure: false,
+	})
+	if err != nil {
+		log.Fatalln(err)
+	}
+	fmt.Println("Minio connected")
+
+	uploadSer := service.NewUploadService(minioClient)
+	storageHandler := handler.NewStorageHandler(uploadSer)
+
 	userRepositoryDB := repository.NewUserRepositoryDB(db)
 	wishlistRepositoryDB := repository.NewWishlistRepositoryDB(db)
 	followRepositoryDB := repository.NewFollowRepositoryDB(db)
@@ -60,9 +74,10 @@ func main() {
 	userService := service.NewUserService(userRepositoryDB, jwtSecret)
 	wishlistService := service.NewWishlistService(wishlistRepositoryDB)
 	followService := service.NewFollowService(followRepositoryDB)
+	uploadService := service.NewUploadService(minioClient)
 
-	userHandler := handler.NewUserHandler(userService, jwtSecret)
-	wishlistHandler := handler.NewWishlistHandler(wishlistService, jwtSecret)
+	userHandler := handler.NewUserHandler(userService, jwtSecret, uploadService)
+	wishlistHandler := handler.NewWishlistHandler(wishlistService, jwtSecret, uploadService)
 	followHandler := handler.NewFollowHandler(followService, jwtSecret)
 
 	app := fiber.New()
@@ -98,6 +113,8 @@ func main() {
 	app.Get("/Following/:UserID", followHandler.GetFollowing)
 	app.Get("/Followers/:UserID", followHandler.GetFollowers)
 
+	app.Post("/upload", storageHandler.UploadFile)
+
 	//////////////////////////////////////////////////////////////////////////////////////
 
 	// Use this endpoint for project
@@ -127,7 +144,7 @@ func main() {
 	app.Get("/GetEditUserProfile/:UserID", userHandler.GetEditUserProfile)
 	app.Patch("/UpdateEditUserProfile/:UserID", userHandler.UpdateEditUserProfile)
 
-	app.Post("/PostCopyWishlist/:WishlistID", wishlistHandler.PostCopyWishlist)
+	app.Post("/PostCopyWishlist/:WishlistID", wishlistHandler.PostCopyWishlist) //#
 
 	//#####################################################################################
 

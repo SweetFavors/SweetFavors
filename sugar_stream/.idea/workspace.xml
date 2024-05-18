@@ -5,7 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ff5bdd17-43a6-40c6-9987-57eaa2537347" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/internal/handler/storage.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/service/upload.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/service/upload_service.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/dtos/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/dtos/user.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/handler/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/handler/user.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internal/handler/wishlist.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/handler/wishlist.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/service/user_service.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/service/user_service.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,6 +37,9 @@
   &quot;associatedIndex&quot;: 8
 }</component>
   <component name="ProjectId" id="2frYJeDBuqoE3G6YAj46VKKUrx2" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
