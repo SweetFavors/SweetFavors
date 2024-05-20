@@ -19,7 +19,7 @@ class NewWishAdd extends StatefulWidget {
 class _NewWishAddState extends State<NewWishAdd> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _itemNameController = TextEditingController();
-  final TextEditingController _quantityController = TextEditingController();
+  // final TextEditingController _quantityController = TextEditingController();
   final TextEditingController _priceController = TextEditingController();
   final TextEditingController _linkUrlController = TextEditingController();
 // /PostAddWishlist/:UserID
@@ -33,10 +33,10 @@ class _NewWishAddState extends State<NewWishAdd> {
     try {
       var formData = FormData.fromMap({
         'itemname': _itemNameController.text ?? '',
-        'quantity': _quantityController.text ?? '',
-        'price': _priceController.text ?? '',
+        // 'quantity': _quantityController.text ?? '',
+        'Price': _priceController.text ?? '',
         'LinkURL': _linkUrlController.text ?? '',
-        'ItemPic': await MultipartFile.fromFile(
+        'file': await MultipartFile.fromFile(
           _selectedImage!.path,
           filename: _selectedImage!.path.split('/').last,
         ),
@@ -68,7 +68,7 @@ class _NewWishAddState extends State<NewWishAdd> {
   @override
   void dispose() {
     _itemNameController.dispose();
-    _quantityController.dispose();
+    // _quantityController.dispose();
     _priceController.dispose();
     _linkUrlController.dispose();
     super.dispose();
@@ -104,10 +104,10 @@ class _NewWishAddState extends State<NewWishAdd> {
                   label: 'Item name',
                   controller: _itemNameController,
                 ),
-                TextForm(
-                  label: 'Quantity',
-                  controller: _quantityController,
-                ),
+                // TextForm(
+                //   label: 'Quantity',
+                //   controller: _quantityController,
+                // ),
                 TextForm(
                   label: 'Price',
                   controller: _priceController,
@@ -138,14 +138,14 @@ class _NewWishAddState extends State<NewWishAdd> {
                         print(_itemNameController.text);
                         print(_linkUrlController.text);
                         print(_priceController.text);
-                        print(_quantityController.text);
+                        // print(_quantityController.text);
                         print(_selectedImage);
                       } else {
                         print('false not successful');
                         print(_itemNameController.text);
                         print(_linkUrlController.text);
                         print(_priceController.text);
-                        print(_quantityController.text);
+                        // print(_quantityController.text);
                         print(_selectedImage);
                       }
                     },
