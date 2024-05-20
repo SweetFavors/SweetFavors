@@ -1,9 +1,11 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:sweet_favors/components/my_button.dart';
 import 'package:sweet_favors/components/my_textfield.dart';
+import 'package:sweet_favors/widgets/add_image.dart';
 
 class SignUpPage extends StatefulWidget {
   final void Function()? onTap;
@@ -15,9 +17,11 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
+  File? _selectedImage;
   //text controllers
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final TextEditingController usernameController = TextEditingController();
   final TextEditingController fnameController = TextEditingController();
   final TextEditingController lnameController = TextEditingController();
   final TextEditingController phoneNumController = TextEditingController();
@@ -28,7 +32,8 @@ class _SignUpPageState extends State<SignUpPage> {
     if (fnameController.text.isEmpty ||
         emailController.text.isEmpty ||
         passwordController.text.isEmpty ||
-        confirmPwController.text.isEmpty) {
+        confirmPwController.text.isEmpty ||
+        usernameController.text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Please fill in all fields')),
       );
@@ -44,21 +49,23 @@ class _SignUpPageState extends State<SignUpPage> {
 
     // Send the POST request to the registration endpoint
     final dio = Dio();
-    String username = fnameController.text + lnameController.text;
-    final payload = {
-      "username": username,
+    var payload = FormData.fromMap({
+      "username": usernameController.text,
       "password": passwordController.text,
       "email": emailController.text,
       "firstname": fnameController.text,
       "lastname": lnameController.text,
       "phone_num": phoneNumController.text,
-      "user_pic": "",
-    };
+      'file': await MultipartFile.fromFile(
+        _selectedImage!.path,
+        filename: _selectedImage!.path.split('/').last,
+      ),
+    });
 
     try {
       final response = await dio.post(
         'http://10.0.2.2:1432/Register',
-        data: json.encode(payload),
+        data: payload,
         options: Options(
           headers: {
             'Content-Type': 'application/json',
@@ -76,6 +83,7 @@ class _SignUpPageState extends State<SignUpPage> {
           const SnackBar(content: Text('Registration successful')),
         );
         // Clear the form fields
+        usernameController.clear();
         fnameController.clear();
         lnameController.clear();
         phoneNumController.clear();
@@ -127,6 +135,13 @@ class _SignUpPageState extends State<SignUpPage> {
                       ),
                     ),
                     const SizedBox(height: 5),
+                    MyTextField(
+                      hintText: 'Input your username',
+                      obscureText: false,
+                      controller: usernameController,
+                      border: true,
+                    ),
+                    const SizedBox(height: 10),
                     MyTextField(
                       hintText: 'Input your first name',
                       obscureText: false,
@@ -244,6 +259,19 @@ class _SignUpPageState extends State<SignUpPage> {
                 ),
 
                 const SizedBox(height: 35),
+
+                Padding(
+                  padding: const EdgeInsets.only(top: 20.0),
+                  child: AddImage(
+                      onImageSelected: (image) {
+                        if (image != null) {
+                          setState(() {
+                            _selectedImage = image;
+                          });
+                        }
+                      },
+                      textfill: 'Please add profile picture'),
+                ),
 
                 //sign in button
                 MyButton(
