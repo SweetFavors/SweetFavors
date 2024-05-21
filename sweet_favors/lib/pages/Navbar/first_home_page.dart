@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sweet_favors/provider/token_provider.dart';
 import 'package:sweet_favors/widgets/card_widget.dart';
+import 'package:sweet_favors/widgets/friends_msg_card.dart';
 import 'package:sweet_favors/widgets/profile_bar.dart';
 import 'package:sweet_favors/components/integrate_model.dart' as components;
 
@@ -114,21 +115,23 @@ class _FirstHomePageState extends State<FirstHomePage> {
             const SizedBox(height: 35.0), // Spacing between profile and card
 
             Expanded(
-              child: ListView.builder(
-                itemCount: wishlists.length,
-                itemBuilder: (context, index) {
-                  final wishlist = wishlists[index];
-                  return CardWidget(
-                    product: wishlist.itemname,
-                    grantBy: wishlist.userNameOfGranter,
-                    grantedByUserId: wishlist.grantedByUserId,
-                    wishlistId: wishlist.wishlistId,
-                    username: username,
-                    userid: userid,
-                    alreadyBought: wishlist.alreadyBought,
-                  );
-                },
-              ),
+              child: wishlists.isEmpty
+                  ? const FriendsMsgCard(message: "The list is empty")
+                  : ListView.builder(
+                      itemCount: wishlists.length,
+                      itemBuilder: (context, index) {
+                        final wishlist = wishlists[index];
+                        return CardWidget(
+                          product: wishlist.itemname,
+                          grantBy: wishlist.userNameOfGranter,
+                          grantedByUserId: wishlist.grantedByUserId,
+                          wishlistId: wishlist.wishlistId,
+                          username: username,
+                          userid: userid,
+                          alreadyBought: wishlist.alreadyBought,
+                        );
+                      },
+                    ),
             ),
           ],
         ),
