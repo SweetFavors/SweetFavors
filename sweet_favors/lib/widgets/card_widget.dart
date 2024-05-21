@@ -16,6 +16,7 @@ class CardWidget extends StatelessWidget {
   final int? userid;
   final bool? alreadyBought;
   final int? grantedByUserId;
+  final VoidCallback? onUpdate;
 
   const CardWidget({
     super.key,
@@ -26,6 +27,7 @@ class CardWidget extends StatelessWidget {
     this.userid,
     this.alreadyBought,
     this.grantedByUserId,
+    this.onUpdate
   });
 
   @override
@@ -98,12 +100,14 @@ class CardWidget extends StatelessWidget {
                             onPressed: () async {
                               Navigator.of(dialogContext).pop();
                               await _RecieverGotIt();
+                              onUpdate!();
                             },
                             text: 'Yes'),
                         ButtonForPopUp(
                             onPressed: () async {
                               Navigator.of(dialogContext).pop();
                               await _RecieverDidntGetit();
+                              onUpdate!();
                             },
                             text: 'No'),
                       ],
