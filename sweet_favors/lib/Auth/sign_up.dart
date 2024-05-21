@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:sweet_favors/Auth/login.dart';
 import 'package:sweet_favors/components/my_button.dart';
 import 'package:sweet_favors/components/my_textfield.dart';
 import 'package:sweet_favors/widgets/add_image.dart';
@@ -84,6 +85,12 @@ class _SignUpPageState extends State<SignUpPage> {
         emailController.clear();
         passwordController.clear();
         confirmPwController.clear();
+
+        //navigate to LoginPage()
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const LoginPage()),
+        );
       } else {
         // Registration failed
         ScaffoldMessenger.of(context).showSnackBar(

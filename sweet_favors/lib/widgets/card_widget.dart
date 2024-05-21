@@ -127,10 +127,8 @@ class CardWidget extends StatelessWidget {
                 ? const Color.fromARGB(
                     173, 183, 255, 219) // Green (granted and bought)
                 : (grantBy != null || alreadyBought == true)
-                    ? const Color.fromARGB(
-                        198, 242, 215, 255) // Purple (granted or bought)
-                    : const Color.fromARGB(
-                        153, 255, 225, 90), // Yellow (neither)
+                    ? const Color.fromARGB(153, 255, 225, 90)
+                    : const Color.fromARGB(198, 242, 215, 255),
             elevation: 7,
             child: Column(
               mainAxisSize: MainAxisSize.min,
