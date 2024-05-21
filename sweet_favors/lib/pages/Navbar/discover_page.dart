@@ -59,6 +59,9 @@ class _discover_pageState extends State<discover_page> {
     ); // Adjust the endpoint
     if (response.statusCode == 200) {
       final Map<String, dynamic> wishData = response.data;
+      setState(() {
+        _fetchData();
+      });
       return [wishData]; // Wrap the map in a list
     } else {
       throw Exception('Failed to load wishlists');
