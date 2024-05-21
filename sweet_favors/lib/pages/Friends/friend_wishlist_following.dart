@@ -5,7 +5,6 @@ import 'package:sweet_favors/components/following_model.dart';
 import 'package:sweet_favors/provider/token_provider.dart';
 import 'package:sweet_favors/widgets/card_widget.dart';
 import 'package:sweet_favors/widgets/friend_profile_bar.dart';
-import 'package:sweet_favors/widgets/bottomBar.dart';
 import 'package:sweet_favors/widgets/friends_msg_card.dart';
 import 'package:sweet_favors/components/integrate_model.dart' as components;
 
@@ -43,11 +42,9 @@ class _FriendWishlistFollowingState extends State<FriendWishlistFollowing> {
         },
       ),
     );
-    print(widget.following.userId);
 
     if (response.statusCode == 200) {
       final parsedJson = response.data as List; // Directly get the parsed data
-      print(response.data);
       setState(() {
         wishlists = parsedJson
             .map((json) => components.Wishlist.fromJson(json))
@@ -72,8 +69,6 @@ class _FriendWishlistFollowingState extends State<FriendWishlistFollowing> {
         },
       ),
     );
-    print(widget.following.userId);
-    print(widget.following.followingId);
 
     if (response1.statusCode != 200 ||
         response1.data['user_id'] == null ||
@@ -91,8 +86,6 @@ class _FriendWishlistFollowingState extends State<FriendWishlistFollowing> {
         },
       ),
     );
-    print(widget.following.userId);
-    print(widget.following.followingId);
 
     if (response2.statusCode != 200 ||
         response2.data['user_id'] == null ||

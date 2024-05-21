@@ -3,7 +3,6 @@ import 'dart:io';
 // import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:sweet_favors/Utils/color_use.dart';
 // import 'package:sweet_favors/pages/home.dart'; // Make sure this import is correct
 // import 'package:sweet_favors/widgets/text_form.dart';
 // import 'package:sweet_favors/widgets/button_at_bottom.dart';

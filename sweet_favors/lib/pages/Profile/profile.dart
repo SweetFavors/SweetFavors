@@ -8,7 +8,6 @@ import 'package:sweet_favors/Utils/text_use.dart';
 import 'package:sweet_favors/pages/Profile/edit_profile.dart';
 import 'package:sweet_favors/pages/Profile/eula.dart';
 import 'package:sweet_favors/provider/token_provider.dart';
-import 'package:sweet_favors/widgets/bottomBar.dart';
 import 'package:sweet_favors/widgets/button_at_bottom.dart';
 import 'package:sweet_favors/widgets/card_widget.dart';
 import 'package:sweet_favors/widgets/title_bar.dart';
@@ -39,9 +38,6 @@ class _ProfileState extends State<Profile> {
     final token = Provider.of<TokenProvider>(context, listen: false).token;
     final userId = Provider.of<TokenProvider>(context, listen: false).userId;
 
-    print("Profile.dart");
-    print(token);
-    print(userId);
     Dio dio = Dio();
     final response = await dio.get(
       'http://10.0.2.2:1432/GetProfileOfCurrentUser/$userId',
@@ -79,7 +75,7 @@ class _ProfileState extends State<Profile> {
                   return Column(
                     children: [
                       buildtop(userData),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       RegularTextBold(userData?['username'] ?? ''),
@@ -91,12 +87,12 @@ class _ProfileState extends State<Profile> {
                       const SizedBox(
                         height: 40,
                       ),
-                      ProfileCard(
+                      const ProfileCard(
                         product: 'Edit profile information',
                         icon: Icons.edit_square,
                         destination: EditProfile(),
                       ),
-                      ProfileCard(
+                      const ProfileCard(
                         product: 'Privacy policy',
                         icon: Icons.policy,
                         destination: Eula(),
@@ -122,7 +118,7 @@ class _ProfileState extends State<Profile> {
       // Navigate to the login page
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => LoginOrRegister()),
+        MaterialPageRoute(builder: (context) => const LoginOrRegister()),
       );
     }
 

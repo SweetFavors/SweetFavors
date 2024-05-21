@@ -12,15 +12,17 @@ class Payment extends StatelessWidget {
     return Scaffold(
       appBar: const CustomAppBarPop(title: 'Payment', centerTitle: true),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween, 
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Divider(color: Colors.grey),
-           Container( 
-              padding: EdgeInsets.all(20), 
-              child: PaymentInfo(userId: userId,), 
+          const Divider(color: Colors.grey),
+          Container(
+            padding: const EdgeInsets.all(20),
+            child: PaymentInfo(
+              userId: userId,
+            ),
           ),
-          const Spacer(), 
-          ButtonAtBottom(onPressed: () {}, text: 'Done'), 
+          const Spacer(),
+          ButtonAtBottom(onPressed: () {}, text: 'Done'),
         ],
       ),
     );

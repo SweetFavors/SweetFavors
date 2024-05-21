@@ -3,14 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sweet_favors/pages/welcome.dart';
 import 'package:sweet_favors/provider/token_provider.dart';
-import 'Auth/login.dart';
 import 'Auth/login_or_register.dart';
-import 'Auth/sign_up.dart';
 import 'pages/Navbar/first_home_page.dart';
-import 'pages/Navbar/friend_page.dart';
-import 'pages/Navbar/new_wish_add.dart';
-import 'pages/Navbar/discover_page.dart';
-import 'pages/home.dart';
 
 void main() {
   runApp(

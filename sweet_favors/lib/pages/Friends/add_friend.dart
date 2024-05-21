@@ -2,11 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sweet_favors/Utils/color_use.dart';
-import 'package:sweet_favors/pages/Navbar/friend_page.dart';
-import 'package:sweet_favors/pages/home.dart';
 import 'package:sweet_favors/provider/token_provider.dart';
 import 'package:sweet_favors/widgets/friend_form.dart';
-import 'package:sweet_favors/widgets/bottomBar.dart';
 import 'package:sweet_favors/widgets/friend_list.dart';
 
 class AddFriend extends StatefulWidget {
@@ -53,9 +50,7 @@ class _AddFriendState extends State<AddFriend> {
           friends = jsonResponse;
           _isLoading = false;
         });
-        print(friends);
       } else {
-        print('Failed to load search results');
         setState(() {
           friends = [];
           _isLoading = false;

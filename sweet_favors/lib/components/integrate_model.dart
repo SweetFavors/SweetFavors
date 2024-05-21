@@ -8,6 +8,7 @@ class Wishlist {
   bool? alreadyBought; // Make it nullable to handle potential null values
   String? userNameOfGranter;
   String? userNameOfWishlist;
+  int? grantedByUserId;
 
   Wishlist(
       {required this.wishlistId,
@@ -18,7 +19,8 @@ class Wishlist {
       this.itemPic,
       this.alreadyBought,
       this.userNameOfGranter,
-      this.userNameOfWishlist});
+      this.userNameOfWishlist,
+      this.grantedByUserId});
 
   factory Wishlist.fromJson(Map<String, dynamic> json) {
     return Wishlist(
@@ -30,7 +32,8 @@ class Wishlist {
         itemPic: json['item_pic'],
         alreadyBought: json['already_bought'],
         userNameOfGranter: json['username_of_granter'],
-        userNameOfWishlist: json['username_of_wishlist']);
+        userNameOfWishlist: json['username_of_wishlist'],
+        grantedByUserId: json['granted_by_user_id']);
   }
 }
 

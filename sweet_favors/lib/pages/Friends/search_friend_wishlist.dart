@@ -41,7 +41,6 @@ class _SearchFriendState extends State<SearchFriend> {
 
     if (response.statusCode == 200) {
       final parsedJson = response.data as List; // Directly get the parsed data
-      print(response.data);
       setState(() {
         wishlists = parsedJson
             .map((json) => components.Wishlist.fromJson(json))

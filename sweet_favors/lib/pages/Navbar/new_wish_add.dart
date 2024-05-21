@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sweet_favors/pages/home.dart';
 import 'package:sweet_favors/provider/token_provider.dart';
 import 'package:sweet_favors/widgets/text_form.dart';
 import 'package:sweet_favors/widgets/button_at_bottom.dart';
@@ -28,7 +27,7 @@ class _NewWishAddState extends State<NewWishAdd> {
   Future<bool> addWishlistItem() async {
     final token = Provider.of<TokenProvider>(context, listen: false).token;
     final userId = Provider.of<TokenProvider>(context, listen: false).userId;
-    final url = 'http://10.0.2.2:1432/PostAddWishlist';
+    const url = 'http://10.0.2.2:1432/PostAddWishlist';
 
     try {
       var formData = FormData.fromMap({
@@ -55,7 +54,7 @@ class _NewWishAddState extends State<NewWishAdd> {
 
       if (response.statusCode == 200) {
         var map = response.data as Map;
-        print('success');
+
         if (map['status'] == 'Successfully registered') {
           return true;
         }
@@ -64,7 +63,6 @@ class _NewWishAddState extends State<NewWishAdd> {
         return false;
       }
     } catch (e) {
-      print(e);
       return false;
     }
   }

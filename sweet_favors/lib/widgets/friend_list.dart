@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sweet_favors/Utils/color_use.dart';
 import 'package:sweet_favors/pages/Friends/search_friend_wishlist.dart'; // Import FriendProfile page
 
 class FriendList extends StatelessWidget {

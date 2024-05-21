@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
@@ -55,7 +54,7 @@ class _SignUpPageState extends State<SignUpPage> {
       "email": emailController.text,
       "firstname": fnameController.text,
       "lastname": lnameController.text,
-      "phone_num": phoneNumController.text,
+      "phonenum": phoneNumController.text,
       'file': await MultipartFile.fromFile(
         _selectedImage!.path,
         filename: _selectedImage!.path.split('/').last,
@@ -72,11 +71,6 @@ class _SignUpPageState extends State<SignUpPage> {
           },
         ),
       );
-
-      print("test signtup");
-      print(response.statusCode);
-      print(response);
-
       if (response.statusCode == 201) {
         // Registration successful
         ScaffoldMessenger.of(context).showSnackBar(

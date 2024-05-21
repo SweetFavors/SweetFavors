@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sweet_favors/Utils/text_use.dart';
-import 'package:sweet_favors/Utils/color_use.dart';
 
 class FriendsMsgCard extends StatelessWidget {
   final String message;
@@ -16,7 +14,7 @@ class FriendsMsgCard extends StatelessWidget {
           height: 150,
           width: 400,
           child: Card(
-            color: Color.fromARGB(163, 223, 143, 210),
+            color: const Color.fromARGB(163, 223, 143, 210),
             elevation: 7,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,

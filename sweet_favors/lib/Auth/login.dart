@@ -2,7 +2,6 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:sweet_favors/components/my_button.dart';
 import 'package:sweet_favors/components/my_textfield.dart';
-import 'package:sweet_favors/pages/Navbar/first_home_page.dart';
 import 'package:sweet_favors/pages/home.dart';
 import 'package:sweet_favors/provider/token_provider.dart';
 import 'package:provider/provider.dart';
@@ -62,7 +61,7 @@ class _LoginPageState extends State<LoginPage> {
   void _navigateToFirstHomePage(String token) {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => Home()),
+      MaterialPageRoute(builder: (context) => const Home()),
     );
   }
 

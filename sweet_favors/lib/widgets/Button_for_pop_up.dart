@@ -12,13 +12,12 @@ class ButtonForPopUp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-        onPressed: onPressed,
-        style: ElevatedButton.styleFrom(
-            backgroundColor: colorUse.activeButton,
-            fixedSize: Size(400, 40), // Set a fixed size to the button 
-        ),
-        child: RegularTextButton(text),
+      onPressed: onPressed,
+      style: ElevatedButton.styleFrom(
+        backgroundColor: colorUse.activeButton,
+        fixedSize: const Size(400, 40), // Set a fixed size to the button
+      ),
+      child: RegularTextButton(text),
     );
+  }
 }
-}
-

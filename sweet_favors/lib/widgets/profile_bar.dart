@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:sweet_favors/Utils/color_use.dart';
 import 'package:sweet_favors/pages/Profile/profile.dart';
@@ -15,8 +14,7 @@ class ProfileBar extends StatefulWidget {
       required this.images,
       required this.name,
       required this.email,
-      required this.fullname
-      });
+      required this.fullname});
 
   @override
   State<ProfileBar> createState() => _ProfileBarState();
@@ -60,7 +58,7 @@ class _ProfileBarState extends State<ProfileBar> {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Text(

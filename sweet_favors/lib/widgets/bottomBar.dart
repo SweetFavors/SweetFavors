@@ -66,7 +66,7 @@ class _bottomBar extends State<bottomBar> with SingleTickerProviderStateMixin {
           controller: tabController,
           dragStartBehavior: DragStartBehavior.down,
           physics: const NeverScrollableScrollPhysics(),
-          children: [
+          children: const [
             FirstHomePage(),
             discover_page(),
             NewWishAdd(),

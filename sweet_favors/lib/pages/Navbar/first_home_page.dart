@@ -72,7 +72,6 @@ class _FirstHomePageState extends State<FirstHomePage> {
     );
 
     if (response.statusCode == 200) {
-      print(token);
       final parsedJson = response.data; // Directly get the parsed data
       setState(() {
         // Update the username and email variables with the parsed user data
@@ -122,7 +121,7 @@ class _FirstHomePageState extends State<FirstHomePage> {
                   return CardWidget(
                     product: wishlist.itemname,
                     grantBy: wishlist.userNameOfGranter,
-                    // grantedByUserId: wishlist.grantedByUserId,
+                    grantedByUserId: wishlist.grantedByUserId,
                     wishlistId: wishlist.wishlistId,
                     username: username,
                     userid: userid,

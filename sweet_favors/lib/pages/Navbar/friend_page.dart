@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sweet_favors/Utils/color_use.dart';
-import 'package:sweet_favors/pages/home.dart';
 import 'package:sweet_favors/pages/Friends/add_friend.dart';
-import 'package:sweet_favors/widgets/drop_down.dart';
 import 'package:sweet_favors/widgets/follower_content.dart';
 import 'package:sweet_favors/widgets/following_content.dart';
 
@@ -36,7 +34,7 @@ class _FriendpageState extends State<Friendpage>
         ),
         backgroundColor: colorUse.appBarColor,
         elevation: 5,
-        shadowColor: Color.fromARGB(255, 98, 98, 98),
+        shadowColor: const Color.fromARGB(255, 98, 98, 98),
         centerTitle: true,
         automaticallyImplyLeading: false,
         actions: <Widget>[

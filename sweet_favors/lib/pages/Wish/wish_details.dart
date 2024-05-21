@@ -182,7 +182,7 @@ class _WishDetailsState extends State<WishDetails> {
                             child: RegularTextBold('Request by'),
                           ),
                           Padding(
-                            padding: EdgeInsets.only(left: 12),
+                            padding: const EdgeInsets.only(left: 12),
                             child: RegularText(
                                 username), // Replace with actual data
                           ),
@@ -192,7 +192,7 @@ class _WishDetailsState extends State<WishDetails> {
                             child: RegularTextBold('Link URL'),
                           ),
                           Padding(
-                            padding: EdgeInsets.only(left: 12),
+                            padding: const EdgeInsets.only(left: 12),
                             child: RegularText(
                                 linkurl), // Replace with actual data
                           ),

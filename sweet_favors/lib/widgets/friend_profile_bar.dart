@@ -3,8 +3,6 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sweet_favors/Utils/color_use.dart';
-import 'package:sweet_favors/pages/Friends/add_friend.dart';
-import 'package:sweet_favors/pages/home.dart';
 import 'package:sweet_favors/provider/token_provider.dart';
 
 class FriendProfileBar extends StatefulWidget {

@@ -17,65 +17,61 @@ class CardWidget extends StatelessWidget {
   final bool? alreadyBought;
   final int? grantedByUserId;
 
-  const CardWidget(
-      {super.key,
-      required this.product,
-      this.grantBy,
-      required this.wishlistId,
-      this.username,
-      this.userid,
-      this.alreadyBought,
-      this.grantedByUserId,
-      });
-
-
-
+  const CardWidget({
+    super.key,
+    required this.product,
+    this.grantBy,
+    required this.wishlistId,
+    this.username,
+    this.userid,
+    this.alreadyBought,
+    this.grantedByUserId,
+  });
 
   @override
   Widget build(BuildContext context) {
-
     Future<Map<String, dynamic>> _RecieverGotIt() async {
-    final token = Provider.of<TokenProvider>(context, listen: false).token;
-    final userId = Provider.of<TokenProvider>(context, listen: false).userId;
-    Dio dio = Dio(); // Create a Dio instance
-    final response = await dio.put(
-      'http://10.0.2.2:1432/UpdateReceiverGotIt/$wishlistId/$grantedByUserId',
-      options: Options(
-        headers: {
-          'Authorization': 'Bearer $token',
-          'Content-Type': 'application/json', // Adjust content type as needed
-        },
-      ),
-    );
+      final token = Provider.of<TokenProvider>(context, listen: false).token;
+      final userId = Provider.of<TokenProvider>(context, listen: false).userId;
+      Dio dio = Dio(); // Create a Dio instance
+      final response = await dio.put(
+        'http://10.0.2.2:1432/UpdateReceiverGotIt/$wishlistId/$grantedByUserId',
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+            'Content-Type': 'application/json', // Adjust content type as needed
+          },
+        ),
+      );
 
-    if (response.statusCode == 200) {
-      return response.data;
-    } else {
-      throw Exception('Failed to put _RecieverGotIt');
+      if (response.statusCode == 200) {
+        return response.data;
+      } else {
+        throw Exception('Failed to put _RecieverGotIt');
+      }
     }
-  }
 
-  Future<Map<String, dynamic>> _RecieverDidntGetit() async {
-    final token = Provider.of<TokenProvider>(context, listen: false).token;
-    final userId = Provider.of<TokenProvider>(context, listen: false).userId;
-    Dio dio = Dio(); // Create a Dio instance
-    final response = await dio.put(
-      'http://10.0.2.2:1432/UpdateReceiverDidntGetIt/$wishlistId/$grantedByUserId',
-      options: Options(
-        headers: {
-          'Authorization': 'Bearer $token',
-          'Content-Type': 'application/json', // Adjust content type as needed
-        },
-      ),
-    );
+    Future<Map<String, dynamic>> _RecieverDidntGetit() async {
+      final token = Provider.of<TokenProvider>(context, listen: false).token;
+      final userId = Provider.of<TokenProvider>(context, listen: false).userId;
+      Dio dio = Dio(); // Create a Dio instance
+      final response = await dio.put(
+        'http://10.0.2.2:1432/UpdateReceiverDidntGetIt/$wishlistId/$grantedByUserId',
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+            'Content-Type': 'application/json', // Adjust content type as needed
+          },
+        ),
+      );
 
-    if (response.statusCode == 200) {
-      return response.data;
-    } else {
-      throw Exception('Failed to put _RecieverDidntGetit');
+      if (response.statusCode == 200) {
+        return response.data;
+      } else {
+        throw Exception('Failed to put _RecieverDidntGetit');
+      }
     }
-  }
-  
+
     return Center(
       child: Container(
         margin: const EdgeInsets.only(bottom: 25),
@@ -91,25 +87,29 @@ class CardWidget extends StatelessWidget {
                   ),
                 ),
               );
-            }else if(grantBy != null && alreadyBought != true ){
-              showDialog(context: context,
-                         builder: (BuildContext dialogContext) {
-                          return PopUp(title: 'Did you recieved the wish?',
-                                        buttons: [
-                                          
-                                                          ButtonForPopUp(onPressed: () async{
-                                                            Navigator.of(dialogContext).pop();
-                                                            await _RecieverGotIt();
-                                                          }, text:'Yes'),
-                                                          ButtonForPopUp(onPressed: () async{
-                                                            Navigator.of(dialogContext).pop();
-                                                            await _RecieverDidntGetit();
-                                                          }, text: 'No'),
-                                                 ],
-                              );
-                         }
-                         );
-            }else if(grantBy == null && alreadyBought == null){
+            } else if (grantBy != null && alreadyBought != true) {
+              showDialog(
+                  context: context,
+                  builder: (BuildContext dialogContext) {
+                    return PopUp(
+                      title: 'Did you recieved the wish?',
+                      buttons: [
+                        ButtonForPopUp(
+                            onPressed: () async {
+                              Navigator.of(dialogContext).pop();
+                              await _RecieverGotIt();
+                            },
+                            text: 'Yes'),
+                        ButtonForPopUp(
+                            onPressed: () async {
+                              Navigator.of(dialogContext).pop();
+                              await _RecieverDidntGetit();
+                            },
+                            text: 'No'),
+                      ],
+                    );
+                  });
+            } else if (grantBy == null && alreadyBought == null) {
               Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -124,10 +124,13 @@ class CardWidget extends StatelessWidget {
           child: Card(
             // margin: EdgeInsets.only(bottom: 25),
             color: grantBy != null && alreadyBought == true
-              ? const Color.fromARGB(173, 183, 255, 219) // Green (granted and bought)
-              : (grantBy != null || alreadyBought == true)
-                ? const Color.fromARGB(198, 242, 215, 255) // Purple (granted or bought)
-                : const Color.fromARGB(153, 255, 225, 90), // Yellow (neither)
+                ? const Color.fromARGB(
+                    173, 183, 255, 219) // Green (granted and bought)
+                : (grantBy != null || alreadyBought == true)
+                    ? const Color.fromARGB(
+                        198, 242, 215, 255) // Purple (granted or bought)
+                    : const Color.fromARGB(
+                        153, 255, 225, 90), // Yellow (neither)
             elevation: 7,
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -147,17 +150,24 @@ class CardWidget extends StatelessWidget {
                     ),
                   ),
                   subtitle: Text(
-                          grantBy != null
-                            ? 'Granted by $grantBy'
-                            : alreadyBought == true
-                              ? 'Already bought'
-                              : 'Not granted yet',
-                          style: (grantBy != null && alreadyBought == true) // Use nested ternary for subtitle style
-                            ? const TextStyle(color: Color.fromARGB(202, 76, 122, 102)).merge(TextStyles.cardSubtitleStyle())
-                            : (grantBy != null || alreadyBought == true)
-                              ? const TextStyle(color: Color.fromARGB(224, 103, 78, 117)).merge(TextStyles.cardSubtitleStyle())
-                              : TextStyles.cardSubtitleStyle(), // Default style if neither condition is true
-                        ),
+                    grantBy != null
+                        ? 'Granted by $grantBy'
+                        : alreadyBought == true
+                            ? 'Already bought'
+                            : 'Not granted yet',
+                    style: (grantBy != null &&
+                            alreadyBought ==
+                                true) // Use nested ternary for subtitle style
+                        ? const TextStyle(
+                                color: Color.fromARGB(202, 76, 122, 102))
+                            .merge(TextStyles.cardSubtitleStyle())
+                        : (grantBy != null || alreadyBought == true)
+                            ? const TextStyle(
+                                    color: Color.fromARGB(224, 103, 78, 117))
+                                .merge(TextStyles.cardSubtitleStyle())
+                            : TextStyles
+                                .cardSubtitleStyle(), // Default style if neither condition is true
+                  ),
                 ),
                 const SizedBox(height: 10.0),
               ],
