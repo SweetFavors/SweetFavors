@@ -140,8 +140,11 @@ class _FriendWishlistFollowingState extends State<FriendWishlistFollowing> {
                                 final wishlist = wishlists[index];
                                 return CardWidget(
                                   product: wishlist.itemname,
-                                  grantBy: wishlist.userNameOfGranter ?? "",
+                                  grantBy: wishlist.userNameOfGranter,
                                   wishlistId: wishlist.wishlistId,
+                                  username: wishlist.userNameOfWishlist,
+                                  userid: wishlist.userId,
+                                  alreadyBought: wishlist.alreadyBought,
                                 );
                               },
                             ),

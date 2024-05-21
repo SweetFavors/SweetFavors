@@ -67,6 +67,7 @@ func (r wishlistRepositoryDB) GetAllFriendsWishlists(userid int) ([]entities.Wis
 		Where("f1.user_id IS NOT NULL AND f2.user_id IS NOT NULL").
 		Where("wishlists.already_bought IS NULL").
 		Where("wishlists.granted_by_user_id IS NULL").
+		Where("wishlists.wishlist_id NOT IN (?)", r.db.Table("copied_wishlists").Select("wishlist_id").Where("user_who_copy_id = ?", userid)).
 		Order("wishlist_id").
 		Scan(&wishlists)
 	if result.Error != nil {
@@ -138,4 +139,18 @@ func (r wishlistRepositoryDB) PostAddWishlist(wishlist *entities.Wishlist) error
 		return result.Error
 	}
 	return nil
+}
+
+func (r wishlistRepositoryDB) PostCopyWishlist(wishlist *entities.Wishlist, copiedwishlist *entities.CopiedWishlist) error {
+	resultW := r.db.Create(wishlist)
+	if resultW.Error != nil {
+		return resultW.Error
+	}
+
+	resultC := r.db.Create(copiedwishlist)
+	if resultC.Error != nil {
+		return resultC.Error
+	}
+	return nil
+
 }

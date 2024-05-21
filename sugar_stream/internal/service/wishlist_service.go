@@ -258,10 +258,10 @@ func (s wishlistService) PostAddWishlist(userID int, req dtos.AddWishlistRequest
 	return wishlist, nil
 }
 
-func (s wishlistService) PostCopyWishlist(userID int, wishlistID int) (*entities.Wishlist, error) {
-	originalWishlistItem, err := s.wishlistRepo.GetWishlistByWishlistId(wishlistID)
+func (s wishlistService) PostCopyWishlist(userID int, wishlistID int) (*entities.Wishlist, *entities.CopiedWishlist, error) {
+	originalWishlistItem, err := s.wishlistRepo.GetWishlistDetailsByWishlistId(wishlistID)
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
 
 	copiedWishlistItem := &entities.Wishlist{
@@ -272,10 +272,15 @@ func (s wishlistService) PostCopyWishlist(userID int, wishlistID int) (*entities
 		ItemPic:  originalWishlistItem.ItemPic,
 	}
 
-	err = s.wishlistRepo.PostAddWishlist(copiedWishlistItem)
-	if err != nil {
-		return nil, err
+	copiedWishlistRecord := &entities.CopiedWishlist{
+		WishlistID:    originalWishlistItem.WishlistID,
+		UserWhoCopyID: v.UintPtr(userID),
 	}
 
-	return copiedWishlistItem, nil
+	err = s.wishlistRepo.PostCopyWishlist(copiedWishlistItem, copiedWishlistRecord)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return copiedWishlistItem, copiedWishlistRecord, nil
 }

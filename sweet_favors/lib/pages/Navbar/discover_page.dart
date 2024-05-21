@@ -53,10 +53,9 @@ class _discover_pageState extends State<discover_page> {
 
   Future<List<dynamic>> _CopyItem(int index) async {
     final token = Provider.of<TokenProvider>(context, listen: false).token;
-    final userId = Provider.of<TokenProvider>(context, listen: false).userId;
     Dio dio = Dio();
     final response = await dio.post(
-      'http://10.0.2.2:1432/PostCopyWishlist/$userId/${_wishItems[index].wishlistId}',
+      'http://10.0.2.2:1432/PostCopyWishlist/${_wishItems[index].wishlistId}',
       options: Options(
         headers: {
           'Authorization': 'Bearer $token',

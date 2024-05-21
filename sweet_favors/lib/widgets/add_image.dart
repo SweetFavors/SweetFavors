@@ -10,8 +10,10 @@ import 'package:sweet_favors/Utils/color_use.dart';
 
 class AddImage extends StatefulWidget {
   final Function(File) onImageSelected;
+  final String textfill;
 
-  const AddImage({super.key, required this.onImageSelected});
+  const AddImage(
+      {super.key, required this.onImageSelected, required this.textfill});
 
   @override
   _AddImageState createState() => _AddImageState();
@@ -58,15 +60,15 @@ class _AddImageState extends State<AddImage> {
                           width: 170,
                           height: 170,
                           fit: BoxFit.cover)
-                      : Icon(
+                      : const Icon(
                           Icons.image,
                           size: 30,
                         ), // Placeholder
                 ),
                 const SizedBox(height: 20),
-                const Text(
-                  'Add Image +',
-                  style: TextStyle(
+                Text(
+                  widget.textfill,
+                  style: const TextStyle(
                     fontSize: 14.0,
                     color: Color.fromARGB(255, 27, 28, 50),
                   ),

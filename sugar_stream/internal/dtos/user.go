@@ -72,7 +72,7 @@ type RegisterRequest struct {
 	Firstname *string `json:"firstname" validate:"required"`
 	Lastname  *string `json:"lastname" validate:"required"`
 	PhoneNum  *string `json:"phone_num" validate:"required"`
-	UserPic   *string `json:"user_pic" validate:"required"`
+	UserPic   *string `json:"user_pic" form:"userPic" validate:"required"`
 }
 
 type LoginRequest struct {
@@ -82,6 +82,13 @@ type LoginRequest struct {
 
 type UserResponse struct {
 	UserID   *uint   `json:"user_id" validate:"required"`
-	Username *string `json:"username"`
+	Username *string `json:"username" validate:"required"`
+	UserPic  *string `json:"user_pic" validate:"required"`
+	Token    *string `json:"token,omitempty"`
+}
+
+type LoginResponse struct {
+	UserID   *uint   `json:"user_id" validate:"required"`
+	Username *string `json:"username" validate:"required"`
 	Token    *string `json:"token,omitempty"`
 }
