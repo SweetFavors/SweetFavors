@@ -128,6 +128,9 @@ class _FriendProfileBarState extends State<FriendProfileBar> {
       );
 
       if (response.statusCode == 201) {
+        setState(() {
+          _isFollowing = true;
+        });
       } else {
         throw Exception('Failed to post follow relationship');
       }
