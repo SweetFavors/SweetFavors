@@ -18,8 +18,11 @@ class WishDetails extends StatefulWidget {
   final int wishlist_id;
   final String username;
   // final int? userIdOfUser;
-  const WishDetails(
-      {super.key, required this.wishlist_id, required this.username, });
+  const WishDetails({
+    super.key,
+    required this.wishlist_id,
+    required this.username,
+  });
 
   @override
   State<WishDetails> createState() => _WishDetailsState();
@@ -57,13 +60,12 @@ class _WishDetailsState extends State<WishDetails> {
     }
   }
 
-
   Future<void> _launchUrl(String url) async {
-    final Uri uri = Uri.parse(url); 
+    final Uri uri = Uri.parse(url);
     if (!await launchUrl(uri)) {
-        throw Exception('Could not launch $uri');
+      throw Exception('Could not launch $uri');
     }
-}
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -97,13 +99,14 @@ class _WishDetailsState extends State<WishDetails> {
                   children: [
                     const SizedBox(height: 30),
                     Image.network(
-                      pics ?? 'https://via.placeholder.com/350/FFFFFF/000000?text=Image+Not+Found', // Placeholder URL
+                      pics ??
+                          'https://via.placeholder.com/350/FFFFFF/000000?text=Image+Not+Found', // Placeholder URL
                       width: MediaQuery.of(context).size.width * 0.8,
                       height: MediaQuery.of(context).size.height * 0.4,
                       errorBuilder: (context, error, stackTrace) {
                         // Optional: Handle image loading errors gracefully
                         return Image.network(
-                          'https://via.placeholder.com/350/FFFFFF/000000?text=Image+Not+Found',  // Fallback image
+                          'https://via.placeholder.com/350/FFFFFF/000000?text=Image+Not+Found', // Fallback image
                           width: MediaQuery.of(context).size.width * 0.8,
                           height: MediaQuery.of(context).size.height * 0.4,
                         );
@@ -153,28 +156,35 @@ class _WishDetailsState extends State<WishDetails> {
                       ),
                     ),
                     const SizedBox(height: 24),
-                    if(userId != userIdFromToken)
-                    ButtonAtBottom(
-                      onPressed: () {
-                        showDialog(context: context,
-                         builder: (BuildContext dialogContext) {
-                          return PopUp(title: 'Do you want to grant the wish?',
-                                        buttons: [
-                                          
-                                                          ButtonForPopUp(onPressed: () async{
-                                                            await _launchUrl(linkurl);
-                                                            Navigator.of(dialogContext).pop();
-                                                          }, text:'Yes'),
-                                                          ButtonForPopUp(onPressed: (){
-                                                            Navigator.of(dialogContext).pop();
-                                                          }, text: 'No'),
-                                                 ],
-                              );
-                         }
-                         );
-                      },
-                      text: 'GRANT WISH',
-                    ),
+                    if (userId != userIdFromToken)
+                      ButtonAtBottom(
+                        onPressed: () {
+                          showDialog(
+                              context: context,
+                              builder: (BuildContext dialogContext) {
+                                return PopUp(
+                                  title: 'Do you want to grant the wish?',
+                                  buttons: [
+                                    ButtonForPopUp(
+                                        onPressed: () async {
+                                          await _launchUrl(linkurl);
+                                          Navigator.of(dialogContext).pop();
+                                        },
+                                        text: 'Yes'),
+                                    SizedBox(
+                                      height: 5,
+                                    ),
+                                    ButtonForPopUp(
+                                        onPressed: () {
+                                          Navigator.of(dialogContext).pop();
+                                        },
+                                        text: 'Bought this wish, claim it'),
+                                  ],
+                                );
+                              });
+                        },
+                        text: 'GRANT WISH',
+                      ),
                   ],
                 ),
               ),
