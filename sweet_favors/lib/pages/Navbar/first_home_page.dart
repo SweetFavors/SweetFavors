@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sweet_favors/Utils/text_use.dart';
 import 'package:sweet_favors/provider/token_provider.dart';
 import 'package:sweet_favors/widgets/card_widget.dart';
 import 'package:sweet_favors/widgets/friends_msg_card.dart';
@@ -47,7 +48,6 @@ class _FirstHomePageState extends State<FirstHomePage> {
 
     if (response.statusCode == 200) {
       final parsedJson = response.data as List; // Directly get the parsed data
-      print(parsedJson);
       // print(token);
       // parsedJson.map((json) => Wishlist.fromJson(json)).toList();
       wishlists =
@@ -56,6 +56,13 @@ class _FirstHomePageState extends State<FirstHomePage> {
     } else {
       throw Exception('Failed to load wishlists');
     }
+  }
+
+  void refreshWishlists() {
+    setState(() {
+      // Trigger rebuild by updating state
+      fetchWishlists(); // Re-fetch wishlists
+    });
   }
 
   Future<void> fetchUserData() async {
@@ -89,6 +96,7 @@ class _FirstHomePageState extends State<FirstHomePage> {
     }
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
@@ -115,23 +123,44 @@ class _FirstHomePageState extends State<FirstHomePage> {
             const SizedBox(height: 35.0), // Spacing between profile and card
 
             Expanded(
-              child: wishlists.isEmpty
-                  ? const FriendsMsgCard(message: "The list is empty")
-                  : ListView.builder(
-                      itemCount: wishlists.length,
-                      itemBuilder: (context, index) {
-                        final wishlist = wishlists[index];
-                        return CardWidget(
-                          product: wishlist.itemname,
-                          grantBy: wishlist.userNameOfGranter,
-                          grantedByUserId: wishlist.grantedByUserId,
-                          wishlistId: wishlist.wishlistId,
-                          username: username,
-                          userid: userid,
-                          alreadyBought: wishlist.alreadyBought,
-                        );
-                      },
-                    ),
+              child: FutureBuilder<List<components.Wishlist>>(
+                future: fetchWishlists(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else if (snapshot.hasError) {
+                    return Center(child: Text('Error: ${snapshot.error}'));
+                  } else {
+                    wishlists = snapshot.data!;
+                    if (wishlists.isEmpty) {
+                      return Center(
+                          child: const Text(
+                        'You don\'t have a wish yet.',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 16),
+                      ));
+                    } else {
+                      return ListView.builder(
+                        itemCount: wishlists.length,
+                        itemBuilder: (context, index) {
+                          final wishlist = wishlists[index];
+                          return CardWidget(
+                            product: wishlist.itemname,
+                            grantBy: wishlist.userNameOfGranter,
+                            grantedByUserId: wishlist.grantedByUserId,
+                            wishlistId: wishlist.wishlistId,
+                            username:
+                                username, // Access from the surrounding scope
+                            userid: userid, // Access from the surrounding scope
+                            alreadyBought: wishlist.alreadyBought,
+                            onUpdate: refreshWishlists,
+                          );
+                        },
+                      );
+                    }
+                  }
+                },
+              ),
             ),
           ],
         ),

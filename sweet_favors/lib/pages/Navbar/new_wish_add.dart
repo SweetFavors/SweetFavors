@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sweet_favors/pages/Navbar/first_home_page.dart';
+import 'package:sweet_favors/pages/home.dart';
 import 'package:sweet_favors/provider/token_provider.dart';
 import 'package:sweet_favors/widgets/text_form.dart';
 import 'package:sweet_favors/widgets/button_at_bottom.dart';
@@ -21,14 +23,13 @@ class _NewWishAddState extends State<NewWishAdd> {
   // final TextEditingController _quantityController = TextEditingController();
   final TextEditingController _priceController = TextEditingController();
   final TextEditingController _linkUrlController = TextEditingController();
-// /PostAddWishlist/:UserID
   File? _selectedImage;
 
   Future<bool> addWishlistItem() async {
     final token = Provider.of<TokenProvider>(context, listen: false).token;
     final userId = Provider.of<TokenProvider>(context, listen: false).userId;
     const url = 'http://10.0.2.2:1432/PostAddWishlist';
-
+    String fileName = 'image_${DateTime.now().millisecondsSinceEpoch}.jpg';
     try {
       var formData = FormData.fromMap({
         'itemname': _itemNameController.text ?? '',
@@ -37,7 +38,7 @@ class _NewWishAddState extends State<NewWishAdd> {
         'LinkURL': _linkUrlController.text ?? '',
         'file': await MultipartFile.fromFile(
           _selectedImage!.path,
-          filename: _selectedImage!.path.split('/').last,
+          filename: fileName,
         ),
       });
 
@@ -138,18 +139,13 @@ class _NewWishAddState extends State<NewWishAdd> {
                       bool success = await addWishlistItem();
                       if (success) {
                         print('true');
-                        print(_itemNameController.text);
-                        print(_linkUrlController.text);
-                        print(_priceController.text);
-                        // print(_quantityController.text);
-                        print(_selectedImage);
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
+
+
+                        
                       } else {
                         print('false not successful');
-                        print(_itemNameController.text);
-                        print(_linkUrlController.text);
-                        print(_priceController.text);
-                        // print(_quantityController.text);
-                        print(_selectedImage);
+
                       }
                     },
                     text: 'SUBMIT',

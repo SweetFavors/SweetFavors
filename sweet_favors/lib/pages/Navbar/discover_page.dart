@@ -5,6 +5,7 @@ import 'package:sweet_favors/components/integrate_model.dart';
 import 'package:sweet_favors/provider/token_provider.dart';
 import 'package:sweet_favors/widgets/wish_grant_widget.dart';
 
+
 class discover_page extends StatefulWidget {
   const discover_page({super.key});
 
@@ -14,7 +15,7 @@ class discover_page extends StatefulWidget {
 
 class _discover_pageState extends State<discover_page> {
   List<WishItem> _wishItems = [];
-  int _currentIndex = 0; // State to track the current Swiper index
+  List<WishItem> get wishItems => _wishItems;
 
   @override
   void initState() {
@@ -37,6 +38,7 @@ class _discover_pageState extends State<discover_page> {
     if (response.statusCode == 200) {
       final List<dynamic> wishData = response.data;
       _wishItems = wishData.map((json) => WishItem.fromJson(json)).toList();
+      print(_wishItems);
       return _wishItems;
     } else {
       throw Exception('Failed to load wishlists');
@@ -57,6 +59,9 @@ class _discover_pageState extends State<discover_page> {
     ); // Adjust the endpoint
     if (response.statusCode == 200) {
       final Map<String, dynamic> wishData = response.data;
+      setState(() {
+        _fetchData();
+      });
       return [wishData]; // Wrap the map in a list
     } else {
       throw Exception('Failed to load wishlists');
@@ -82,49 +87,37 @@ class _discover_pageState extends State<discover_page> {
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 20.0),
-        child: InkWell(
-          // onTap: () {
-          //   if (_wishItems.isNotEmpty) {
-          //     final wishItem = _wishItems[_currentIndex];
-          //     Navigator.push(
-          //       context,
-          //       MaterialPageRoute(
-          //         builder: (context) => WishDetails(
-          //           wishlist_id: wishItem.wishlistId,
-          //           username: wishItem.usernameOfWishlist ?? 'null',
-          //         ),
-          //       ),
-          //     );
-          //   }
-          // },
-          child: Expanded(
-            child: SingleChildScrollView(
-              physics: const AlwaysScrollableScrollPhysics(),
-              child: Center(
-                child: GridView.builder(
-                  itemCount: _wishItems.length,
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  padding: const EdgeInsets.all(8.0),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    childAspectRatio: 1, // Adjust aspect ratio as needed
-                  ),
-                  itemBuilder: (context, index) {
-                    return WishGrant(
-                      price: "\$${_wishItems[index].price}",
-                      pic: _wishItems[index].itemPic,
-                      onFavoriteChanged: (isFavorite) {
-                        if (isFavorite) {
-                          _CopyItem(index);
-                        }
-                      },
-                    );
-                  },
+        child: FutureBuilder<List<dynamic>>( // FutureBuilder for async data
+          future: _fetchData(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (snapshot.hasError) {
+              return Center(child: Text('Error: ${snapshot.error}'));
+            } else {
+              return GridView.builder( // Use GridView.builder here
+                itemCount: _wishItems.length,
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                padding: const EdgeInsets.all(8.0),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  childAspectRatio: 1, 
                 ),
-              ),
-            ),
-          ),
+                itemBuilder: (context, index) {
+                  return WishGrant(
+                    price: "\$${_wishItems[index].price}",
+                    pic: _wishItems[index].itemPic,
+                    onFavoriteChanged: (isFavorite) {
+                      if (isFavorite) {
+                        _CopyItem(index);
+                      }
+                    },
+                  );
+                },
+              );
+            }
+          },
         ),
       ),
     );
