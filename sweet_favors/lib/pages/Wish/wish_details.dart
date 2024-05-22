@@ -15,11 +15,13 @@ import 'package:sweet_favors/widgets/title_bar.dart';
 class WishDetails extends StatefulWidget {
   final int wishlist_id;
   final String username;
+  final VoidCallback? onUpdateBuy;
   // final int? userIdOfUser;
   const WishDetails({
     super.key,
     required this.wishlist_id,
     required this.username,
+    this.onUpdateBuy,
   });
 
   @override
@@ -83,7 +85,7 @@ class _WishDetailsState extends State<WishDetails> {
     final Uri uri = Uri.parse(url);
     if (!await launchUrl(uri)) {
       throw Exception('Could not launch $uri');
-      throw Exception('Could not launch $uri');
+      // throw Exception('Could not launch $uri');
     } else {
       await Future.delayed(const Duration(seconds: 1));
 
@@ -96,11 +98,19 @@ class _WishDetailsState extends State<WishDetails> {
                 onPressed: () async {
                   await _postGranter();
                   Navigator.of(context).pop();
+                  Navigator.of(context).pop();
+                  if (widget.onUpdateBuy != null) { // Check if callback is provided
+                    widget.onUpdateBuy!(); // Call the callback
+                  }
                 },
                 text: 'Yes'),
             ButtonForPopUp(
                 onPressed: () {
                   Navigator.of(context).pop();
+                  Navigator.of(context).pop();
+                  if (widget.onUpdateBuy != null) { // Check if callback is provided
+                    widget.onUpdateBuy!(); // Call the callback
+                  }
                 },
                 text: 'No'),
           ],
@@ -200,7 +210,7 @@ class _WishDetailsState extends State<WishDetails> {
                       ),
                     ),
                     const SizedBox(height: 24),
-                    if (userId != userIdFromToken)
+                    if (userId != userIdFromToken || grantBy != null)
                       ButtonAtBottom(
                         onPressed: () {
                           showDialog(

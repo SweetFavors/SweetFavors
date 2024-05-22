@@ -17,6 +17,7 @@ class CardWidget extends StatelessWidget {
   final bool? alreadyBought;
   final int? grantedByUserId;
   final VoidCallback? onUpdate;
+  final VoidCallback? onUpdateBuy;
 
   const CardWidget({
     super.key,
@@ -27,7 +28,8 @@ class CardWidget extends StatelessWidget {
     this.userid,
     this.alreadyBought,
     this.grantedByUserId,
-    this.onUpdate
+    this.onUpdate,
+    this.onUpdateBuy,
   });
 
   @override
@@ -86,6 +88,7 @@ class CardWidget extends StatelessWidget {
                   builder: (context) => WishDetails(
                     wishlist_id: wishlistId,
                     username: username ?? 'null',
+                    onUpdateBuy: onUpdateBuy,
                   ),
                 ),
               );
@@ -120,6 +123,7 @@ class CardWidget extends StatelessWidget {
                   builder: (context) => WishDetails(
                     wishlist_id: wishlistId,
                     username: username ?? 'null',
+                    onUpdateBuy: onUpdateBuy,
                   ),
                 ),
               );
