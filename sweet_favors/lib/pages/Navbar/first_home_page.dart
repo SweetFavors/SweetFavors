@@ -1,10 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sweet_favors/Utils/text_use.dart';
+// import 'package:sweet_favors/Utils/text_use.dart';
 import 'package:sweet_favors/provider/token_provider.dart';
 import 'package:sweet_favors/widgets/card_widget.dart';
-import 'package:sweet_favors/widgets/friends_msg_card.dart';
+// import 'package:sweet_favors/widgets/friends_msg_card.dart';
 import 'package:sweet_favors/widgets/profile_bar.dart';
 import 'package:sweet_favors/components/integrate_model.dart' as components;
 

@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sweet_favors/pages/Navbar/first_home_page.dart';
+// import 'package:sweet_favors/pages/Navbar/first_home_page.dart';
 import 'package:sweet_favors/pages/home.dart';
 import 'package:sweet_favors/provider/token_provider.dart';
 import 'package:sweet_favors/widgets/text_form.dart';
@@ -139,13 +139,12 @@ class _NewWishAddState extends State<NewWishAdd> {
                       bool success = await addWishlistItem();
                       if (success) {
                         print('true');
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
-
-
-                        
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const Home()));
                       } else {
                         print('false not successful');
-
                       }
                     },
                     text: 'SUBMIT',

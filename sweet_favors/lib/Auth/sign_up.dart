@@ -143,6 +143,15 @@ class _SignUpPageState extends State<SignUpPage> {
                       border: true,
                     ),
                     const SizedBox(height: 10),
+                    const Text(
+                      "first name",
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w500,
+                        color: Color.fromARGB(255, 0, 0, 0),
+                      ),
+                    ),
+                    const SizedBox(height: 5),
                     MyTextField(
                       hintText: 'Input your first name',
                       obscureText: false,
@@ -150,6 +159,15 @@ class _SignUpPageState extends State<SignUpPage> {
                       border: true,
                     ),
                     const SizedBox(height: 10),
+                    const Text(
+                      "last name",
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w500,
+                        color: Color.fromARGB(255, 0, 0, 0),
+                      ),
+                    ),
+                    const SizedBox(height: 5),
                     MyTextField(
                       hintText: 'Input your last name',
                       obscureText: false,
