@@ -95,6 +95,14 @@ class _FriendWishlistFollowingState extends State<FriendWishlistFollowing> {
 
     return true;
   }
+  
+  void refreshWishlists() {
+    setState(() {
+      // Trigger rebuild by updating state
+      fetchWishlists(); // Re-fetch wishlists
+      
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -138,6 +146,8 @@ class _FriendWishlistFollowingState extends State<FriendWishlistFollowing> {
                                   username: wishlist.userNameOfWishlist,
                                   userid: wishlist.userId,
                                   alreadyBought: wishlist.alreadyBought,
+                                  onUpdate: refreshWishlists,
+                                  onUpdateBuy: refreshWishlists,
                                 );
                               },
                             ),

@@ -98,10 +98,11 @@ class _WishDetailsState extends State<WishDetails> {
                 onPressed: () async {
                   await _postGranter();
                   Navigator.of(context).pop();
-                  Navigator.of(context).pop();
                   if (widget.onUpdateBuy != null) { // Check if callback is provided
-                    widget.onUpdateBuy!(); // Call the callback
+                    widget.onUpdateBuy!();
+                    print(widget.onUpdateBuy);
                   }
+                  Navigator.of(context).pop();
                 },
                 text: 'Yes'),
             ButtonForPopUp(
