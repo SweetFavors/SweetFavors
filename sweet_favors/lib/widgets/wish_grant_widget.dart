@@ -1,17 +1,18 @@
-import 'dart:math';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:sweet_favors/Utils/color_use.dart';
 import 'package:sweet_favors/components/favorite_button.dart';
 
 class WishGrant extends StatelessWidget {
   final String price;
   final String pic;
+  final Function(bool) onFavoriteChanged;
   // final String picture;
 
-  const WishGrant({super.key, required this.price, required this.pic});
+  const WishGrant(
+      {super.key,
+      required this.price,
+      required this.pic,
+      required this.onFavoriteChanged});
 
   @override
   Widget build(BuildContext context) {
@@ -38,10 +39,12 @@ class WishGrant extends StatelessWidget {
                         ),
                       ),
                     ),
-                    const Positioned(
+                    Positioned(
                       top: 10.0,
                       right: 1.0,
-                      child: FavoriteButton(),
+                      child: FavoriteButton(
+                        onFavoriteChanged: onFavoriteChanged,
+                      ),
                     ),
                   ],
                 ),

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:sweet_favors/Auth/login.dart';
-import 'package:sweet_favors/Auth/login_or_register.dart';
 import 'package:sweet_favors/Auth/sign_up.dart';
 import 'package:sweet_favors/Utils/color_use.dart';
 

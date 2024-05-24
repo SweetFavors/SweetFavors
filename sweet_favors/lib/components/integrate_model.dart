@@ -7,6 +7,8 @@ class Wishlist {
   String? itemPic;
   bool? alreadyBought; // Make it nullable to handle potential null values
   String? userNameOfGranter;
+  String? userNameOfWishlist;
+  int? grantedByUserId;
 
   Wishlist(
       {required this.wishlistId,
@@ -16,19 +18,22 @@ class Wishlist {
       this.linkurl,
       this.itemPic,
       this.alreadyBought,
-      this.userNameOfGranter});
+      this.userNameOfGranter,
+      this.userNameOfWishlist,
+      this.grantedByUserId});
 
   factory Wishlist.fromJson(Map<String, dynamic> json) {
     return Wishlist(
-      wishlistId: json['wishlist_id'],
-      userId: json['user_id'],
-      itemname: json['itemname'],
-      price: json['price'],
-      linkurl: json['link_url'],
-      itemPic: json['item_pic'],
-      alreadyBought: json['already_bought'],
-      userNameOfGranter: json['username_of_granter'],
-    );
+        wishlistId: json['wishlist_id'],
+        userId: json['user_id'],
+        itemname: json['itemname'],
+        price: json['price'],
+        linkurl: json['link_url'],
+        itemPic: json['item_pic'],
+        alreadyBought: json['already_bought'],
+        userNameOfGranter: json['username_of_granter'],
+        userNameOfWishlist: json['username_of_wishlist'],
+        grantedByUserId: json['granted_by_user_id']);
   }
 }
 
@@ -63,18 +68,17 @@ class WishItem {
   final String usernameOfWishlist;
   final String? picOfWishlistUser;
 
-  WishItem({
-    required this.wishlistId,
-    required this.userId,
-    required this.itemname,
-    required this.price,
-    required this.linkurl,
-    required this.itemPic,
-    this.alreadyBought,
-    this.grantedByUserId,
-    required this.usernameOfWishlist,
-    this.picOfWishlistUser
-  });
+  WishItem(
+      {required this.wishlistId,
+      required this.userId,
+      required this.itemname,
+      required this.price,
+      required this.linkurl,
+      required this.itemPic,
+      this.alreadyBought,
+      this.grantedByUserId,
+      required this.usernameOfWishlist,
+      this.picOfWishlistUser});
 
   factory WishItem.fromJson(Map<String, dynamic> json) {
     return WishItem(

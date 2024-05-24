@@ -2,7 +2,6 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:sweet_favors/components/my_button.dart';
 import 'package:sweet_favors/components/my_textfield.dart';
-import 'package:sweet_favors/pages/Navbar/first_home_page.dart';
 import 'package:sweet_favors/pages/home.dart';
 import 'package:sweet_favors/provider/token_provider.dart';
 import 'package:provider/provider.dart';
@@ -10,7 +9,7 @@ import 'package:provider/provider.dart';
 class LoginPage extends StatefulWidget {
   final void Function()? onTap;
 
-  const LoginPage({super.key, required this.onTap});
+  const LoginPage({super.key, this.onTap});
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -36,16 +35,13 @@ class _LoginPageState extends State<LoginPage> {
         final userId = response.data['user_id'];
         Provider.of<TokenProvider>(context, listen: false)
             .setToken(token, userId);
-        print("Success TOken");
-        print(response);
-        print(token);
         _navigateToFirstHomePage(token);
       } else {
         _showErrorMessage(
             'Login failed. Response status code: ${response.statusCode}');
       }
     } catch (e) {
-      _showErrorMessage('An error occurred. Exception: $e');
+      _showErrorMessage('Login Failed');
     }
   }
 
@@ -65,12 +61,14 @@ class _LoginPageState extends State<LoginPage> {
   void _navigateToFirstHomePage(String token) {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => Home()),
+      MaterialPageRoute(builder: (context) => const Home()),
     );
   }
 
   void _showErrorMessage(String message) {
-    print(message);
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(message)),
+    );
   }
 
   @override
@@ -95,7 +93,7 @@ class _LoginPageState extends State<LoginPage> {
 
                 //email textfield
                 MyTextField(
-                  hintText: 'Enter Email',
+                  hintText: 'Enter Username',
                   obscureText: false,
                   controller: emailController,
                 ),

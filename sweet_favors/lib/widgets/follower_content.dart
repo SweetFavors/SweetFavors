@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sweet_favors/Utils/color_use.dart';
 import 'package:sweet_favors/pages/Friends/friend_wishlist_followers.dart';
-import 'package:sweet_favors/pages/Friends/friend_wishlist_following.dart';
 import 'package:sweet_favors/components/follower_model.dart';
 import 'package:sweet_favors/provider/token_provider.dart';
 import 'package:sweet_favors/services/follower_service.dart';

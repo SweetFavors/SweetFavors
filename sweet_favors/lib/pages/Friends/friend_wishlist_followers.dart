@@ -1,13 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sweet_favors/Utils/color_use.dart';
 import 'package:sweet_favors/components/follower_model.dart';
-import 'package:sweet_favors/components/following_model.dart';
 import 'package:sweet_favors/provider/token_provider.dart';
 import 'package:sweet_favors/widgets/card_widget.dart';
 import 'package:sweet_favors/widgets/friend_profile_bar.dart';
-import 'package:sweet_favors/widgets/bottomBar.dart';
 import 'package:sweet_favors/widgets/friends_msg_card.dart';
 import 'package:sweet_favors/components/integrate_model.dart' as components;
 
@@ -46,11 +43,9 @@ class _FriendWishlistFollowersState extends State<FriendWishlistFollowers> {
         },
       ),
     );
-    print(widget.follower.followingId);
 
     if (response.statusCode == 200) {
       final parsedJson = response.data as List; // Directly get the parsed data
-      print(response.data);
       setState(() {
         wishlists = parsedJson
             .map((json) => components.Wishlist.fromJson(json))
@@ -102,6 +97,13 @@ class _FriendWishlistFollowersState extends State<FriendWishlistFollowers> {
     return true;
   }
 
+  void refreshWishlists() {
+    setState(() {
+      // Trigger rebuild by updating state
+      fetchWishlists(); // Re-fetch wishlists
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -144,8 +146,13 @@ class _FriendWishlistFollowersState extends State<FriendWishlistFollowers> {
                                 final wishlist = wishlists[index];
                                 return CardWidget(
                                   product: wishlist.itemname,
-                                  grantBy: wishlist.userNameOfGranter ?? "",
+                                  grantBy: wishlist.userNameOfGranter,
                                   wishlistId: wishlist.wishlistId,
+                                  username: wishlist.userNameOfWishlist,
+                                  userid: wishlist.userId,
+                                  alreadyBought: wishlist.alreadyBought,
+                                  onUpdate: refreshWishlists,
+                                  onUpdateBuy: refreshWishlists,
                                 );
                               },
                             ),

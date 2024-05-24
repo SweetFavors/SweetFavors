@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:sweet_favors/Utils/color_use.dart';
+// import 'package:sweet_favors/Utils/color_use.dart';
 
 class FavoriteButton extends StatefulWidget {
-  const FavoriteButton({Key? key}) : super(key: key);
+  final Function(bool) onFavoriteChanged; // Callback for favorite changes
+  const FavoriteButton({Key? key, required this.onFavoriteChanged})
+      : super(key: key); // Require the callback
 
   @override
   State<FavoriteButton> createState() => _FavoriteButtonState();
@@ -18,6 +20,7 @@ class _FavoriteButtonState extends State<FavoriteButton> {
         setState(() {
           _isFavorite = !_isFavorite;
         });
+        widget.onFavoriteChanged(_isFavorite);
       },
       icon: Padding(
         padding: const EdgeInsets.only(left: 7.0),
@@ -28,11 +31,11 @@ class _FavoriteButtonState extends State<FavoriteButton> {
               : Colors.white, // Change color if favorite
         ),
       ),
-      label: SizedBox.shrink(),
+      label: const SizedBox.shrink(),
       style: ElevatedButton.styleFrom(
         backgroundColor: _isFavorite
-            ? Color.fromARGB(193, 255, 131, 218)
-            : Color.fromARGB(
+            ? const Color.fromARGB(193, 255, 131, 218)
+            : const Color.fromARGB(
                 193, 255, 131, 218), // Change background color if favorite
         shape: const CircleBorder(),
         padding: EdgeInsets.zero,

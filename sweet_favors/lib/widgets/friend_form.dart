@@ -26,7 +26,7 @@ class _FriendFormState extends State<FriendForm> {
       padding: const EdgeInsets.symmetric(vertical: 10.0),
       child: TextFormField(
         decoration: InputDecoration(
-          border: OutlineInputBorder(),
+          border: const OutlineInputBorder(),
           hintText: widget.label,
         ),
         controller: myConroter,

@@ -28,7 +28,9 @@ class _DropDownState extends State<DropDown> {
             );
           }).toList(),
         ),
-        _selectedItem == 'Followers' ? FollowerContent() : FollowingContent(),
+        _selectedItem == 'Followers'
+            ? const FollowerContent()
+            : const FollowingContent(),
       ],
     );
   }

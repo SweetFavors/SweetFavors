@@ -1,26 +1,21 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sweet_favors/components/following_model.dart';
+import 'package:sweet_favors/components/integrate_model.dart' as components;
 import 'package:sweet_favors/provider/token_provider.dart';
 import 'package:sweet_favors/widgets/card_widget.dart';
 import 'package:sweet_favors/widgets/friend_profile_bar.dart';
 import 'package:sweet_favors/widgets/friends_msg_card.dart';
-import 'package:sweet_favors/components/integrate_model.dart' as components;
 
-class FriendWishlistFollowing extends StatefulWidget {
-  final Following following;
-  const FriendWishlistFollowing({
-    super.key,
-    required this.following,
-  });
+class SearchFriend extends StatefulWidget {
+  final dynamic friend;
+  const SearchFriend({super.key, required this.friend});
 
   @override
-  State<FriendWishlistFollowing> createState() =>
-      _FriendWishlistFollowingState();
+  State<SearchFriend> createState() => _SearchFriendState();
 }
 
-class _FriendWishlistFollowingState extends State<FriendWishlistFollowing> {
+class _SearchFriendState extends State<SearchFriend> {
   List<components.Wishlist> wishlists = [];
 
   @override
@@ -32,9 +27,10 @@ class _FriendWishlistFollowingState extends State<FriendWishlistFollowing> {
 
   Future<void> fetchWishlists() async {
     final token = Provider.of<TokenProvider>(context, listen: false).token;
+    final userId = Provider.of<TokenProvider>(context, listen: false).userId;
     Dio dio = Dio(); // Create a Dio instance
     final response = await dio.get(
-      'http://10.0.2.2:1432/GetProfileFriendWishlists/${widget.following.userId}/${widget.following.followingId}',
+      'http://10.0.2.2:1432/GetProfileFriendWishlists/$userId/${widget.friend['user_id']}',
       options: Options(
         headers: {
           'Authorization': 'Bearer $token',
@@ -57,11 +53,12 @@ class _FriendWishlistFollowingState extends State<FriendWishlistFollowing> {
 
   Future<bool> fetchFriendCheck() async {
     final token = Provider.of<TokenProvider>(context, listen: false).token;
+    final userId = Provider.of<TokenProvider>(context, listen: false).userId;
     Dio dio = Dio(); // Create a Dio instance
 
     // Check if user 1 is following user 2
     final response1 = await dio.get(
-      'http://10.0.2.2:1432/GetCheckFollowingYet/${widget.following.userId}/${widget.following.followingId}',
+      'http://10.0.2.2:1432/GetCheckFollowingYet/$userId/${widget.friend['user_id']}',
       options: Options(
         headers: {
           'Authorization': 'Bearer $token',
@@ -78,7 +75,7 @@ class _FriendWishlistFollowingState extends State<FriendWishlistFollowing> {
 
     // Check if user 2 is following user 1
     final response2 = await dio.get(
-      'http://10.0.2.2:1432/GetCheckFollowingYet/${widget.following.followingId}/${widget.following.userId}',
+      'http://10.0.2.2:1432/GetCheckFollowingYet/${widget.friend['user_id']}/$userId',
       options: Options(
         headers: {
           'Authorization': 'Bearer $token',
@@ -86,7 +83,6 @@ class _FriendWishlistFollowingState extends State<FriendWishlistFollowing> {
         },
       ),
     );
-
     if (response2.statusCode != 200 ||
         response2.data['user_id'] == null ||
         response2.data['following_id'] == null) {
@@ -95,17 +91,10 @@ class _FriendWishlistFollowingState extends State<FriendWishlistFollowing> {
 
     return true;
   }
-  
-  void refreshWishlists() {
-    setState(() {
-      // Trigger rebuild by updating state
-      fetchWishlists(); // Re-fetch wishlists
-      
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
+    final userId = Provider.of<TokenProvider>(context, listen: false).userId;
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -113,11 +102,11 @@ class _FriendWishlistFollowingState extends State<FriendWishlistFollowing> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             FriendProfileBar(
-              images: widget.following.followingUserPic,
-              name: widget.following.followingUsername,
+              images: widget.friend['user_pic'],
+              name: widget.friend['username'],
               email: "",
-              userId: widget.following.userId,
-              otherUserId: widget.following.followingId,
+              userId: userId,
+              otherUserId: widget.friend['user_id'],
             ),
             const SizedBox(height: 35.0),
             FutureBuilder(
@@ -146,8 +135,6 @@ class _FriendWishlistFollowingState extends State<FriendWishlistFollowing> {
                                   username: wishlist.userNameOfWishlist,
                                   userid: wishlist.userId,
                                   alreadyBought: wishlist.alreadyBought,
-                                  onUpdate: refreshWishlists,
-                                  onUpdateBuy: refreshWishlists,
                                 );
                               },
                             ),
