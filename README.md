@@ -10,5 +10,6 @@ https://youtu.be/9UejY9M5GcA?si=CRJTcfo1U1An8nRB
 [@andhikark](https://github.com/andhikark)
 [@nsennes](https://github.com/nsennes)
 [@Snailoba](https://github.com/Snailoba)
+[@lawrencenuu](https://github.com/lawrencenuu)
 
 
